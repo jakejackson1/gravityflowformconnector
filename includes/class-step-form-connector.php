@@ -82,7 +82,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$target_form_id = gravity_flow()->get_setting( 'target_form_id' );
 
 			if ( ! empty( $target_form_id ) ) {
-				$api = new Gravity_Flow_API( $this->target_form_id );
+				$api = new Gravity_Flow_API( $target_form_id );
 				$steps = $api->get_steps();
 				$has_approval_step = false;
 				$has_user_input_step = false;
@@ -202,7 +202,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				case 'approval' :
 					$target_entry_id = rgar( $entry, $this->update_entry_id );
 					$target_entry = GFAPI::get_entry( $target_entry_id );
-
+					break;
 			}
 
 			if ( empty ( $target_entry_id ) || empty ( $target_entry ) ) {
