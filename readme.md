@@ -9,7 +9,7 @@ This repository is a development version of the Gravity Flow Form Connector Exte
 
 Bug reports and pull requests are welcome.
 
-If you'd like to receive the release version, automatic updates and support please sign up for the beta: https://gravityflow.io.
+If you'd like to receive the release version, automatic updates and support please purchase a license: https://gravityflow.io.
 
 
 ## Installation Instructions
