@@ -225,6 +225,5 @@ if ( class_exists( 'GFForms' ) ) {
 
 			return $parent_form_ids;
 		}
-
 	}
 }

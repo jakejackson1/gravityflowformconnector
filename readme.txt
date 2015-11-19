@@ -44,6 +44,13 @@ The Gravity Flow PDF Generator Extension will work with any license of [Gravity 
 
 == ChangeLog ==
 
+
+= 1.0-beta-1.3 =
+- Fixing a a fatal error introduced in 1.0-beta-1.2.
+
+= 1.0-beta-1.2 =
+- Added support for remote forms in the step settings.
+
 = 1.0-beta-1.1 =
 - Added the Form Connector form settings for child form support.
 
