@@ -233,9 +233,7 @@ if ( class_exists( 'GFForms' ) ) {
             $steps = $api->get_steps();
 
             if ( $steps ) {
-
                 $this->log_debug( __METHOD__ . '(): triggering workflow for entry ID: ' . $entry['id'] );
-                $this->log_debug( __METHOD__ . '(): entry: ' . print_r( $entry, true ) );
                 gravity_flow()->maybe_process_feed( $entry, $form );
                 $api->process_workflow( $entry['id'] );
             }
