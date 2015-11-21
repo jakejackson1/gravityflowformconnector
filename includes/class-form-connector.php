@@ -37,6 +37,7 @@ if ( class_exists( 'GFForms' ) ) {
 		public function init(){
 			parent::init();
 			add_action( 'gravityflow_workflow_detail_sidebar', array( $this, 'action_gravityflow_entry_detail' ), 10, 2 );
+            add_action( 'gform_post_add_entry', array( $this, 'action_gform_post_add_entry' ) );
 		}
 
 		public function init_ajax(){
@@ -225,5 +226,18 @@ if ( class_exists( 'GFForms' ) ) {
 
 			return $parent_form_ids;
 		}
+
+        public function action_gform_post_add_entry( $entry, $form ){
+
+            $api = new Gravity_Flow_API( $form['id'] );
+            $steps = $api->get_steps();
+
+            if ( $steps ) {
+                gravity_flow()->maybe_process_feed( $entry, $form );
+                $api->process_workflow( $entry['id'] );
+            }
+        }
 	}
+
+
 }

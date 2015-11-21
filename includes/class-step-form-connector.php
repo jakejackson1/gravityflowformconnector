@@ -231,15 +231,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			switch ( $this->action ) {
 				case 'create' :
 					$target_entry_id = GFAPI::add_entry( $new_entry );
-					$target_entry = GFAPI::get_entry( $target_entry_id );
-
-					// Simulate submission to add our entry meta
-					$form = GFAPI::get_form( $this->target_form_id );
-
-					gravity_flow()->maybe_process_feed( $target_entry, $form );
-					if ( $steps ) {
-						$api->process_workflow( $target_entry_id );
-					}
 
 					return true;
 					break;
