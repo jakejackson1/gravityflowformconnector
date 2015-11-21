@@ -201,6 +201,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			} else {
 				$result = $this->process_local_action();
 			}
+            $note = $this->get_name() . ': ' . esc_html__( 'Processed.', 'gravityflow' );
+            $this->add_note( $note, 0, $this->get_type() );
 			return $result;
 		}
 
