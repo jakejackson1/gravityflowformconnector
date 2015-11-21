@@ -118,6 +118,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				array( 'label' => esc_html__( 'Update an Entry', 'gravityflow' ), 'value' => 'update' ),
 			);
 
+            if ( $this->get_setting( 'server_type' ) == 'remote' ) {
+                return $choices;
+            }
+
 			$target_form_id = $this->get_setting( 'target_form_id' );
 
 			if ( ! empty( $target_form_id ) ) {
