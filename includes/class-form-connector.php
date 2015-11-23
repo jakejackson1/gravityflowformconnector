@@ -1,4 +1,16 @@
-<?php // Make sure Gravity Forms is active and already loaded.
+<?php
+/**
+ * Gravity Flow Form Connector
+ *
+ *
+ * @package     GravityFlow
+ * @subpackage  Classes/Extension
+ * @copyright   Copyright (c) 2015, Steven Henty
+ * @license     http://opensource.org/licenses/gpl-3.0.php GNU Public License
+ * @since       1.0
+ */
+
+// Make sure Gravity Forms is active and already loaded.
 if ( class_exists( 'GFForms' ) ) {
 
 	class Gravity_Flow_Form_Connector extends Gravity_Flow_Extension {

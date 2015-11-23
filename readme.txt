@@ -44,6 +44,8 @@ The Gravity Flow PDF Generator Extension will work with any license of [Gravity 
 
 == ChangeLog ==
 
+= 1.0-beta-1.4 =
+- Added support for start the workflow for all entries added using the Gravity Forms API.
 
 = 1.0-beta-1.3 =
 - Fixing a a fatal error introduced in 1.0-beta-1.2.

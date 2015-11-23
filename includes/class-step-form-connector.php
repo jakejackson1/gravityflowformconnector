@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Gravity Flow Form Connector Step
+ *
+ *
+ * @package     GravityFlow
+ * @subpackage  Classes/Step
+ * @copyright   Copyright (c) 2015, Steven Henty
+ * @license     http://opensource.org/licenses/gpl-3.0.php GNU Public License
+ * @since       1.0
+ */
+
 if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 	class Gravity_Flow_Step_Form_Connector extends Gravity_Flow_Step {
@@ -63,16 +74,16 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'name' => 'target_form_id',
 						'label' => esc_html__( 'Target form', 'gravityflowformconnector' ),
 						'type' => 'select',
-						'onchange' => 'jQuery(this).parents("form").submit();',
+						'onchange'    => "jQuery(this).closest('form').submit();",
 						'choices' => $form_choices,
 					),
 					array(
-						'name' => 'action',
-						'label' => esc_html__( 'Action', 'gravityflowformconnector' ),
-						'type' => 'radio',
+						'name'       => 'action',
+						'label'      => esc_html__( 'Action', 'gravityflowformconnector' ),
+						'type'       => 'radio',
 						'horizontal' => true,
-						'onchange' => 'jQuery(this).parents("form").submit();',
-						'choices' => $this->action_choices(),
+						'onclick'    => "jQuery(this).closest('form').submit();",
+						'choices'    => $this->action_choices(),
 						'dependency' => array(
 							'field'  => 'target_form_id',
 							'values' => array( '_notempty_' ),
