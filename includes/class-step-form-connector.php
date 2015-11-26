@@ -93,7 +93,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					array(
 						'name' => 'update_entry_id',
 						'label' => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
-						'type' => 'field_map_select',
+						'type' => 'field_select',
 						'dependency' => array(
 							'field'  => 'action',
 							'values' => array( 'update', 'approval', 'user_input' ),
@@ -162,14 +162,16 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
             if ( $this->get_setting( 'server_type' ) == 'remote' ) {
 	            $steps = $this->get_remote_steps( $target_form_id );
+				if ( $steps ) {
+					foreach ( $steps as $step ) {
+						if ( $step['type'] == 'approval' ) {
+							$has_approval_step = true;
+						} elseif ( $step['type'] == 'user_input' ) {
+							$has_user_input_step = true;
+						}
+					}
+				}
 
-	            foreach ( $steps as $step ) {
-		            if ( $step['type'] == 'approval' ) {
-			            $has_approval_step = true;
-		            } elseif ( $step['type'] == 'user_input' ) {
-			            $has_user_input_step = true;
-		            }
-	            }
             } else {
 
 	            $api = new Gravity_Flow_API( $target_form_id );
@@ -377,8 +379,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					return true;
 					break;
 				case 'update' :
+				case 'user_input' :
 					$target_entry_id = rgar( $entry, $this->update_entry_id );
-
 
 					$target_entry = $this->get_remote_entry( $target_entry_id );
 
@@ -534,7 +536,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 		public function get_remote_assignee_choices( $form_id ) {
 			$steps = $this->get_remote_steps( $form_id );
-			$assignee_keys = array();
+			$assignee_keys = $choices = array();
 			foreach( $steps as $step ) {
 				foreach ( $step['assignees'] as $assignee ) {
 					$assignee_keys[ $assignee['key'] ] = $assignee['display_name'];
