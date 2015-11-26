@@ -50,6 +50,7 @@ if ( class_exists( 'GFForms' ) ) {
 			parent::init();
 			add_action( 'gravityflow_workflow_detail_sidebar', array( $this, 'action_gravityflow_entry_detail' ), 10, 2 );
             add_action( 'gform_post_add_entry', array( $this, 'action_gform_post_add_entry' ), 10, 2 );
+			add_action( 'gform_post_update_entry', array( $this, 'action_gform_post_update_entry' ), 10, 2 );
 		}
 
 		public function init_ajax(){
