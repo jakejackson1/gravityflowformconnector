@@ -28,7 +28,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				$form_choices[] = array( 'label' => $form->title, 'value' => $form->id );
 			}
 
-			return array(
+
+			$settings = array(
 				'title'  => 'Form Connector',
 				'fields' => array(
 					array(
@@ -92,7 +93,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					array(
 						'name' => 'update_entry_id',
 						'label' => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
-						'type' => 'field_select',
+						'type' => 'field_map_select',
 						'dependency' => array(
 							'field'  => 'action',
 							'values' => array( 'update', 'approval', 'user_input' ),
@@ -121,6 +122,26 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					),
 				),
 			);
+			$action = $this->get_setting( 'action' );
+
+			if ( $this->get_setting( 'server_type' ) == 'remote' && in_array( $action, array(
+					'approval',
+					'user_input'
+				) )
+			) {
+				$target_form_id = $this->get_setting( 'target_form_id' );
+				if ( ! empty ( $target_form_id ) ) {
+					$settings['fields'][] = array(
+						'name'     => 'remote_assignee',
+						'label'    => esc_html__( 'Assignee', 'gravityflowformconnector' ),
+						'type'     => 'select',
+						'choices'  => $this->get_remote_assignee_choices( $target_form_id ),
+					);
+				}
+
+			}
+
+			return $settings;
 		}
 
 		public function action_choices(){
@@ -129,30 +150,45 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				array( 'label' => esc_html__( 'Update an Entry', 'gravityflow' ), 'value' => 'update' ),
 			);
 
-            if ( $this->get_setting( 'server_type' ) == 'remote' ) {
-                return $choices;
-            }
-
 			$target_form_id = $this->get_setting( 'target_form_id' );
 
-			if ( ! empty( $target_form_id ) ) {
-				$api = new Gravity_Flow_API( $target_form_id );
-				$steps = $api->get_steps();
-				$has_approval_step = false;
-				$has_user_input_step = false;
-				foreach ( $steps as $step ) {
-					if ( $step->get_type() == 'approval' ) {
-						$has_approval_step = true;
-					} elseif ( $step->get_type() == 'user_input' ) {
-						$has_user_input_step = true;
-					}
-				}
-				if ( $has_approval_step ) {
-					$choices[] = array( 'label' => esc_html__( 'Approval', 'gravityflow' ), 'value' => 'approval' );
-				}
-				if ( $has_user_input_step ) {
-					$choices[] = array( 'label' => esc_html__( 'User Input', 'gravityflow' ), 'value' => 'user_input' );
-				}
+
+			if ( empty( $target_form_id ) ) {
+				return $choices;
+			}
+
+			$has_approval_step = false;
+			$has_user_input_step = false;
+
+            if ( $this->get_setting( 'server_type' ) == 'remote' ) {
+	            $steps = $this->get_remote_steps( $target_form_id );
+
+	            foreach ( $steps as $step ) {
+		            if ( $step['type'] == 'approval' ) {
+			            $has_approval_step = true;
+		            } elseif ( $step['type'] == 'user_input' ) {
+			            $has_user_input_step = true;
+		            }
+	            }
+            } else {
+
+	            $api = new Gravity_Flow_API( $target_form_id );
+	            $steps = $api->get_steps();
+
+	            foreach ( $steps as $step ) {
+		            if ( $step->get_type() == 'approval' ) {
+			            $has_approval_step = true;
+		            } elseif ( $step->get_type() == 'user_input' ) {
+			            $has_user_input_step = true;
+		            }
+	            }
+            }
+
+			if ( $has_approval_step ) {
+				$choices[] = array( 'label' => esc_html__( 'Approval', 'gravityflow' ), 'value' => 'approval' );
+			}
+			if ( $has_user_input_step ) {
+				$choices[] = array( 'label' => esc_html__( 'User Input', 'gravityflow' ), 'value' => 'user_input' );
 			}
 			return $choices;
 		}
@@ -336,7 +372,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			switch ( $this->action ) {
 				case 'create' :
-					$target_entry_id = $this->add_remote_entry( $new_entry );
+					$target_entry_ids = $this->add_remote_entry( $new_entry );
 
 					return true;
 					break;
@@ -408,7 +444,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $form;
 		}
 
-		public function remote_request( $route, $method = 'GET', $body = null ) {
+		public function remote_request( $route, $method = 'GET', $body = null, $query_args = array() ) {
 			$site_url = $this->get_setting( 'remote_site_url' );
 			$api_key = $this->get_setting( 'remote_public_key' );
 			$private_key = $this->get_setting( 'remote_private_key' );
@@ -423,6 +459,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$site_url = trailingslashit( $site_url );
 			$route = trailingslashit( $route );
 			$url = $site_url . 'gravityformsapi/' . $route . '?api_key=' . $api_key . '&signature=' . $sig . '&expires=' . $expires;
+			if ( ! empty ( $query_args  ) ) {
+				$url .= http_build_query( $query_args );
+			}
 
 			$args = array( 'method' => $method );
 
@@ -450,7 +489,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$method = 'POST';
 			$body = json_encode( array( $entry ) );
 			$entry_ids = $this->remote_request( $route, $method, $body );
-
+			return $entry_ids;
 		}
 
 		public function get_remote_entry( $entry_id ) {
@@ -463,7 +502,16 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$route = 'entries/' . absint( $entry['id'] );
 			$method = 'PUT';
 			$body = json_encode( $entry );
-			$result = $this->remote_request( $route, $method, $body );
+			if ( in_array( $this->action, array( 'approval', 'user_input' ) ) ) {
+				$query_args = array(
+					'action' => $this->action,
+					'status' => ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete'
+				);
+			} else {
+				$query_args = array();
+			}
+
+			$result = $this->remote_request( $route, $method, $body, $query_args );
 			return $result;
 		}
 
@@ -476,6 +524,27 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				$value = $this->{$setting};
 			}
 			return $value;
+		}
+
+		public function get_remote_steps( $form_id ) {
+			$route = 'forms/' . $form_id . '/steps';
+			$steps = $this->remote_request( $route );
+			return $steps;
+		}
+
+		public function get_remote_assignee_choices( $form_id ) {
+			$steps = $this->get_remote_steps( $form_id );
+			$assignee_keys = array();
+			foreach( $steps as $step ) {
+				foreach ( $step['assignees'] as $assignee ) {
+					$assignee_keys[ $assignee['key'] ] = $assignee['display_name'];
+				}
+			}
+
+			foreach( $assignee_keys as $assignee_key => $display_name ) {
+				$choices[] = array( 'label' => $display_name, 'value' => $assignee_key );
+			}
+			return $choices;
 		}
 
 	}
