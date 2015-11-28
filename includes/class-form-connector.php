@@ -49,8 +49,6 @@ if ( class_exists( 'GFForms' ) ) {
 		public function init(){
 			parent::init();
 			add_action( 'gravityflow_workflow_detail_sidebar', array( $this, 'action_gravityflow_entry_detail' ), 10, 2 );
-            add_action( 'gform_post_add_entry', array( $this, 'action_gform_post_add_entry' ), 10, 2 );
-			add_action( 'gform_post_update_entry', array( $this, 'action_gform_post_update_entry' ), 10, 2 );
 		}
 
 		public function init_ajax(){
@@ -238,79 +236,9 @@ if ( class_exists( 'GFForms' ) ) {
 			return $parent_form_ids;
 		}
 
-        public function action_gform_post_add_entry( $entry, $form ){
-
-            $this->log_debug( __METHOD__ . '(): starting' );
-
-            $api = new Gravity_Flow_API( $form['id'] );
-            $steps = $api->get_steps();
-
-            if ( $steps ) {
-                $this->log_debug( __METHOD__ . '(): triggering workflow for entry ID: ' . $entry['id'] );
-                gravity_flow()->maybe_process_feed( $entry, $form );
-                $api->process_workflow( $entry['id'] );
-            }
-        }
-
-		public function action_gform_post_update_entry( $entry, $original_entry ){
-
-			$this->log_debug( __METHOD__ . '(): starting' );
-
-			$form_id = $entry['form_id'];
-			$form = GFAPI::get_form( $form_id );
-
-			// refresh the entry
-			$entry = GFAPI::get_entry( $entry['id'] );
-
-			$api = new Gravity_Flow_API( $form_id );
-			$step = $api->get_current_step( $entry );
-
-			if ( $step ) {
-				$new_status = sanitize_text_field( rgar( $_REQUEST, 'new_status' ) );
-				$assignee_key = sanitize_text_field( rgar( $_REQUEST, 'assignee' ) );
-				switch ( $_REQUEST['action'] ) {
-					case 'approval' :
-						$assignee = new Gravity_Flow_Assignee( $assignee_key, $step );
-						/* @var Gravity_Flow_Step_Approval $step */
-						$step->process_status_update( $assignee, $new_status, $form );
-						break;
-					case 'user_input' :
-						$new_status = $_REQUEST['new_status'];
-						/* @var Gravity_Flow_Step_User_Input $step */
-						$previous_assignees = $step->get_assignees();
-						if ( $new_status == 'complete' ) {
-							$assignee = new Gravity_Flow_Assignee( $assignee_key, $step );
-							$current_user_status = $assignee->get_status();
-
-							$current_role_status = false;
-							$role = false;
-							foreach ( gravity_flow()->get_user_roles() as $role ) {
-								$current_role_status = $step->get_role_status( $role );
-								if ( $current_role_status == 'pending' ) {
-									break;
-								}
-							}
-							if ( $current_user_status == 'pending' ) {
-								$assignee = new Gravity_Flow_Assignee( $assignee_key, $step );
-								$assignee->update_status( 'complete' );
-							}
-
-							if ( $current_role_status == 'pending' ) {
-								$step->update_role_status( $role, 'complete' );
-							}
-							$step->refresh_entry();
-						}
-
-						GFCache::flush();
-						$step->maybe_adjust_assignment( $previous_assignees );
 
 
-				}
 
-				$this->log_debug( __METHOD__ . '(): triggering workflow for entry ID: ' . $entry['id'] );
-				$api->process_workflow( $entry['id'] );
-			}
-		}
 	}
 
 
