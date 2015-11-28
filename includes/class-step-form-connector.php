@@ -390,6 +390,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$result = $this->update_remote_entry( $target_entry );
 
 					break;
+				case 'approval' :
+					$target_entry_id = rgar( $entry, $this->update_entry_id );
+					$assignee_key = sanitize_text_field( $this->remote_assignee );
+					$status = sanitize_text_field( strtolower( rgar( $entry, $this->approval_status_field ) ) );
+					$route = sprintf( 'entries/%d/assignees/%s', $target_entry_id, $assignee_key );
+					$body = json_encode( array( 'status' => $status ) );
+					$this->remote_request( $route, 'POST', $body );
 			}
 
 			if ( empty ( $target_entry_id ) || empty ( $target_entry ) ) {
@@ -462,7 +469,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$route = trailingslashit( $route );
 			$url = $site_url . 'gravityformsapi/' . $route . '?api_key=' . $api_key . '&signature=' . $sig . '&expires=' . $expires;
 			if ( ! empty ( $query_args  ) ) {
-				$url .= http_build_query( $query_args );
+				$url .= '&' . http_build_query( $query_args );
 			}
 
 			$args = array( 'method' => $method );
@@ -507,7 +514,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			if ( in_array( $this->action, array( 'approval', 'user_input' ) ) ) {
 				$query_args = array(
 					'action' => $this->action,
-					'status' => ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete'
+					'status' => ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete',
+					'assignee' => $this->remote_assignee,
 				);
 			} else {
 				$query_args = array();
