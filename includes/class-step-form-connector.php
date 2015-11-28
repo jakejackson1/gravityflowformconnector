@@ -315,35 +315,26 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$current_step = $api->get_current_step( $target_entry );
 
 					if ( $current_step ) {
-						$current_user_status = $current_step->get_user_status();
 
 						$status = ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete';
 
-						$current_role_status = false;
-						$role = false;
-						foreach ( gravity_flow()->get_user_roles() as $role ) {
-							$current_role_status = $current_step->get_role_status( $role );
-							if ( $current_role_status == 'pending' ) {
-								break;
-							}
-						}
-						if ( $current_user_status == 'pending' ) {
-							if ( $token = gravity_flow()->decode_access_token() ) {
-								$assignee_key = sanitize_text_field( $token['sub'] );
+						if ( $token = gravity_flow()->decode_access_token() ) {
+							$assignee_key = sanitize_text_field( $token['sub'] );
 
-							} else {
-								$user = wp_get_current_user();
-								$assignee_key = 'user_id|' . $user->ID;
-							}
-							$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
-							$assignee->update_status( $status );
+						} else {
+							$user = wp_get_current_user();
+							$assignee_key = 'user_id|' . $user->ID;
+						}
+						$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
+
+						$form = GFAPI::get_form( $this->target_form_id );
+
+						$result = $current_step->process_assignee_status( $assignee, $status, $form );
+
+						if ( $result ) {
+							$api->process_workflow( $target_entry_id );
 						}
 
-						if ( $current_role_status == 'pending' ) {
-							$current_step->update_role_status( $role, $status );
-						}
-
-						$api->process_workflow( $target_entry_id );
 					}
 				}
 			}
@@ -387,7 +378,15 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					foreach ( $new_entry as $key => $value ) {
 						$target_entry[ $key ] = $value ;
 					}
+
 					$result = $this->update_remote_entry( $target_entry );
+
+					if ( $this->action == 'user_input' ) {
+						$route = 'entries' . $target_entry_id . '/assignees/' . $this->remote_assignee;
+						$body = json_encode( array( 'status' => 'complete' ) );
+
+						$assignee_update_result = $this->remote_request( $route, 'POST', $body );
+					}
 
 					break;
 				case 'approval' :
@@ -511,17 +510,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$route = 'entries/' . absint( $entry['id'] );
 			$method = 'PUT';
 			$body = json_encode( $entry );
-			if ( in_array( $this->action, array( 'approval', 'user_input' ) ) ) {
-				$query_args = array(
-					'action' => $this->action,
-					'status' => ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete',
-					'assignee' => $this->remote_assignee,
-				);
-			} else {
-				$query_args = array();
-			}
 
-			$result = $this->remote_request( $route, $method, $body, $query_args );
+			$result = $this->remote_request( $route, $method, $body );
+
 			return $result;
 		}
 
