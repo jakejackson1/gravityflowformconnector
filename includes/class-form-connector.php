@@ -138,6 +138,9 @@ if ( class_exists( 'GFForms' ) ) {
 				$view_all_url = admin_url( sprintf( 'admin.php?page=gravityflow-status&form-id=%d&f[0]=%s&o[0]=is&v[0]=%d', $child_form_id, $field_id, $entry['id'] ) );
 				$count_link = $total_count > $page_size ? sprintf( '<a href="%s" />%s (%d)</a>', $view_all_url, esc_html__( 'View all', 'gravityflow' ), $total_count ) : '';
 				$form_url = admin_url( 'admin-ajax.php' ) . '?action=gravtiyflowformconnector_get_form&form_id=' . $child_form_id . '&workflow_parent_entry_id=' . $entry['id'];
+				if ( is_admin() ) {
+					$form_url .= '&is_admin=1';
+				}
 				?>
 
 			<div class="postbox">
