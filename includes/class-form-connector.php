@@ -34,6 +34,14 @@ if ( class_exists( 'GFForms' ) ) {
 		// Short version of the plugin title to be used on menus and other places where a less verbose string is useful.
 		protected $_short_title = 'Form Connector';
 
+		protected $_capabilities = array(
+			'gravityflowformconnector_uninstall',
+			'gravityflowformconnector_settings',
+		);
+
+		protected $_capabilities_app_settings = 'gravityflowformconnector_settings';
+		protected $_capabilities_uninstall = 'gravityflowformconnector_uninstall';
+
 		public static function get_instance() {
 			if ( self::$_instance == null ) {
 				self::$_instance = new Gravity_Flow_Form_Connector();
