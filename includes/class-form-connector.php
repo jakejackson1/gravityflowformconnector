@@ -209,11 +209,20 @@ if ( class_exists( 'GFForms' ) ) {
 			$field_values = array( $field_id => $entry_id );
 
 			gravity_form_enqueue_scripts( $form_id, true );
+
+			$is_admin = isset( $_GET['is_admin'] );
+			if ( $is_admin ) {
+				wp_enqueue_style( 'common', site_url() . '/wp-admin/css/common.css', array(), $this->_version );
+			} else {
+				wp_enqueue_style( 'common', get_stylesheet_directory_uri() . '/style.css', array(), $this->_version );
+			}
+
 			wp_print_styles();
 			wp_print_scripts();
 			// Render an AJAX-enabled form.
 			// https://www.gravityhelp.com/documentation/article/embedding-a-form/#function-call
-			gravity_form( $form_id, true, false, false, $field_values, true );
+			$html = gravity_form( $form_id, true, false, false, $field_values, true, 1, false );
+			printf( "<div id='gravityflow-child-form-wrapper' style='padding:10px;'>%s</div>", $html );
 			die();
 		}
 
