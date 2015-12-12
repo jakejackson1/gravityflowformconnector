@@ -311,7 +311,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			if ( in_array( $this->action, array( 'approval', 'user_input' ) ) && $steps ) {
 
-				if ( $target_entry['workflow_final_status'] != 'pending' ) {
+				if ( $target_entry['workflow_final_status'] == 'pending' ) {
 					$current_step = $api->get_current_step( $target_entry );
 
 					if ( $current_step ) {
