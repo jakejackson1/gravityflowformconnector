@@ -44,6 +44,16 @@ The Gravity Flow PDF Generator Extension will work with any license of [Gravity 
 
 == ChangeLog ==
 
+
+= 1.0-beta-1.5.2 =
+- Fixed styles for child forms.
+
+= 1.0-beta-1.5.1 =
+- Adding settings and uninstall permissions for users whos are not Gravity Forms administrators.
+
+= 1.0-beta-1.5 =
+- Added support for approval and user input steps on remote installations.
+
 = 1.0-beta-1.4 =
 - Added support for start the workflow for all entries added using the Gravity Forms API. Requires Gravity Forms v1.9.14.26.
 
