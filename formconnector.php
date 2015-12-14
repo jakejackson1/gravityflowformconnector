@@ -3,7 +3,7 @@
 Plugin Name: Gravity Flow Form Connector
 Plugin URI: http://gravityflow.io
 Description: Form Connector Extension for Gravity Flow.
-Version: 1.0-beta-1.5.2
+Version: 1.0-beta-1.5.3
 Author: Steve Henty
 Author URI: http://www.stevenhenty.com
 License: GPL-3.0+
@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'GRAVITY_FLOW_FORM_CONNECTOR_VERSION', '1.0-beta-1.5.2' );
+define( 'GRAVITY_FLOW_FORM_CONNECTOR_VERSION', '1.0-beta-1.5.3' );
 define( 'GRAVITY_FLOW_FORM_CONNECTOR_EDD_ITEM_NAME', 'Form Connector Beta' );
 
 add_action( 'gravityflow_loaded', array( 'Gravity_Flow_Form_Connector_Bootstrap', 'load' ), 1 );

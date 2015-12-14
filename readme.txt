@@ -44,6 +44,8 @@ The Gravity Flow PDF Generator Extension will work with any license of [Gravity 
 
 == ChangeLog ==
 
+= 1.0-beta-1.5.3 =
+- Added links to sibling entries.
 
 = 1.0-beta-1.5.2 =
 - Fixed styles for child forms.
