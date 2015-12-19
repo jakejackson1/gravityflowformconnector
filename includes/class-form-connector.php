@@ -249,7 +249,9 @@ if ( class_exists( 'GFForms' ) ) {
 					</div>
 				</div>
 			</div>
-
+			<div id="gravityflow-child-form-container" style="display:none;">
+				<p>loading...</p>
+			</div>
 			<?php
 		}
 
