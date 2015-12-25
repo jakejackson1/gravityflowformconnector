@@ -44,32 +44,13 @@ The Gravity Flow PDF Generator Extension will work with any license of [Gravity 
 
 == ChangeLog ==
 
-= 1.0-beta-1.5.4 =
+= 1.0-beta-2 =
 - Added support for multi-input field mappings in the form connector step.
-
-= 1.0-beta-1.5.3 =
-- Added links to sibling entries.
-
-= 1.0-beta-1.5.2 =
-- Fixed styles for child forms.
-
-= 1.0-beta-1.5.1 =
-- Adding settings and uninstall permissions for users whos are not Gravity Forms administrators.
-
-= 1.0-beta-1.5 =
+- Adding settings and uninstall permissions for users who are not Gravity Forms administrators.
 - Added support for approval and user input steps on remote installations.
-
-= 1.0-beta-1.4 =
 - Added support for start the workflow for all entries added using the Gravity Forms API. Requires Gravity Forms v1.9.14.26.
-
-= 1.0-beta-1.3 =
-- Fixing a a fatal error introduced in 1.0-beta-1.2.
-
-= 1.0-beta-1.2 =
 - Added support for remote forms in the step settings.
-
-= 1.0-beta-1.1 =
-- Added the Form Connector form settings for child form support.
+- Added support for linking child forms to parent forms.
 
 = 1.0-beta-1 =
 All new!
