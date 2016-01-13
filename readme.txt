@@ -6,7 +6,7 @@ Tested up to: 4.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Create PDF files from entries in Gravity Flow.
+Create, update and link entries in Gravity Flow.
 
 == Description ==
 
@@ -34,12 +34,12 @@ https://gravityflow.io/contact/
 
 1.  Download the zipped file.
 1.  Extract and upload the contents of the folder to /wp-contents/plugins/ folder
-1.  Go to the Plugin management page of WordPress admin section and enable the 'Gravity Flow PDF Extension' plugin.
+1.  Go to the Plugin management page of WordPress admin section and enable the 'Gravity Flow Form Connector Extension' plugin.
 
 == Frequently Asked Questions ==
 
 = Which license of Gravity Flow do I need? =
-The Gravity Flow PDF Generator Extension will work with any license of [Gravity Flow](https://gravityflow.io).
+The Gravity Flow Form Connector Extension will work with any license of [Gravity Flow](https://gravityflow.io).
 
 
 == ChangeLog ==
