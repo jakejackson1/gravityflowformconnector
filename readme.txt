@@ -50,7 +50,6 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 - Added support for approval and user input steps on remote installations.
 - Added support for start the workflow for all entries added using the Gravity Forms API. Requires Gravity Forms v1.9.14.26.
 - Added support for remote forms in the step settings.
-- Added support for linking child forms to parent forms.
 
 = 1.0-beta-1 =
 All new!

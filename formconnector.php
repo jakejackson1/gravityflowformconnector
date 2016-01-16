@@ -5,11 +5,11 @@ Plugin URI: http://gravityflow.io
 Description: Form Connector Extension for Gravity Flow.
 Version: 1.0-beta-2
 Author: Steve Henty
-Author URI: http://www.stevenhenty.com
+Author URI: http://gravityflow.io
 License: GPL-3.0+
 
 ------------------------------------------------------------------------
-Copyright 2015 Steven Henty
+Copyright 2015-2016 Steven Henty
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -32,17 +32,18 @@ add_action( 'gravityflow_loaded', array( 'Gravity_Flow_Form_Connector_Bootstrap'
 
 class Gravity_Flow_Form_Connector_Bootstrap {
 
-	public static function load(){
+	public static function load() {
 
-		require_once( 'includes/class-step-form-connector.php' );
+		require_once( 'includes/class-step-new-entry.php' );
+		require_once( 'includes/class-step-update-entry.php' );
 
-		Gravity_Flow_Steps::register( new Gravity_Flow_Step_Form_Connector() );
+		Gravity_Flow_Steps::register( new Gravity_Flow_Step_New_Entry() );
+		Gravity_Flow_Steps::register( new Gravity_Flow_Step_Update_Entry() );
 
 		require_once( 'includes/class-form-connector.php' );
 
 		gravity_flow_form_connector();
 	}
-
 }
 
 function gravity_flow_form_connector() {
