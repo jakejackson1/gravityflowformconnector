@@ -291,7 +291,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			}
 
 			$response = wp_remote_request( $url, $args );
-			if ( wp_remote_retrieve_response_code( $response ) != 200 || ( empty( wp_remote_retrieve_body( $response ) ) ) ) {
+
+			$response_body = wp_remote_retrieve_body( $response );
+			if ( wp_remote_retrieve_response_code( $response ) != 200 || ( empty( $response_body ) ) ) {
 				return false;
 			}
 
