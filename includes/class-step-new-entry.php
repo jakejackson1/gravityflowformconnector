@@ -34,14 +34,14 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				'fields' => array(
 					array(
 						'name' => 'server_type',
-						'label' => esc_html__( 'Server', 'gravityflowformconnector' ),
+						'label' => esc_html__( 'Site', 'gravityflowformconnector' ),
 						'type' => 'radio',
 						'default_value' => 'local',
 						'horizontal' => true,
 						'onchange' => 'jQuery(this).closest("form").submit();',
 						'choices' => array(
-							array( 'label' => esc_html__( 'This server', 'gravityflowformconnector' ), 'value' => 'local' ),
-							array( 'label' => esc_html__( 'A different server', 'gravityflowformconnector' ), 'value' => 'remote' ),
+							array( 'label' => esc_html__( 'This site', 'gravityflowformconnector' ), 'value' => 'local' ),
+							array( 'label' => esc_html__( 'A different site', 'gravityflowformconnector' ), 'value' => 'remote' ),
 						),
 					),
 					array(
