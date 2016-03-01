@@ -44,12 +44,5 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
-= 1.0-beta-2 =
-- Added support for multi-input field mappings in the form connector step.
-- Adding settings and uninstall permissions for users who are not Gravity Forms administrators.
-- Added support for approval and user input steps on remote installations.
-- Added support for start the workflow for all entries added using the Gravity Forms API. Requires Gravity Forms v1.9.14.26.
-- Added support for remote forms in the step settings.
-
-= 1.0-beta-1 =
+= 1.0.0 =
 All new!
