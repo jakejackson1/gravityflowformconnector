@@ -185,89 +185,28 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		public function process_local_action() {
 			$entry = $this->get_entry();
 
-			$new_entry = array(
-				'form_id' => $this->target_form_id,
-			);
-
 			$form = $this->get_form();
 
-			if ( is_array( $this->mappings ) ) {
-				foreach ( $this->mappings as $mapping ) {
+			$new_entry = $this->do_mapping( $form, $entry );
 
-					if ( rgblank( $mapping['key'] ) ) {
-						continue;
-					}
-
-					$target_field_id = trim( $mapping['key'] );
-					$source_field_id = $mapping['value'];
-
-					if ( $source_field_id === intval( $source_field_id ) ) {
-						$source_field = GFFormsModel::get_field( $form, $source_field_id );
-						$inputs = $source_field->get_entry_inputs();
-						if ( is_array( $inputs ) ) {
-							foreach ( $inputs as $input ) {
-								$input_id = str_replace( $source_field_id, $target_field_id, $input['id'] );
-								$new_entry[ $input_id ] = $entry[ $input['id'] ];
-							}
-						} else {
-							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-						}
-					} else {
-						if ( $source_field_id == 'gf_custom' ) {
-							$new_entry[ $target_field_id ] = $mapping['custom_value'];
-						} else {
-							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-						}
-					}
-				}
+			if ( ! empty( $new_entry ) ) {
+				$new_entry['form_id'] = $this->target_form_id;
+				GFAPI::add_entry( $new_entry );
 			}
-
-			$target_entry_id = GFAPI::add_entry( $new_entry );
-
 			return true;
 		}
 
 		public function process_remote_action() {
 			$entry = $this->get_entry();
 
-			$new_entry = array(
-				'form_id' => $this->target_form_id,
-			);
-
 			$form = $this->get_form();
 
-			if ( is_array( $this->mappings ) ) {
-				foreach ( $this->mappings as $mapping ) {
+			$new_entry = $this->do_mapping( $form, $entry );
 
-					if ( rgblank( $mapping['key'] ) ) {
-						continue;
-					}
-
-					$target_field_id = trim( $mapping['key'] );
-					$source_field_id = $mapping['value'];
-
-					if ( $source_field_id === intval( $source_field_id ) ) {
-						$source_field = GFFormsModel::get_field( $form, $source_field_id );
-						$inputs = $source_field->get_entry_inputs();
-						if ( is_array( $inputs ) ) {
-							foreach ( $inputs as $input ) {
-								$input_id = str_replace( $source_field_id, $target_field_id, $input['id'] );
-								$new_entry[ $input_id ] = $entry[ $input['id'] ];
-							}
-						} else {
-							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-						}
-					} else {
-						if ( $source_field_id == 'gf_custom' ) {
-							$new_entry[ $target_field_id ] = $mapping['custom_value'];
-						} else {
-							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-						}
-					}
-				}
+			if ( ! empty( $new_entry ) ) {
+				$new_entry['form_id'] = $this->target_form_id;
+				$this->add_remote_entry( $new_entry );
 			}
-
-			$target_entry_ids = $this->add_remote_entry( $new_entry );
 
 			return true;
 		}
@@ -477,6 +416,46 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $fields;
 		}
 
+		/**
+		 * @param $form
+		 * @param $entry
+		 *
+		 * @return array $new_entry
+		 */
+		public function do_mapping( $form, $entry ) {
+			$new_entry = array();
+			if ( is_array( $this->mappings ) ) {
+				foreach ( $this->mappings as $mapping ) {
+
+					if ( rgblank( $mapping['key'] ) ) {
+						continue;
+					}
+
+					$target_field_id = trim( $mapping['key'] );
+					$source_field_id = (string) $mapping['value'];
+
+					if ( $source_field_id === (string) intval( $source_field_id ) ) {
+						$source_field = GFFormsModel::get_field( $form, $source_field_id );
+						$inputs = $source_field->get_entry_inputs();
+						if ( is_array( $inputs ) ) {
+							foreach ( $inputs as $input ) {
+								$input_id = str_replace( $source_field_id . '.', $target_field_id . '.', $input['id'] );
+								$new_entry[ $input_id ] = $entry[ $input['id'] ];
+							}
+						} else {
+							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
+						}
+					} else {
+						if ( $source_field_id == 'gf_custom' ) {
+							$new_entry[ $target_field_id ] = $mapping['custom_value'];
+						} else {
+							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
+						}
+					}
+				}
+			}
+			return $new_entry;
+		}
 
 	}
 }

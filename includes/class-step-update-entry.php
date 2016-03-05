@@ -220,46 +220,15 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		public function process_local_action() {
 			$entry = $this->get_entry();
 
-			$new_entry = array(
-				'form_id' => $this->target_form_id,
-			);
-
 			$api   = new Gravity_Flow_API( $this->target_form_id );
+
 			$steps = $api->get_steps();
 
 			$form = $this->get_form();
 
-			if ( is_array( $this->mappings ) ) {
-				foreach ( $this->mappings as $mapping ) {
+			$new_entry = $this->do_mapping( $form, $entry );
 
-					if ( rgblank( $mapping['key'] ) ) {
-						continue;
-					}
-
-					$target_field_id = trim( $mapping['key'] );
-					$source_field_id = $mapping['value'];
-
-					if ( $source_field_id === intval( $source_field_id ) ) {
-						$source_field = GFFormsModel::get_field( $form, $source_field_id );
-						$inputs       = $source_field->get_entry_inputs();
-						if ( is_array( $inputs ) ) {
-							foreach ( $inputs as $input ) {
-								$input_id               = str_replace( $source_field_id, $target_field_id, $input['id'] );
-								$new_entry[ $input_id ] = $entry[ $input['id'] ];
-							}
-						} else {
-							if ( $source_field_id == 'gf_custom' ) {
-								$new_entry[ $target_field_id ] = $mapping['custom_value'];
-							} else {
-								$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-							}
-						}
-
-					} else {
-						$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-					}
-				}
-			}
+			$new_entry['form_id'] = $this->target_form_id;
 
 			switch ( $this->action ) {
 				case 'update' :
@@ -317,42 +286,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		public function process_remote_action() {
 			$entry = $this->get_entry();
 
-			$new_entry = array(
-				'form_id' => $this->target_form_id,
-			);
-
 			$form = $this->get_form();
 
-			if ( is_array( $this->mappings ) ) {
-				foreach ( $this->mappings as $mapping ) {
+			$new_entry = $this->do_mapping( $form, $entry );
 
-					if ( rgblank( $mapping['key'] ) ) {
-						continue;
-					}
-
-					$target_field_id = trim( $mapping['key'] );
-					$source_field_id = $mapping['value'];
-
-					if ( $source_field_id === intval( $source_field_id ) ) {
-						$source_field = GFFormsModel::get_field( $form, $source_field_id );
-						$inputs       = $source_field->get_entry_inputs();
-						if ( is_array( $inputs ) ) {
-							foreach ( $inputs as $input ) {
-								$input_id               = str_replace( $source_field_id, $target_field_id, $input['id'] );
-								$new_entry[ $input_id ] = $entry[ $input['id'] ];
-							}
-						} else {
-							if ( $source_field_id == 'gf_custom' ) {
-								$new_entry[ $target_field_id ] = $mapping['custom_value'];
-							} else {
-								$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-							}
-						}
-					} else {
-						$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-					}
-				}
-			}
+			$new_entry['form_id'] = $this->target_form_id;
 
 			switch ( $this->action ) {
 				case 'update' :
@@ -367,11 +305,14 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 					$result = $this->update_remote_entry( $target_entry );
 
+					$this->log_debug( __METHOD__ . '(): update result - ' . print_r( $result, true ) );
+
 					if ( $this->action == 'user_input' ) {
 						$route = 'entries/' . $target_entry_id . '/assignees/' . $this->remote_assignee;
 						$body  = json_encode( array( 'status' => 'complete' ) );
 
 						$assignee_update_result = $this->remote_request( $route, 'POST', $body );
+						$this->log_debug( __METHOD__ . '(): update assignee result - ' . print_r( $assignee_update_result, true ) );
 					}
 
 					break;
