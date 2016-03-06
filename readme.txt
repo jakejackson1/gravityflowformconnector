@@ -45,7 +45,7 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 == ChangeLog ==
 
 = 1.0.0.1 =
-- Added support for custom values in the mapping.
+- Added support for custom values in the mapping. Requires Gravity Flow 1.3.0.10.
 
 = 1.0.0 =
 All new!
