@@ -127,13 +127,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 */
 		public function field_mappings() {
 
-			$fields = array(
-				array(
-					'label' => esc_html__( 'Select a Target Field', 'gravityformsformconnector' ),
-					'value' => '',
-				),
-			);
-
 			$target_form_id = $this->get_setting( 'target_form_id' );
 
 			if ( empty( $target_form_id ) ) {
@@ -156,13 +149,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 * @return array
 		 */
 		public function value_mappings() {
-
-			$fields = array(
-				array(
-					'label' => esc_html__( 'Select a Target Field', 'gravityformsformconnector' ),
-					'value' => '',
-				),
-			);
 
 			$form = $this->get_form();
 
@@ -447,7 +433,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						}
 					} else {
 						if ( $source_field_id == 'gf_custom' ) {
-							$new_entry[ $target_field_id ] = $mapping['custom_value'];
+							$new_entry[ $target_field_id ] = GFCommon::replace_variables( $mapping['custom_value'], $form, $entry, false, false, false, 'text' );
 						} else {
 							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
 						}
@@ -456,7 +442,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			}
 			return $new_entry;
 		}
-
 	}
 }
 
