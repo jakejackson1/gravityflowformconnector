@@ -44,6 +44,9 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.0.1.1 =
+- Added support for merge tag processing in the custom values fields of mappings.
+
 = 1.0.1 =
 - Added support for custom values in the mapping. Requires Gravity Flow 1.3.0.10.
 
