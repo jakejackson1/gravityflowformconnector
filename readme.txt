@@ -44,6 +44,9 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.0.1.2 =
+- Fixed a fatal error which could occur when using the 'Update an Entry' step type and the 'Entry ID Field' setting was not configured.
+
 = 1.0.1.1 =
 - Added support for merge tag processing in the custom values fields of mappings.
 
