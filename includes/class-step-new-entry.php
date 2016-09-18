@@ -244,6 +244,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		}
 
 		public function remote_request( $route, $method = 'GET', $body = null, $query_args = array() ) {
+
+			$this->log_debug( __METHOD__ . '(): starting.' );
+
 			$site_url = $this->get_setting( 'remote_site_url' );
 			$api_key = $this->get_setting( 'remote_public_key' );
 			$private_key = $this->get_setting( 'remote_private_key' );
@@ -270,7 +273,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$response = wp_remote_request( $url, $args );
 
+			$this->log_debug( __METHOD__ . '(): response: ' . print_r( $response, true ) );
+
 			$response_body = wp_remote_retrieve_body( $response );
+
 			if ( wp_remote_retrieve_response_code( $response ) != 200 || ( empty( $response_body ) ) ) {
 				return false;
 			}
