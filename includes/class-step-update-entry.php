@@ -95,6 +95,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'name'       => 'update_entry_id',
 						'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
 						'type'       => 'field_select',
+						'tooltip'   => __( 'Select the field which will contain the entry ID of the entry that will be updated. This is used to lookup the entry so it can be updated.', 'gravityflowformconnector' ),
 						'required'   => true,
 						'dependency' => array(
 							'field'  => 'action',
