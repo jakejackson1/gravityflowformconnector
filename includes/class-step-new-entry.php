@@ -306,14 +306,14 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			// Setup first choice
 			if ( rgblank( $field_type ) || ( is_array( $field_type ) && count( $field_type ) > 1 ) ) {
 
-				$first_choice_label = __( 'Select a Field', 'gravityforms' );
+				$first_choice_label = __( 'Select a Field', 'gravityflowformconnector' );
 
 			} else {
 
 				$type = is_array( $field_type ) ? $field_type[0] : $field_type;
 				$type = ucfirst( GF_Fields::get( $type )->get_form_editor_field_title() );
 
-				$first_choice_label = sprintf( __( 'Select a %s Field', 'gravityforms' ), $type );
+				$first_choice_label = sprintf( __( 'Select a %s Field', 'gravityflowformconnector' ), $type );
 
 			}
 
@@ -321,10 +321,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			// if field types not restricted add the default fields and entry meta
 			if ( is_null( $field_type ) ) {
-				$fields[] = array( 'value' => 'id', 'label' => esc_html__( 'Entry ID', 'gravityforms' ) );
-				$fields[] = array( 'value' => 'date_created', 'label' => esc_html__( 'Entry Date', 'gravityforms' ) );
-				$fields[] = array( 'value' => 'ip', 'label' => esc_html__( 'User IP', 'gravityforms' ) );
-				$fields[] = array( 'value' => 'source_url', 'label' => esc_html__( 'Source Url', 'gravityforms' ) );
+				$fields[] = array( 'value' => 'id', 'label' => esc_html__( 'Entry ID', 'gravityflowformconnector' ) );
+				$fields[] = array( 'value' => 'date_created', 'label' => esc_html__( 'Entry Date', 'gravityflowformconnector' ) );
+				$fields[] = array( 'value' => 'ip', 'label' => esc_html__( 'User IP', 'gravityflowformconnector' ) );
+				$fields[] = array( 'value' => 'source_url', 'label' => esc_html__( 'Source Url', 'gravityflowformconnector' ) );
+				$fields[] = array( 'value' => 'created_by', 'label' => esc_html__( 'Created By', 'gravityflowformconnector' ) );
 
 				$server_type = $this->get_setting( 'server_type' );
 				$entry_meta = $server_type == 'remote' ? array() : GFFormsModel::get_entry_meta( $form['id'] );
@@ -362,21 +363,21 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						if ( $input_type == 'address' ) {
 							$fields[] = array(
 								'value' => $field->id,
-								'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')',
+								'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityflowformconnector' ) . ')',
 							);
 						}
 						//If this is a name field, add full name to the list
 						if ( $input_type == 'name' ) {
 							$fields[] = array(
 								'value' => $field->id,
-								'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')',
+								'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityflowformconnector' ) . ')',
 							);
 						}
 						//If this is a checkbox field, add to the list
 						if ( $input_type == 'checkbox' ) {
 							$fields[] = array(
 								'value' => $field->id,
-								'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Selected', 'gravityforms' ) . ')',
+								'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Selected', 'gravityflowformconnector' ) . ')',
 							);
 						}
 
@@ -389,7 +390,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					} elseif ( $input_type == 'list' && $field->enableColumns && $field_is_valid_type && ! $exclude_field ) {
 						$fields[] = array(
 							'value' => $field->id,
-							'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')',
+							'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityflowformconnector' ) . ')',
 						);
 						$col_index = 0;
 						foreach ( $field->choices as $column ) {
