@@ -460,15 +460,22 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$source_field = GFFormsModel::get_field( $form, $source_field_id );
 
 			if ( is_object( $source_field ) ) {
-				$is_integer          = $source_field_id === (string) intval( $source_field_id );
+				$is_full_source      = $source_field_id === (string) intval( $source_field_id );
 				$source_field_inputs = $source_field->get_entry_inputs();
 				$target_field        = GFFormsModel::get_field( $target_form, $target_field_id );
 
-				if ( $is_integer && is_array( $source_field_inputs ) ) {
-					foreach ( $source_field_inputs as $input ) {
-						$input_id               = str_replace( $source_field_id . '.', $target_field_id . '.', $input['id'] );
-						$source_field_value     = $this->get_source_field_value( $entry, $source_field, $input['id'] );
-						$new_entry[ $input_id ] = $this->get_target_field_value( $source_field_value, $target_field, $input_id );
+				if ( $is_full_source && is_array( $source_field_inputs ) ) {
+					$is_full_target      = $target_field_id === (string) intval( $target_field_id );
+					$target_field_inputs = is_object( $target_field ) ? $target_field->get_entry_inputs() : false;
+
+					if ( $is_full_target && is_array( $target_field_inputs ) ) {
+						foreach ( $source_field_inputs as $input ) {
+							$input_id               = str_replace( $source_field_id . '.', $target_field_id . '.', $input['id'] );
+							$source_field_value     = $this->get_source_field_value( $entry, $source_field, $input['id'] );
+							$new_entry[ $input_id ] = $this->get_target_field_value( $source_field_value, $target_field, $input_id );
+						}
+					} else {
+						$new_entry[ $target_field_id ] = $source_field->get_value_export( $entry, $source_field_id, true );
 					}
 				} else {
 					$source_field_value            = $this->get_source_field_value( $entry, $source_field, $source_field_id );
