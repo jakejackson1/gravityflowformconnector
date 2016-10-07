@@ -417,37 +417,185 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 */
 		public function do_mapping( $form, $entry ) {
 			$new_entry = array();
-			if ( is_array( $this->mappings ) ) {
-				foreach ( $this->mappings as $mapping ) {
 
-					if ( rgblank( $mapping['key'] ) ) {
-						continue;
+			if ( ! is_array( $this->mappings ) ) {
+
+				return $new_entry;
+			}
+
+			$target_form = $this->get_target_form( $this->target_form_id );
+
+			if ( ! $target_form ) {
+				$this->log_debug( __METHOD__ . '(): aborting; unable to get target form.' );
+
+				return $new_entry;
+			}
+
+			foreach ( $this->mappings as $mapping ) {
+				if ( rgblank( $mapping['key'] ) ) {
+					continue;
+				}
+
+				$new_entry = $this->add_mapping_to_entry( $mapping, $entry, $new_entry, $form, $target_form );
+			}
+
+			return apply_filters( 'gravityflowformconnector_' . $this->get_type(), $new_entry, $entry, $form, $target_form, $this );
+		}
+
+		/**
+		 * Add the mapped value to the new entry.
+		 *
+		 * @param array $mapping The properties for the mapping being processed.
+		 * @param array $entry The entry being processed by this step.
+		 * @param array $new_entry The entry to be added or updated.
+		 * @param array $form The form being processed by this step.
+		 * @param array $target_form The target form for the entry being added or updated.
+		 *
+		 * @return array
+		 */
+		public function add_mapping_to_entry( $mapping, $entry, $new_entry, $form, $target_form ) {
+			$target_field_id = trim( $mapping['key'] );
+			$source_field_id = (string) $mapping['value'];
+
+			$source_field = GFFormsModel::get_field( $form, $source_field_id );
+
+			if ( is_object( $source_field ) ) {
+				$is_integer          = $source_field_id === (string) intval( $source_field_id );
+				$source_field_inputs = $source_field->get_entry_inputs();
+				$target_field        = GFFormsModel::get_field( $target_form, $target_field_id );
+
+				if ( $is_integer && is_array( $source_field_inputs ) ) {
+					foreach ( $source_field_inputs as $input ) {
+						$input_id               = str_replace( $source_field_id . '.', $target_field_id . '.', $input['id'] );
+						$source_field_value     = $this->get_source_field_value( $entry, $source_field, $input['id'] );
+						$new_entry[ $input_id ] = $this->get_target_field_value( $source_field_value, $target_field, $input_id );
+					}
+				} else {
+					$source_field_value            = $this->get_source_field_value( $entry, $source_field, $source_field_id );
+					$new_entry[ $target_field_id ] = $this->get_target_field_value( $source_field_value, $target_field, $target_field_id );
+				}
+			} elseif ( $source_field_id == 'gf_custom' ) {
+				$new_entry[ $target_field_id ] = GFCommon::replace_variables( $mapping['custom_value'], $form, $entry, false, false, false, 'text' );
+			} else {
+				$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
+			}
+
+			return $new_entry;
+		}
+
+		/**
+		 * Get the source field value.
+		 *
+		 * Returns the choice text instead of the unique value for choice based poll, quiz and survey fields.
+		 *
+		 * The source field choice unique value will not match the target field unique value.
+		 *
+		 * @param array $entry The entry being processed by this step.
+		 * @param GF_Field $source_field The source field being processed.
+		 * @param string $source_field_id The ID of the source field or input.
+		 *
+		 * @return string
+		 */
+		public function get_source_field_value( $entry, $source_field, $source_field_id ) {
+			$field_value = $entry[ $source_field_id ];
+
+			if ( in_array( $source_field->type, array( 'poll', 'quiz', 'survey' ) ) ) {
+				if ( $source_field->inputType == 'rank' ) {
+					$values = explode( ',', $field_value );
+					foreach ( $values as &$value ) {
+						$value = $this->get_source_choice_text( $value, $source_field );
 					}
 
-					$target_field_id = trim( $mapping['key'] );
-					$source_field_id = (string) $mapping['value'];
+					return implode( ',', $values );
+				}
 
-					if ( $source_field_id === (string) intval( $source_field_id ) ) {
-						$source_field = GFFormsModel::get_field( $form, $source_field_id );
-						$inputs = $source_field->get_entry_inputs();
-						if ( is_array( $inputs ) ) {
-							foreach ( $inputs as $input ) {
-								$input_id = str_replace( $source_field_id . '.', $target_field_id . '.', $input['id'] );
-								$new_entry[ $input_id ] = $entry[ $input['id'] ];
-							}
-						} else {
-							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-						}
-					} else {
-						if ( $source_field_id == 'gf_custom' ) {
-							$new_entry[ $target_field_id ] = GFCommon::replace_variables( $mapping['custom_value'], $form, $entry, false, false, false, 'text' );
-						} else {
-							$new_entry[ $target_field_id ] = $entry[ $source_field_id ];
-						}
+				if ( $source_field->inputType == 'likert' && $source_field->gsurveyLikertEnableMultipleRows ) {
+					list( $row_value, $field_value ) = rgexplode( ':', $field_value, 2 );
+				}
+
+				return $this->get_source_choice_text( $field_value, $source_field );
+			}
+
+			return $field_value;
+		}
+
+		/**
+		 * Get the value to be set for the target field.
+		 *
+		 * Returns the target fields choice unique value instead of the source field choice text for choice based poll, quiz and survey fields.
+		 *
+		 * @param string $field_value The source field value.
+		 * @param GF_Field $target_field The target field being processed.
+		 * @param string $target_field_id The ID of the target field or input.
+		 *
+		 * @return string
+		 */
+		public function get_target_field_value( $field_value, $target_field, $target_field_id ) {
+			if ( is_object( $target_field ) && in_array( $target_field->type, array( 'poll', 'quiz', 'survey' ) ) ) {
+				if ( $target_field->inputType == 'rank' ) {
+					$values = explode( ',', $field_value );
+					foreach ( $values as &$value ) {
+						$value = $this->get_target_choice_value( $value, $target_field );
+					}
+
+					return implode( ',', $values );
+				}
+
+				$field_value = $this->get_target_choice_value( $field_value, $target_field );
+
+				if ( $target_field->inputType == 'likert' && $target_field->gsurveyLikertEnableMultipleRows ) {
+					$row_value   = $target_field->get_row_id( $target_field_id );
+					$field_value = sprintf( '%s:%s', $row_value, $field_value );
+				}
+			}
+
+			return $field_value;
+		}
+
+		/**
+		 * Gets the choice text for the supplied choice value.
+		 *
+		 * @param string $selected_choice The choice value from the source field.
+		 * @param GF_Field $source_field The source field being processed.
+		 *
+		 * @return string
+		 */
+		public function get_source_choice_text( $selected_choice, $source_field ) {
+			return $this->get_choice_property( $selected_choice, $source_field->choices, 'value', 'text' );
+		}
+
+		/**
+		 * Gets the choice value for the supplied choice text.
+		 *
+		 * @param string $selected_choice The choice text from the source field.
+		 * @param GF_Field $target_field The target field being processed.
+		 *
+		 * @return string
+		 */
+		public function get_target_choice_value( $selected_choice, $target_field ) {
+			return $this->get_choice_property( $selected_choice, $target_field->choices, 'text', 'value' );
+		}
+
+		/**
+		 * Helper to get the specified choice property for the selected choice.
+		 *
+		 * @param string $selected_choice The selected choice value or text.
+		 * @param array $choices The field choices.
+		 * @param string $compare_property The choice property the $selected_choice is to be compared against.
+		 * @param string $return_property The choice property to be returned.
+		 *
+		 * @return string
+		 */
+		public function get_choice_property( $selected_choice, $choices, $compare_property, $return_property ) {
+			if ( $selected_choice && is_array( $choices ) ) {
+				foreach ( $choices as $choice ) {
+					if ( $choice[ $compare_property ] == $selected_choice ) {
+						return $choice[ $return_property ];
 					}
 				}
 			}
-			return $new_entry;
+
+			return $selected_choice;
 		}
 	}
 }
