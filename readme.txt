@@ -44,6 +44,9 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.0.1.3 =
+- Fixed an issue with the value for choice based Poll, Quiz, and Survey fields in the new or updated entry.
+
 = 1.0.1.2 =
 - Added support for mapping the created_by field in the target entry.
 - Fixed a fatal error which could occur when using the 'Update an Entry' step type and the 'Entry ID Field' setting was not configured.
