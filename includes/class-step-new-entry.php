@@ -177,7 +177,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			if ( ! empty( $new_entry ) ) {
 				$new_entry['form_id'] = $this->target_form_id;
-				GFAPI::add_entry( $new_entry );
+				$entry = GFAPI::add_entry( $new_entry );
+				if ( is_wp_error( $entry ) ) {
+					$this->log_debug( __METHOD__ .'(): failed to add entry' );
+				}
 			}
 			return true;
 		}
