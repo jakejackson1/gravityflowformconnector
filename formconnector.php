@@ -3,7 +3,7 @@
 Plugin Name: Gravity Flow Form Connector
 Plugin URI: http://gravityflow.io
 Description: Form Connector Extension for Gravity Flow.
-Version: 1.0.1.3
+Version: 1.0.1.4
 Author: Steve Henty
 Author URI: http://gravityflow.io
 License: GPL-3.0+
@@ -25,7 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'GRAVITY_FLOW_FORM_CONNECTOR_VERSION', '1.0.1.3' );
+define( 'GRAVITY_FLOW_FORM_CONNECTOR_VERSION', '1.0.1.4' );
 define( 'GRAVITY_FLOW_FORM_CONNECTOR_EDD_ITEM_NAME', 'Form Connector' );
 
 add_action( 'gravityflow_loaded', array( 'Gravity_Flow_Form_Connector_Bootstrap', 'load' ), 1 );
@@ -34,9 +34,11 @@ class Gravity_Flow_Form_Connector_Bootstrap {
 
 	public static function load() {
 
+		require_once( 'includes/class-step-form-submission.php' );
 		require_once( 'includes/class-step-new-entry.php' );
 		require_once( 'includes/class-step-update-entry.php' );
 
+		Gravity_Flow_Steps::register( new Gravity_Flow_Step_Form_Submission() );
 		Gravity_Flow_Steps::register( new Gravity_Flow_Step_New_Entry() );
 		Gravity_Flow_Steps::register( new Gravity_Flow_Step_Update_Entry() );
 

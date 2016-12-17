@@ -44,6 +44,9 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.0.1.4 =
+- Added the Form Submission step.
+
 = 1.0.1.3 =
 - Fixed an issue with the value for choice based Poll, Quiz, and Survey fields in the new or updated entry.
 
