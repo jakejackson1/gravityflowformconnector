@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[gravityflow.gravityflowformconnector]
+[gravityflowformconnector.gravityflowformconnectorpot]
 file_filter = languages/gravityflowformconnector-<lang>.po
 source_file = languages/gravityflowformconnector.pot
 source_lang = en_US
