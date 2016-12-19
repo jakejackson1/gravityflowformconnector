@@ -63,6 +63,7 @@ if ( class_exists( 'GFForms' ) ) {
 			add_action( 'gform_after_submission', array( $this, 'action_gform_after_submission' ), 10, 2 );
 			add_filter( 'gform_form_tag', array( $this, 'filter_gform_form_tag' ), 10, 2 );
 			add_filter( 'gform_validation', array( $this, 'filter_gform_validation' ) );
+			add_filter( 'gform_save_field_value', array( $this, 'filter_save_field_value' ), 10, 5 );
 		}
 
 		public function upgrade( $previous_version ) {
@@ -177,9 +178,7 @@ if ( class_exists( 'GFForms' ) ) {
 					case 'list':
 
 						$value = rgar( $mapped_fields, $field->id );
-						if ( gf_user_registration()->is_json( $value ) ) {
-							$value = json_decode( $value, true );
-						} elseif ( is_serialized( $value ) ) {
+						if ( is_serialized( $value ) ) {
 							$value       = unserialize( $value );
 							$list_values = array();
 
@@ -436,6 +435,52 @@ if ( class_exists( 'GFForms' ) ) {
 		public function filter_gform_validation_message( $message, $form ) {
 
 			return "<div class='validation_error'>" . esc_html( self::$form_submission_validation_error ) . '</div>';
+		}
+
+		/**
+		 * @param string $value
+		 * @param array $entry
+		 * @param GF_Field $field
+		 * @param array $form
+		 * @param string $input_id
+		 *
+		 * @return mixed
+		 */
+		public function filter_save_field_value( $value, $entry, $field, $form, $input_id ) {
+			$parent_entry_id = absint( rgpost( 'workflow_parent_entry_id' ) );
+
+			if ( empty( $parent_entry_id ) ) {
+				return $value;
+			}
+
+			$hash = rgpost( 'workflow_hash' );
+
+			if ( empty( $hash ) ) {
+				return $value;
+			}
+
+			if ( ! ( $field->get_input_type() == 'hidden' || $field->is_administrative() || $field->visibility == 'hidden' ) ) {
+				return $value;
+			}
+
+			$parent_entry = GFAPI::get_entry( $parent_entry_id );
+
+			if ( is_wp_error( $parent_entry ) ) {
+				return $value;
+			}
+
+			$api = new Gravity_Flow_API( $parent_entry['form_id'] );
+
+			$current_step = $api->get_current_step( $parent_entry );
+
+			if ( empty( $current_step ) || $current_step->get_type() != 'form_submission' ) {
+				return $value;
+			}
+
+			$parent_entry = $current_step->get_entry();
+			$mapped_entry = $current_step->do_mapping( $form, $parent_entry );
+
+			return isset( $mapped_entry[ $input_id ] ) ? $mapped_entry[ $input_id ] : $value;
 		}
 	}
 }
