@@ -139,7 +139,8 @@ if ( class_exists( 'GFForms' ) ) {
 		 */
 		public function prepopulate_form( $form, $parent_entry_current_step, $user_id = false ) {
 			$parent_entry = $parent_entry_current_step->get_entry();
-			$mapped_fields = $parent_entry_current_step->do_mapping( $form, $parent_entry );
+			$parent_form = GFAPI::get_form( $parent_entry['form_id'] );
+			$mapped_fields = $parent_entry_current_step->do_mapping( $parent_form, $parent_entry );
 
 			$mapped_field_ids = array_map( 'intval', array_keys( $mapped_fields ) );
 
