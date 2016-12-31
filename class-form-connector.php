@@ -59,11 +59,13 @@ if ( class_exists( 'GFForms' ) ) {
 
 
 		public function init() {
+			parent::init();
 			add_filter( 'gform_pre_render', array( $this, 'filter_gform_pre_render' ) );
 			add_action( 'gform_after_submission', array( $this, 'action_gform_after_submission' ), 10, 2 );
 			add_filter( 'gform_form_tag', array( $this, 'filter_gform_form_tag' ), 10, 2 );
 			add_filter( 'gform_validation', array( $this, 'filter_gform_validation' ) );
 			add_filter( 'gform_save_field_value', array( $this, 'filter_save_field_value' ), 10, 5 );
+			add_filter( 'gform_pre_replace_merge_tags', array( $this, 'filter_gform_pre_replace_merge_tags' ), 10, 7 );
 		}
 
 		public function upgrade( $previous_version ) {
@@ -481,6 +483,97 @@ if ( class_exists( 'GFForms' ) ) {
 			$mapped_entry = $current_step->do_mapping( $form, $parent_entry );
 
 			return isset( $mapped_entry[ $input_id ] ) ? $mapped_entry[ $input_id ] : $value;
+		}
+
+		/**
+		 * Target for the gform_pre_replace_merge_tags filter. Replaces the workflow_timeline and created_by merge tags.
+		 *
+		 *
+		 * @param string $text
+		 * @param array $form
+		 * @param array $entry
+		 * @param bool $url_encode
+		 * @param bool $esc_html
+		 * @param bool $nl2br
+		 * @param string $format
+		 *
+		 * @return string
+		 */
+		public function filter_gform_pre_replace_merge_tags( $text, $form, $entry, $url_encode, $esc_html, $nl2br, $format ) {
+
+
+			$api = new Gravity_Flow_API( $form['id'] );
+
+			$step = $api->get_current_step( $entry );
+
+			if ( empty( $step ) ) {
+				return $text;
+			}
+
+			if ( $step->get_type() != 'form_submission' ) {
+				return $text;
+			}
+
+			$assignee_key = gravity_flow()->get_current_user_assignee_key();
+			$is_assignee = $step->is_assignee( $assignee_key );
+			if ( ! $is_assignee ) {
+				return $text;
+			}
+
+
+			$assignee = new Gravity_Flow_Assignee( $assignee_key, $entry );
+
+			$text = $step->replace_variables( $text, $assignee );
+
+			return $text;
+
+			$parent_entry_id = absint( rgpost( 'workflow_parent_entry_id' ) );
+
+			if ( empty( $parent_entry_id ) ) {
+				return $text;
+			}
+
+			$hash = rgpost( 'workflow_hash' );
+
+			if ( empty( $hash ) ) {
+				return $text;
+			}
+
+			$parent_entry = GFAPI::get_entry( $parent_entry_id );
+
+			if ( is_wp_error( $parent_entry ) ) {
+				return $text;
+			}
+
+			$api = new Gravity_Flow_API( $parent_entry['form_id'] );
+
+			$current_step = $api->get_current_step( $parent_entry );
+
+			if ( empty( $current_step ) ) {
+				return $text;
+			}
+
+			if ( $current_step->get_type() != 'form_submission' ) {
+				return $text;
+			}
+
+			$assignee_key = gravity_flow()->get_current_user_assignee_key();
+			$is_assignee = $current_step->is_assignee( $assignee_key );
+			if ( ! $is_assignee ) {
+				return $text;
+			}
+
+			$verify_hash = $this->get_workflow_hash( $parent_entry_id, $current_step );
+			if ( ! hash_equals( $hash, $verify_hash ) ) {
+				$this->customize_validation_message( __( 'There was a problem with you submission. Please use the link provided.', 'gravityflowformconnector' ) );
+				return $text;
+			}
+
+			$assignee = new Gravity_Flow_Assignee( $assignee_key, $entry );
+
+			$text = $current_step->replace_variables( $text, $assignee );
+
+			return $text;
 		}
 	}
 }
