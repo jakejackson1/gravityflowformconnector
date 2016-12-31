@@ -495,6 +495,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 * @return string
 		 */
 		public function get_source_field_value( $entry, $source_field, $source_field_id ) {
+
+			if ( ! isset( $entry[ $source_field_id ] ) ) {
+				return '';
+			}
 			$field_value = $entry[ $source_field_id ];
 
 			if ( in_array( $source_field->type, array( 'poll', 'quiz', 'survey' ) ) ) {
