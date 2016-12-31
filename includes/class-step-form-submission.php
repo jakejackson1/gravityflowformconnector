@@ -775,10 +775,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$options_string = isset( $match[2] ) ? $match[2] : '';
 					$options        = shortcode_parse_atts( $options_string );
 
-					$form = $this->get_form();
+					$target_form_id = $this->get_setting( 'target_form_id' );
+					$form = GFAPI::get_form( $target_form_id );
 
-
-					$a = shortcode_atts(
+					$args = shortcode_atts(
 						array(
 							'page_id' => $this->submit_page,
 							'text'    => $form['title'],
@@ -787,7 +787,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 					$submission_url = $this->get_target_form_url( $args['page_id'], $assignee );
 					$submission_url  = esc_url_raw( $submission_url );
-					$submission_link = sprintf( '<a href="%s">%s</a>', $submission_url, esc_html( $a['text'] ) );
+					$submission_link = sprintf( '<a href="%s">%s</a>', $submission_url, esc_html( $args['text'] ) );
 					$text         = str_replace( $full_tag, $submission_link, $text );
 				}
 			}
