@@ -115,7 +115,7 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$current_user_assignee_key = gravity_flow()->get_current_user_assignee_key();
 
-			if ( $current_user_assignee_key == 'user_id|0' ) {
+			if ( ! $current_user_assignee_key || $current_user_assignee_key == 'user_id|0' ) {
 				return $form;
 			}
 
