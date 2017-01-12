@@ -328,9 +328,17 @@ if ( class_exists( 'GFForms' ) ) {
 				return $form_tag;
 			}
 
+			if ( $current_step->get_type() != 'form_submission' ) {
+				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.' ) );
+				return $form_tag;
+			}
+
 			$assignee_key = gravity_flow()->get_current_user_assignee_key();
+
 			$is_assignee = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
+				$message = is_user_logged_in() ? esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) : esc_html__( 'This form requires you to log in. Please log in first.', 'gravityflowformconnector' );
+				$form_tag .= sprintf( '<div class="validation_error">%s</div>', $message );
 				return $form_tag;
 			}
 
@@ -388,7 +396,7 @@ if ( class_exists( 'GFForms' ) ) {
 			$is_assignee = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
 				$validation_result['is_valid'] = false;
-				$this->customize_validation_message( __( 'This form is no longer expecting your input.', 'gravityflowformconnector' ) );
+				$this->customize_validation_message( __( 'Your input is no longer required.', 'gravityflowformconnector' ) );
 				return $validation_result;
 			}
 
