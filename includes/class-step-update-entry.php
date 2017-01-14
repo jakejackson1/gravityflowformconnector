@@ -91,26 +91,42 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'onchange'   => "jQuery(this).closest('form').submit();",
 						'choices'    => $action_choices,
 					),
-					array(
-						'name'       => 'update_entry_id',
-						'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
-						'type'       => 'field_select',
-						'tooltip'   => __( 'Select the field which will contain the entry ID of the entry that will be updated. This is used to lookup the entry so it can be updated.', 'gravityflowformconnector' ),
-						'required'   => true,
-						'dependency' => array(
-							'field'  => 'action',
-							'values' => array( 'update', 'approval', 'user_input' ),
-						),
-					),
-					array(
-						'name'       => 'approval_status_field',
-						'label'      => esc_html__( 'Approval Status Field', 'gravityflowformconnector' ),
-						'type'       => 'field_select',
-						'dependency' => array(
-							'field'  => 'action',
-							'values' => array( 'approval' ),
-						),
-					),
+				),
+			);
+
+			$entry_id_field = array(
+				'name'       => 'update_entry_id',
+				'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
+				'type'       => 'field_select',
+				'tooltip'    => __( 'Select the field which will contain the entry ID of the entry that will be updated. This is used to lookup the entry so it can be updated.', 'gravityflowformconnector' ),
+				'required'   => true,
+				'dependency' => array(
+					'field'  => 'action',
+					'values' => array( 'update', 'approval', 'user_input' ),
+				),
+			);
+
+			if ( function_exists( 'gravity_flow_parent_child' ) ) {
+				$parent_form_choices = array();
+				$entry_meta          = gravity_flow_parent_child()->get_entry_meta( array(), rgget( 'id' ) );
+
+				foreach ( $entry_meta as $meta_key => $meta ) {
+					$parent_form_choices[] = array( 'value' => $meta_key, 'label' => $meta['label'] );
+				}
+
+				if ( ! empty( $parent_form_choices ) ) {
+					$entry_id_field['args']['append_choices'] = $parent_form_choices;
+				}
+			}
+
+			$settings['fields'][] = $entry_id_field;
+			$settings['fields'][] = array(
+				'name'       => 'approval_status_field',
+				'label'      => esc_html__( 'Approval Status Field', 'gravityflowformconnector' ),
+				'type'       => 'field_select',
+				'dependency' => array(
+					'field'  => 'action',
+					'values' => array( 'approval' ),
 				),
 			);
 
