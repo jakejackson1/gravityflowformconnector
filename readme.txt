@@ -44,12 +44,6 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
-= 1.0.1.5 =
-- Added integration with the Gravity Flow Parent-Child Forms Extension; a parent form can now be selected for the 'Entry ID Field' setting on the 'Update an Entry' step.
-
-= 1.0.1.4 =
-- Added the Form Submission step.
-
 = 1.0.1.3 =
 - Fixed an issue with the value for choice based Poll, Quiz, and Survey fields in the new or updated entry.
 
