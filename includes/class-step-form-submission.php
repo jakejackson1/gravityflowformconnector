@@ -253,26 +253,29 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		}
 
 		function process() {
+			$this->log_debug( __METHOD__ . '() starting' );
 			$complete = $this->assign();
-			$note = $this->get_name() . ': ' . esc_html__( 'Waiting.', 'gravityflowformconnector' );
+			$note = $this->get_name() . ': ' . esc_html__( 'Pending.', 'gravityflowformconnector' );
 			$this->add_note( $note, 0, $this->get_type() );
+			$this->log_debug( __METHOD__ . '() complete: ' . $complete );
 			return $complete;
 		}
 
-		public function evaluate_status() {
-
-			if ( $this->is_queued() ) {
-				return 'queued';
-			}
-
+		public function status_evaluation() {
 			$assignee_details = $this->get_assignees();
-
-			$step_status = 'complete';
+			$step_status      = 'complete';
 
 			foreach ( $assignee_details as $assignee ) {
 				$user_status = $assignee->get_status();
 
-				if ( empty( $user_status ) || $user_status == 'pending' ) {
+				if ( $this->type == 'select' && $this->assignee_policy == 'any' ) {
+					if ( $user_status == 'complete' ) {
+						$step_status = 'complete';
+						break;
+					} else {
+						$step_status = 'pending';
+					}
+				} else if ( empty( $user_status ) || $user_status == 'pending' ) {
 					$step_status = 'pending';
 				}
 			}
@@ -401,6 +404,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		}
 
 		/**
+		 * Maps the field values of the entry to the target form.
+		 *
 		 * @param $form
 		 * @param $entry
 		 *
