@@ -22,6 +22,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 		public function get_settings() {
 
+			$settings_api = $this->get_common_settings_api();
+
 			$forms = $this->get_forms();
 			$form_choices[] = array( 'label' => esc_html__( 'Select a Form', 'gravityflowformconnector' ), 'value' => '' );
 			foreach ( $forms  as $form ) {
@@ -47,27 +49,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'onchange'    => "jQuery(this).closest('form').submit();",
 						'choices' => $form_choices,
 					),
-					array(
-						'name'          => 'type',
-						'label'         => __( 'Assign To:', 'gravityflowformconnector' ),
-						'type'          => 'radio',
-						'default_value' => 'select',
-						'horizontal'    => true,
-						'choices'       => $type_field_choices,
-					),
-					array(
-						'id'       => 'assignees',
-						'name'     => 'assignees[]',
-						'multiple' => 'multiple',
-						'label'    => esc_html__( 'Select Assignees', 'gravityflowformconnector' ),
-						'type'     => 'select',
-						'choices'  => $account_choices,
-					),
-					array(
-						'name'  => 'routing',
-						'label' => 'Assignee Routing',
-						'type'  => 'routing',
-					),
+					$settings_api->get_setting_assignee_type(),
+					$settings_api->get_setting_assignees(),
+					$settings_api->get_setting_assignee_routing(),
 					array(
 						'id'            => 'assignee_policy',
 						'name'          => 'assignee_policy',
@@ -86,102 +70,18 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 							),
 						),
 					),
-					array(
-						'name'     => 'instructions',
-						'label'    => __( 'Instructions', 'gravityflowformconnector' ),
-						'type'     => 'checkbox_and_textarea',
-						'tooltip'  => esc_html__( 'Activate this setting to display instructions to the user for the current step.', 'gravityflowformconnector' ),
-						'checkbox' => array(
-							'label' => esc_html__( 'Display instructions', 'gravityflowformconnector' ),
+					$settings_api->get_setting_instructions(),
+					$settings_api->get_setting_display_fields(),
+					$settings_api->get_setting_notification_tabs( array(
+						array(
+							'label'  => __( 'Send an email to the assignee', 'gravityflowformconnector' ),
+							'id'     => 'tab_assignee_notification',
+							'fields' => $settings_api->get_setting_notification( array(
+								'checkbox_default_value' => true,
+								'default_message'        => __( 'Please submit the following form: {workflow_form_submission_link}', 'gravityflowformconnector' ),
+							) ),
 						),
-						'textarea' => array(
-							'use_editor'    => true,
-							'default_value' => esc_html__( 'Instructions: please review the values in the fields below and click on the Approve or Reject button', 'gravityflowformconnector' ),
-						),
-					),
-					array(
-						'name'    => 'display_fields',
-						'label'   => __( 'Display Fields', 'gravityflowformconnector' ),
-						'tooltip' => __( 'Select the fields to hide or display.', 'gravityflowformconnector' ),
-						'type'    => 'display_fields',
-					),
-					array(
-						'name'    => 'assignee_notification_enabled',
-						'label'   => __( 'Email', 'gravityflowformconnector' ),
-						'type'    => 'checkbox',
-						'choices' => array(
-							array(
-								'label'         => __( 'Send Email to the assignee(s).', 'gravityflowformconnector' ),
-								'tooltip'       => __( 'Enable this setting to send email to each of the assignees as soon as the entry has been assigned. If a role is configured to receive emails then all the users with that role will receive the email.', 'gravityflowformconnector' ),
-								'name'          => 'assignee_notification_enabled',
-								'default_value' => false,
-							),
-						),
-					),
-					array(
-						'name'  => 'assignee_notification_from_name',
-						'class' => 'fieldwidth-2 merge-tag-support mt-hide_all_fields mt-position-right ui-autocomplete-input',
-						'label' => __( 'From Name', 'gravityflowformconnector' ),
-						'type'  => 'text',
-					),
-					array(
-						'name'          => 'assignee_notification_from_email',
-						'class'         => 'fieldwidth-2 merge-tag-support mt-hide_all_fields mt-position-right ui-autocomplete-input',
-						'label'         => __( 'From Email', 'gravityflowformconnector' ),
-						'type'          => 'text',
-						'default_value' => '{admin_email}',
-					),
-					array(
-						'name'  => 'assignee_notification_reply_to',
-						'class' => 'fieldwidth-2 merge-tag-support mt-hide_all_fields mt-position-right ui-autocomplete-input',
-						'label' => __( 'Reply To', 'gravityflowformconnector' ),
-						'type'  => 'text',
-					),
-					array(
-						'name'  => 'assignee_notification_bcc',
-						'class' => 'fieldwidth-2 merge-tag-support mt-hide_all_fields mt-position-right ui-autocomplete-input',
-						'label' => __( 'BCC', 'gravityflowformconnector' ),
-						'type'  => 'text',
-					),
-					array(
-						'name'  => 'assignee_notification_subject',
-						'class' => 'large fieldwidth-1 merge-tag-support mt-hide_all_fields mt-position-right ui-autocomplete-input',
-						'label' => __( 'Subject', 'gravityflowformconnector' ),
-						'type'  => 'text',
-					),
-					array(
-						'name'          => 'assignee_notification_message',
-						'label'         => __( 'Message to Assignee(s)', 'gravityflowformconnector' ),
-						'type'          => 'visual_editor',
-						'default_value' => __( 'Please submit the following form: {workflow_form_submission_link}', 'gravityflowformconnector' ),
-					),
-					array(
-						'name'    => 'assignee_notification_autoformat',
-						'label'   => '',
-						'type'    => 'checkbox',
-						'choices' => array(
-							array(
-								'label'         => __( 'Disable auto-formatting', 'gravityflowformconnector' ),
-								'name'          => 'assignee_notification_disable_autoformat',
-								'default_value' => false,
-								'tooltip'       => __( 'Disable auto-formatting to prevent paragraph breaks being automatically inserted when using HTML to create the email message.', 'gravityflowformconnector' ),
-
-							),
-						),
-					),
-					array(
-						'name'     => 'resend_assignee_email',
-						'label'    => '',
-						'type'     => 'checkbox_and_text',
-						'checkbox' => array(
-							'label' => __( 'Send reminder', 'gravityflowformconnector' ),
-						),
-						'text'     => array(
-							'default_value' => 7,
-							'before_input'  => __( 'Resend the assignee email after', 'gravityflowformconnector' ),
-							'after_input'   => ' ' . __( 'day(s)', 'gravityflowformconnector' ),
-						),
-					),
+					) ),
 					array(
 						'name'          => 'submit_page',
 						'tooltip'       => __( 'Select the page to be used for the form submission. This can be the Workflow Submit Page in the WordPress Admin Dashboard or you can choose a page with either a Gravity Flow submit shortcode or a Gravity Forms shortcode.', 'gravityflowformconnector' ),
