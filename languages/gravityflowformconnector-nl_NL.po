@@ -1,0 +1,198 @@
+# Copyright 2015-2016 Steven Henty.
+# Translators:
+# Erik van Beek <erik@aiwos.nl>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: gravityflowformconnector\n"
+"Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
+"POT-Creation-Date: 2016-11-16 22:06:04+00:00\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Erik van Beek <erik@aiwos.nl>, 2017\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/gravityflow/teams/50678/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gravity Flow Build Script\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Textdomain-Support: yes\n"
+
+#: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
+msgid "New Entry"
+msgstr "Nieuwe Inzending"
+
+#: includes/class-step-new-entry.php:26
+#: includes/class-step-update-entry.php:27
+msgid "Select a Form"
+msgstr "Kies een Formulier"
+
+#: includes/class-step-new-entry.php:37
+#: includes/class-step-update-entry.php:41
+msgid "Site"
+msgstr "Website"
+
+#: includes/class-step-new-entry.php:43
+#: includes/class-step-update-entry.php:47
+msgid "This site"
+msgstr "Deze website"
+
+#: includes/class-step-new-entry.php:44
+#: includes/class-step-update-entry.php:48
+msgid "A different site"
+msgstr "Een andere website"
+
+#: includes/class-step-new-entry.php:49
+#: includes/class-step-update-entry.php:53
+msgid "Site Url"
+msgstr "Website URL"
+
+#: includes/class-step-new-entry.php:58
+#: includes/class-step-update-entry.php:62
+msgid "Public Key"
+msgstr "Publieke Sleutel"
+
+#: includes/class-step-new-entry.php:67
+#: includes/class-step-update-entry.php:71
+msgid "Private Key"
+msgstr "Geheime Sleutel"
+
+#: includes/class-step-new-entry.php:76
+#: includes/class-step-update-entry.php:80
+msgid "Form"
+msgstr "Formulier"
+
+#: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
+#: includes/class-step-update-entry.php:121
+#: includes/class-step-update-entry.php:138
+msgid "Field Mapping"
+msgstr "Veld Verbinden"
+
+#: includes/class-step-new-entry.php:93
+#: includes/class-step-update-entry.php:125
+msgid "Field"
+msgstr "Veld"
+
+#: includes/class-step-new-entry.php:94
+#: includes/class-step-update-entry.php:126
+msgid "Value"
+msgstr "Waarde"
+
+#: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
+#: includes/class-step-update-entry.php:129
+#: includes/class-step-update-entry.php:142
+msgid "Mapping"
+msgstr "Verbinden"
+
+#: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
+#: includes/class-step-update-entry.php:129
+#: includes/class-step-update-entry.php:142
+msgid ""
+"Map the fields of this form to the selected form. Values from this form will"
+" be saved in the entry in the selected form"
+msgstr ""
+"Verbind de velden van dit formulier met het geselecteerde formulier. Waarden"
+" van dit formulier worden opgeslagen in de Inzending in het geselecteerde "
+"formulier. "
+
+#: includes/class-step-new-entry.php:166
+msgid "Processed."
+msgstr "Verwerkt. "
+
+#: includes/class-step-new-entry.php:312
+msgid "Select a Field"
+msgstr "Selecteer een Veld"
+
+#: includes/class-step-new-entry.php:319
+msgid "Select a %s Field"
+msgstr "Selecteer een %s Veld"
+
+#: includes/class-step-new-entry.php:327
+msgid "Entry ID"
+msgstr "Inzending ID"
+
+#: includes/class-step-new-entry.php:328
+msgid "Entry Date"
+msgstr "Inzending Datum"
+
+#: includes/class-step-new-entry.php:329
+msgid "User IP"
+msgstr "Gebruiker IP"
+
+#: includes/class-step-new-entry.php:330
+msgid "Source Url"
+msgstr "Bron URL"
+
+#: includes/class-step-new-entry.php:331
+msgid "Created By"
+msgstr "Gemaakt Door"
+
+#: includes/class-step-new-entry.php:369 includes/class-step-new-entry.php:376
+#: includes/class-step-new-entry.php:396
+msgid "Full"
+msgstr "Vol"
+
+#: includes/class-step-new-entry.php:383
+msgid "Selected"
+msgstr "Geselecteerd"
+
+#: includes/class-step-update-entry.php:20
+#: includes/class-step-update-entry.php:37
+#: includes/class-step-update-entry.php:175
+msgid "Update an Entry"
+msgstr "Inzending Bijwerken"
+
+#: includes/class-step-update-entry.php:87
+msgid "Action"
+msgstr "Actie"
+
+#: includes/class-step-update-entry.php:96
+msgid "Entry ID Field"
+msgstr "Inzending ID Veld"
+
+#: includes/class-step-update-entry.php:98
+msgid ""
+"Select the field which will contain the entry ID of the entry that will be "
+"updated. This is used to lookup the entry so it can be updated."
+msgstr ""
+"Selecteer het veld dat het inzending ID bevat van de inzending die u wilt "
+"bijwerken. Dit wordt gebruikt om de inzending te vinden, zodat deze kan "
+"worden bijgewerkt. "
+
+#: includes/class-step-update-entry.php:107
+msgid "Approval Status Field"
+msgstr "Goedkeuring Status Veld"
+
+#: includes/class-step-update-entry.php:163
+msgid "Assignee"
+msgstr "Gemachtigde"
+
+#: includes/class-step-update-entry.php:213
+msgid "Approval"
+msgstr "Goedkeuring"
+
+#: includes/class-step-update-entry.php:216
+msgid "User Input"
+msgstr "Gebruiker Input"
+
+#. Plugin Name of the plugin/theme
+msgid "Gravity Flow Form Connector"
+msgstr "Gravity Flow Formulier Verbinder"
+
+#. Author URI of the plugin/theme
+msgid "http://gravityflow.io"
+msgstr "http://gravityflow.io"
+
+#. Description of the plugin/theme
+msgid "Form Connector Extension for Gravity Flow."
+msgstr ""
+"Uitbreiding om Formulieren met elkaar te verbinden voor Gravity Flow. "
+
+#. Author of the plugin/theme
+msgid "Steve Henty"
+msgstr "Steve Henty"
