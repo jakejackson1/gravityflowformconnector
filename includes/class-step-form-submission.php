@@ -42,13 +42,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$settings = array(
 				'title'  => esc_html__( 'Form Submission', 'gravityflowformconnector' ),
 				'fields' => array(
-					array(
-						'name' => 'target_form_id',
-						'label' => esc_html__( 'Form', 'gravityflowformconnector' ),
-						'type' => 'select',
-						'onchange'    => "jQuery(this).closest('form').submit();",
-						'choices' => $form_choices,
-					),
 					$settings_api->get_setting_assignee_type(),
 					$settings_api->get_setting_assignees(),
 					$settings_api->get_setting_assignee_routing(),
@@ -74,7 +67,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$settings_api->get_setting_display_fields(),
 					$settings_api->get_setting_notification_tabs( array(
 						array(
-							'label'  => __( 'Send an email to the assignee', 'gravityflowformconnector' ),
+							'label'  => __( 'Assignee email', 'gravityflowformconnector' ),
 							'id'     => 'tab_assignee_notification',
 							'fields' => $settings_api->get_setting_notification( array(
 								'checkbox_default_value' => true,
@@ -83,9 +76,17 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						),
 					) ),
 					array(
+						'name' => 'target_form_id',
+						'label' => esc_html__( 'Form', 'gravityflowformconnector' ),
+						'tooltip'       => __( 'Select the form to be used for this form submission step.', 'gravityflowformconnector' ),
+						'type' => 'select',
+						'onchange'    => "jQuery(this).closest('form').submit();",
+						'choices' => $form_choices,
+					),
+					array(
 						'name'          => 'submit_page',
 						'tooltip'       => __( 'Select the page to be used for the form submission. This can be the Workflow Submit Page in the WordPress Admin Dashboard or you can choose a page with either a Gravity Flow submit shortcode or a Gravity Forms shortcode.', 'gravityflowformconnector' ),
-						'label'         => __( 'Submit Page', 'gravityflowformconnector' ),
+						'label'         => __( 'Submission Page', 'gravityflowformconnector' ),
 						'type'          => 'select',
 						'default_value' => 'admin',
 						'choices'       => $page_choices,
@@ -606,7 +607,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 */
 		public function get_status_string() {
 			$input_step_status = $this->get_status();
-			$status_str        = __( 'Pending Input', 'gravityflowformconnector' );
+			$status_str        = __( 'Pending Submission', 'gravityflowformconnector' );
 
 			if ( $input_step_status == 'complete' ) {
 				$approve_icon = '<i class="fa fa-check" style="color:green"></i>';
