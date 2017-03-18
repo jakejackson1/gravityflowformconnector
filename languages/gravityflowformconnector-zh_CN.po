@@ -1,12 +1,12 @@
-# Copyright 2015-2016 Steven Henty.
+# Copyright 2015-2017 Steven Henty.
 # Translators:
 # michael edi <michaeledi@163.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2016-11-16 22:06:04+00:00\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2017-03-14 09:06:34+00:00\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: michael edi <michaeledi@163.com>, 2016\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/gravityflow/teams/50678/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +23,220 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Textdomain-Support: yes\n"
 
-#: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
-msgid "New Entry"
-msgstr "新条目"
+#: class-form-connector.php:299
+msgid "Submission received."
+msgstr ""
 
+#: class-form-connector.php:353 class-form-connector.php:361
+msgid "The link to this form is no longer valid."
+msgstr ""
+
+#: class-form-connector.php:361
+msgid "This form requires you to log in. Please log in first."
+msgstr ""
+
+#: class-form-connector.php:401
+msgid "This form is no longer valid."
+msgstr ""
+
+#: class-form-connector.php:411
+msgid "This form is no longer accepting submissions."
+msgstr ""
+
+#: class-form-connector.php:420
+msgid "Your input is no longer required."
+msgstr ""
+
+#: class-form-connector.php:426
+msgid "There was a problem with you submission. Please use the link provided."
+msgstr ""
+
+#: includes/class-step-form-submission.php:20
+#: includes/class-step-form-submission.php:43
+msgid "Form Submission"
+msgstr ""
+
+#: includes/class-step-form-submission.php:28
 #: includes/class-step-new-entry.php:26
 #: includes/class-step-update-entry.php:27
 msgid "Select a Form"
 msgstr "请选择表单"
+
+#: includes/class-step-form-submission.php:36
+msgid "Select"
+msgstr ""
+
+#: includes/class-step-form-submission.php:37
+msgid "Conditional Routing"
+msgstr ""
+
+#: includes/class-step-form-submission.php:47
+#: includes/class-step-new-entry.php:76
+#: includes/class-step-update-entry.php:80
+msgid "Form"
+msgstr "表单"
+
+#: includes/class-step-form-submission.php:58
+msgid "Assignee Policy"
+msgstr ""
+
+#: includes/class-step-form-submission.php:59
+msgid ""
+"Define how this step should be processed. If all assignees must complete "
+"this step then the entry will require input from every assignee before the "
+"step can be completed. If the step is assigned to a role only one user in "
+"that role needs to complete the step."
+msgstr ""
+
+#: includes/class-step-form-submission.php:64
+msgid "At least one assignee must complete this step"
+msgstr ""
+
+#: includes/class-step-form-submission.php:68
+msgid "All assignees must complete this step"
+msgstr ""
+
+#: includes/class-step-form-submission.php:77
+msgid "Send an email to the assignee"
+msgstr ""
+
+#: includes/class-step-form-submission.php:81
+msgid "Please submit the following form: {workflow_form_submission_link}"
+msgstr ""
+
+#: includes/class-step-form-submission.php:87
+msgid ""
+"Select the page to be used for the form submission. This can be the Workflow"
+" Submit Page in the WordPress Admin Dashboard or you can choose a page with "
+"either a Gravity Flow submit shortcode or a Gravity Forms shortcode."
+msgstr ""
+
+#: includes/class-step-form-submission.php:88
+msgid "Submit Page"
+msgstr ""
+
+#: includes/class-step-form-submission.php:99
+#: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
+#: includes/class-step-update-entry.php:137
+#: includes/class-step-update-entry.php:154
+msgid "Field Mapping"
+msgstr "字段映射"
+
+#: includes/class-step-form-submission.php:103
+#: includes/class-step-new-entry.php:93
+#: includes/class-step-update-entry.php:141
+msgid "Field"
+msgstr "字段"
+
+#: includes/class-step-form-submission.php:104
+#: includes/class-step-new-entry.php:94
+#: includes/class-step-update-entry.php:142
+msgid "Value"
+msgstr "值"
+
+#: includes/class-step-form-submission.php:107
+#: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
+#: includes/class-step-update-entry.php:145
+#: includes/class-step-update-entry.php:158
+msgid "Mapping"
+msgstr "映射"
+
+#: includes/class-step-form-submission.php:107
+#: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
+#: includes/class-step-update-entry.php:145
+#: includes/class-step-update-entry.php:158
+msgid ""
+"Map the fields of this form to the selected form. Values from this form will"
+" be saved in the entry in the selected form"
+msgstr "将本表单的字段映射到指定表单。本表单的值将保存到选择的表单条目中。"
+
+#: includes/class-step-form-submission.php:158
+msgid "Pending."
+msgstr ""
+
+#: includes/class-step-form-submission.php:204
+#: includes/class-step-new-entry.php:312
+msgid "Select a Field"
+msgstr "选择一个字段"
+
+#: includes/class-step-form-submission.php:211
+#: includes/class-step-new-entry.php:319
+msgid "Select a %s Field"
+msgstr "选择一个 %s 字段"
+
+#: includes/class-step-form-submission.php:219
+#: includes/class-step-new-entry.php:327
+msgid "Entry ID"
+msgstr "条目 ID"
+
+#: includes/class-step-form-submission.php:220
+#: includes/class-step-new-entry.php:328
+msgid "Entry Date"
+msgstr "条目日期"
+
+#: includes/class-step-form-submission.php:221
+#: includes/class-step-new-entry.php:329
+msgid "User IP"
+msgstr "用户 IP"
+
+#: includes/class-step-form-submission.php:222
+#: includes/class-step-new-entry.php:330
+msgid "Source Url"
+msgstr "源URL"
+
+#: includes/class-step-form-submission.php:223
+#: includes/class-step-new-entry.php:331
+msgid "Created By"
+msgstr "创建者"
+
+#: includes/class-step-form-submission.php:260
+#: includes/class-step-form-submission.php:267
+#: includes/class-step-form-submission.php:287
+#: includes/class-step-new-entry.php:369 includes/class-step-new-entry.php:376
+#: includes/class-step-new-entry.php:396
+msgid "Full"
+msgstr "全部"
+
+#: includes/class-step-form-submission.php:274
+#: includes/class-step-new-entry.php:383
+msgid "Selected"
+msgstr "已选择"
+
+#: includes/class-step-form-submission.php:529
+msgid "Open Form"
+msgstr ""
+
+#: includes/class-step-form-submission.php:584
+msgid "User"
+msgstr ""
+
+#: includes/class-step-form-submission.php:588
+msgid "Email"
+msgstr ""
+
+#: includes/class-step-form-submission.php:592
+msgid "Role"
+msgstr ""
+
+#: includes/class-step-form-submission.php:609
+msgid "Pending Input"
+msgstr ""
+
+#: includes/class-step-form-submission.php:613
+msgid "Complete"
+msgstr ""
+
+#: includes/class-step-form-submission.php:615
+msgid "Queued"
+msgstr ""
+
+#: includes/class-step-form-submission.php:711
+msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
+msgstr ""
+
+#: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
+msgid "New Entry"
+msgstr "新条目"
 
 #: includes/class-step-new-entry.php:37
 #: includes/class-step-update-entry.php:41
@@ -62,85 +268,13 @@ msgstr "公共Key"
 msgid "Private Key"
 msgstr "私有Key"
 
-#: includes/class-step-new-entry.php:76
-#: includes/class-step-update-entry.php:80
-msgid "Form"
-msgstr "表单"
-
-#: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
-#: includes/class-step-update-entry.php:121
-#: includes/class-step-update-entry.php:138
-msgid "Field Mapping"
-msgstr "字段映射"
-
-#: includes/class-step-new-entry.php:93
-#: includes/class-step-update-entry.php:125
-msgid "Field"
-msgstr "字段"
-
-#: includes/class-step-new-entry.php:94
-#: includes/class-step-update-entry.php:126
-msgid "Value"
-msgstr "值"
-
-#: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
-#: includes/class-step-update-entry.php:129
-#: includes/class-step-update-entry.php:142
-msgid "Mapping"
-msgstr "映射"
-
-#: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
-#: includes/class-step-update-entry.php:129
-#: includes/class-step-update-entry.php:142
-msgid ""
-"Map the fields of this form to the selected form. Values from this form will"
-" be saved in the entry in the selected form"
-msgstr "将本表单的字段映射到指定表单。本表单的值将保存到选择的表单条目中。"
-
 #: includes/class-step-new-entry.php:166
 msgid "Processed."
 msgstr "处理完成。"
 
-#: includes/class-step-new-entry.php:312
-msgid "Select a Field"
-msgstr "选择一个字段"
-
-#: includes/class-step-new-entry.php:319
-msgid "Select a %s Field"
-msgstr "选择一个 %s 字段"
-
-#: includes/class-step-new-entry.php:327
-msgid "Entry ID"
-msgstr "条目 ID"
-
-#: includes/class-step-new-entry.php:328
-msgid "Entry Date"
-msgstr "条目日期"
-
-#: includes/class-step-new-entry.php:329
-msgid "User IP"
-msgstr "用户 IP"
-
-#: includes/class-step-new-entry.php:330
-msgid "Source Url"
-msgstr "源URL"
-
-#: includes/class-step-new-entry.php:331
-msgid "Created By"
-msgstr "创建者"
-
-#: includes/class-step-new-entry.php:369 includes/class-step-new-entry.php:376
-#: includes/class-step-new-entry.php:396
-msgid "Full"
-msgstr "全部"
-
-#: includes/class-step-new-entry.php:383
-msgid "Selected"
-msgstr "已选择"
-
 #: includes/class-step-update-entry.php:20
 #: includes/class-step-update-entry.php:37
-#: includes/class-step-update-entry.php:175
+#: includes/class-step-update-entry.php:191
 msgid "Update an Entry"
 msgstr "更新一个条目"
 
@@ -148,29 +282,29 @@ msgstr "更新一个条目"
 msgid "Action"
 msgstr "操作"
 
-#: includes/class-step-update-entry.php:96
+#: includes/class-step-update-entry.php:99
 msgid "Entry ID Field"
 msgstr "条目ID字段"
 
-#: includes/class-step-update-entry.php:98
+#: includes/class-step-update-entry.php:101
 msgid ""
 "Select the field which will contain the entry ID of the entry that will be "
 "updated. This is used to lookup the entry so it can be updated."
 msgstr "选择包含有将被更新的条目的ID的字段。这将用于查找指定条目以便更新。"
 
-#: includes/class-step-update-entry.php:107
+#: includes/class-step-update-entry.php:125
 msgid "Approval Status Field"
 msgstr "审批状态字段"
 
-#: includes/class-step-update-entry.php:163
+#: includes/class-step-update-entry.php:179
 msgid "Assignee"
 msgstr "负责人"
 
-#: includes/class-step-update-entry.php:213
+#: includes/class-step-update-entry.php:229
 msgid "Approval"
 msgstr "批准"
 
-#: includes/class-step-update-entry.php:216
+#: includes/class-step-update-entry.php:232
 msgid "User Input"
 msgstr "用户输入"
 
