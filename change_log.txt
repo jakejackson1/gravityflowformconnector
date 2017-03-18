@@ -1,9 +1,0 @@
-= 1.0.1.6 =
-- Added support for Gravity Forms Add-Ons build on the Gravity Forms Payment Add-On Framework. The form submission step will now wait until the payment has been processed before allowing the entry to continue to the next step.
-- Added translations for Chinese (China) and Dutch (Netherlands).
-
-= 1.0.1.5 =
-- Added integration with the Gravity Flow Parent-Child Forms Extension; a parent form can now be selected for the 'Entry ID Field' setting on the 'Update an Entry' step.
-
-= 1.0.1.4 =
-- Added the Form Submission step.

@@ -2,7 +2,7 @@
 Contributors: stevehenty
 Tags: gravity forms, approvals, workflow
 Requires at least: 4.0
-Tested up to: 4.4
+Tested up to: 4.7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -44,7 +44,10 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
-= 1.0.1.3 =
+= 1.1 =
+- Added translations for Chinese (China) and Dutch (Netherlands).
+- Added integration with the Gravity Flow Parent-Child Forms Extension; a parent form can now be selected for the 'Entry ID Field' setting on the 'Update an Entry' step.
+- Added the Form Submission step.
 - Fixed an issue with the value for choice based Poll, Quiz, and Survey fields in the new or updated entry.
 
 = 1.0.1.2 =
