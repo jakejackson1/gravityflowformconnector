@@ -1,0 +1,1 @@
+- Fixed an issue with the approval action of the Update Entry Step for entries created with the New Entry step.
