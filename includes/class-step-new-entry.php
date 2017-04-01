@@ -117,6 +117,30 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$settings['fields'][] = $mapping_field;
 
+			$entry_id_field = array(
+				'name'       => 'store_new_entry_id',
+				'label'    => esc_html__( 'Store New Entry ID', 'gravityflowformconnector' ),
+				'type'     => 'checkbox_and_container',
+				'checkbox' => array(
+					'label' => esc_html__( 'Store the ID of the new entry.', 'gravityflowformconnector' ),
+				),
+				'settings' => array(
+					array(
+						'name'  => 'new_entry_id_field',
+						'type'  => 'field_select',
+						'args'  => array(
+							'input_types' => array(
+								'text',
+								'textarea',
+								'hidden',
+							),
+						),
+					),
+				),
+			);
+
+			$settings['fields'][] = $entry_id_field;
+
 			return $settings;
 		}
 
@@ -180,6 +204,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				$entry_id = GFAPI::add_entry( $new_entry );
 				if ( is_wp_error( $entry_id ) ) {
 					$this->log_debug( __METHOD__ .'(): failed to add entry' );
+				} else {
+					$this->maybe_store_new_entry_id( $entry_id );
 				}
 			}
 			return true;
@@ -194,10 +220,35 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			if ( ! empty( $new_entry ) ) {
 				$new_entry['form_id'] = $this->target_form_id;
-				$this->add_remote_entry( $new_entry );
+				$entry_id = $this->add_remote_entry( $new_entry );
+				$this->maybe_store_new_entry_id( $entry_id );
 			}
 
 			return true;
+		}
+
+		/**
+		 * Stores the specified entry ID if the setting is enabled.
+		 *
+		 * @param $entry_id
+		 */
+		public function maybe_store_new_entry_id( $entry_id ) {
+
+			if ( ! $this->store_new_entry_idEnable ) {
+				$this->log_debug( __METHOD__ .'(): not storing the new entry ID because the setting is not enabled' );
+				return;
+			}
+
+			$entry_id = absint( $entry_id );
+
+			if ( empty( $entry_id ) ) {
+				$this->log_debug( __METHOD__ .'(): failed to store new entry ID' );
+				return;
+			}
+
+			$field_id = $this->new_entry_id_field;
+
+			GFAPI::update_entry_field( $this->get_entry_id(), $field_id, $entry_id );
 		}
 
 		public function get_forms() {
@@ -293,15 +344,31 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $body['response'];
 		}
 
+		/**
+		 * Add the remote entry
+		 *
+		 * @param $entry
+		 *
+		 * @return int The new Entry ID
+		 */
 		public function add_remote_entry( $entry ) {
 			$target_form_id = $this->target_form_id;
 			$route = 'forms/' . $target_form_id . '/entries';
 			$method = 'POST';
 			$body = json_encode( array( $entry ) );
 			$entry_ids = $this->remote_request( $route, $method, $body );
-			return $entry_ids;
+			return $entry_ids[0];
 		}
 
+		/**
+		 * Returns the field map choices.
+		 *
+		 * @param array             $form
+		 * @param null|array|string $field_type
+		 * @param null|array        $exclude_field_types
+		 *
+		 * @return array
+		 */
 		public function get_field_map_choices( $form, $field_type = null, $exclude_field_types = null ) {
 
 			$fields = array();
@@ -457,7 +524,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 * @return array
 		 */
 		public function add_mapping_to_entry( $mapping, $entry, $new_entry, $form, $target_form ) {
-			$target_field_id = trim( $mapping['key'] );
+			$target_field_id = (string) trim( $mapping['key'] );
 			$source_field_id = (string) $mapping['value'];
 
 			$source_field = GFFormsModel::get_field( $form, $source_field_id );
