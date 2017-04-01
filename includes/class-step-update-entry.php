@@ -256,7 +256,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 					if ( ! is_wp_error( $target_entry ) ) {
 						foreach ( $new_entry as $key => $value ) {
-							$target_entry[ $key ] = $value;
+							$target_entry[ (string) $key ] = $value;
 						}
 						GFAPI::update_entry( $target_entry );
 					}
@@ -321,7 +321,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$target_entry = $this->get_remote_entry( $target_entry_id );
 
 					foreach ( $new_entry as $key => $value ) {
-						$target_entry[ $key ] = $value;
+						$target_entry[ (string) $key ] = $value;
 					}
 
 					$result = $this->update_remote_entry( $target_entry );
