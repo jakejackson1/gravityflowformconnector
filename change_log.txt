@@ -1,1 +1,3 @@
+- Added the Store New Entry ID setting to the New Entry step settings.
 - Fixed an issue with the approval action of the Update Entry Step for entries created with the New Entry step.
+- Fixed an issue with the field mappings which may affect some forms.
