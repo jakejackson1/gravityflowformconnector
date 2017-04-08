@@ -20,6 +20,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return esc_html__( 'Update an Entry', 'gravityflowformconnector' );
 		}
 
+		/**
+		 * Returns the array of settings for this step.
+		 *
+		 * @return array
+		 */
 		public function get_settings() {
 
 			$forms          = $this->get_forms();
@@ -186,6 +191,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $settings;
 		}
 
+		/**
+		 * Returns the array of choices for the action setting.
+		 *
+		 * @return array
+		 */
 		public function action_choices() {
 			$choices = array(
 				array( 'label' => esc_html__( 'Update an Entry', 'gravityflow' ), 'value' => 'update' ),
@@ -235,41 +245,45 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $choices;
 		}
 
+		/**
+		 * Updates a local entry.
+		 *
+		 * @return bool Has the step finished?
+		 */
 		public function process_local_action() {
 			$entry = $this->get_entry();
 
-			$api   = new Gravity_Flow_API( $this->target_form_id );
+			$api = new Gravity_Flow_API( $this->target_form_id );
 
 			$steps = $api->get_steps();
 
 			$form = $this->get_form();
 
+			$target_entry_id = rgar( $entry, $this->update_entry_id );
+
+			$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $entry, $form, $this );
+
+			if ( empty( $target_entry_id ) ) {
+				return true;
+			}
+
+			$target_entry = GFAPI::get_entry( $target_entry_id );
+
+			if ( is_wp_error( $target_entry ) ) {
+				return true;
+			}
+
 			$new_entry = $this->do_mapping( $form, $entry );
 
 			$new_entry['form_id'] = $this->target_form_id;
 
-			switch ( $this->action ) {
-				case 'update' :
-				case 'user_input' :
-					$target_entry_id = rgar( $entry, $this->update_entry_id );
-					$target_entry    = GFAPI::get_entry( $target_entry_id );
-
-					if ( ! is_wp_error( $target_entry ) ) {
-						foreach ( $new_entry as $key => $value ) {
-							$target_entry[ (string) $key ] = $value;
-						}
-						GFAPI::update_entry( $target_entry );
+			if ( in_array( $this->action, array( 'update', 'user_input' ) ) ) {
+				if ( ! is_wp_error( $target_entry ) ) {
+					foreach ( $new_entry as $key => $value ) {
+						$target_entry[ (string) $key ] = $value;
 					}
-
-					break;
-				case 'approval' :
-					$target_entry_id = rgar( $entry, $this->update_entry_id );
-					$target_entry    = GFAPI::get_entry( $target_entry_id );
-					break;
-			}
-
-			if ( empty( $target_entry_id ) || empty( $target_entry ) ) {
-				return true;
+					GFAPI::update_entry( $target_entry );
+				}
 			}
 
 			if ( in_array( $this->action, array( 'approval', 'user_input' ) ) && $steps ) {
@@ -288,13 +302,28 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 							$user         = wp_get_current_user();
 							$assignee_key = 'user_id|' . $user->ID;
 						}
-						$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
+
+						$is_assignee = $current_step->is_assignee( $assignee_key );
+
+						if ( $is_assignee ) {
+							$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
+							$assignees = array( $assignee );
+						} else {
+							// Triggered via cron or by a user who's not an assignee
+							$assignees = $current_step->get_assignees();
+						}
 
 						$form = GFAPI::get_form( $this->target_form_id );
 
-						$result = $current_step->process_assignee_status( $assignee, $status, $form );
+						$process_required = false;
+						foreach ( $assignees as $assignee ) {
+							$result = $current_step->process_assignee_status( $assignee, $status, $form );
+							if ( $result ) {
+								$process_required = true;
+							}
+						}
 
-						if ( $result ) {
+						if ( $process_required ) {
 							$api->process_workflow( $target_entry_id );
 						}
 					}
@@ -304,6 +333,12 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return true;
 		}
 
+		/**
+		 * Updates a remote entry.
+		 *
+		 *
+		 * @return bool Has the step finished?
+		 */
 		public function process_remote_action() {
 			$entry = $this->get_entry();
 
@@ -313,11 +348,17 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$new_entry['form_id'] = $this->target_form_id;
 
+			$target_entry_id = rgar( $entry, $this->update_entry_id );
+
+			$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $entry, $form, $this );
+
+			if ( empty( $target_entry_id ) ) {
+				return true;
+			}
+
 			switch ( $this->action ) {
 				case 'update' :
 				case 'user_input' :
-					$target_entry_id = rgar( $entry, $this->update_entry_id );
-
 					$target_entry = $this->get_remote_entry( $target_entry_id );
 
 					foreach ( $new_entry as $key => $value ) {
@@ -338,7 +379,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 					break;
 				case 'approval' :
-					$target_entry_id = rgar( $entry, $this->update_entry_id );
 					$assignee_key    = sanitize_text_field( $this->remote_assignee );
 					$status          = sanitize_text_field( strtolower( rgar( $entry, $this->approval_status_field ) ) );
 					$route           = sprintf( 'entries/%d/assignees/%s', $target_entry_id, $assignee_key );
@@ -349,6 +389,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return true;
 		}
 
+		/**
+		 * Returns a remote entry.
+		 *
+		 * @param $entry_id
+		 *
+		 * @return bool
+		 */
 		public function get_remote_entry( $entry_id ) {
 			$route  = 'entries/' . $entry_id;
 			$result = $this->remote_request( $route );
@@ -356,6 +403,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $result;
 		}
 
+		/**
+		 * Updates a remote entry.
+		 *
+		 * @param $entry
+		 *
+		 * @return bool
+		 */
 		public function update_remote_entry( $entry ) {
 			$route  = 'entries/' . absint( $entry['id'] );
 			$method = 'PUT';
@@ -366,6 +420,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $result;
 		}
 
+		/**
+		 * Returns the steps for the remote entry.
+		 *
+		 * @param $form_id
+		 *
+		 * @return bool
+		 */
 		public function get_remote_steps( $form_id ) {
 			$route = 'forms/' . $form_id . '/steps';
 			$steps = $this->remote_request( $route );
@@ -373,6 +434,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $steps;
 		}
 
+		/**
+		 * Returns the remote assignees.
+		 *
+		 * @param $form_id
+		 *
+		 * @return array
+		 */
 		public function get_remote_assignee_choices( $form_id ) {
 			$steps         = $this->get_remote_steps( $form_id );
 			if ( empty( $steps ) ) {
