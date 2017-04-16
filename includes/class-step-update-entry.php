@@ -135,42 +135,26 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				),
 			);
 
-			if ( version_compare( gravity_flow()->_version, '1.3.0.10', '>=' ) ) {
-				// Use Generic Map setting to allow custom values.
-				$mapping_field = array(
-					'name'                => 'mappings',
-					'label'               => esc_html__( 'Field Mapping', 'gravityflowformconnector' ),
-					'type'                => 'generic_map',
-					'enable_custom_key'   => false,
-					'enable_custom_value' => true,
-					'key_field_title'     => esc_html__( 'Field', 'gravityflowformconnector' ),
-					'value_field_title'   => esc_html__( 'Value', 'gravityflowformconnector' ),
-					'value_choices'       => $this->value_mappings(),
-					'key_choices'         => $this->field_mappings(),
-					'tooltip'             => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
-					'dependency'          => array(
-						'field'  => 'action',
-						'values' => array( 'update', 'user_input' ),
-					),
-				);
-			} else {
-				$mapping_field = array(
-					'name'           => 'mappings',
-					'label'          => esc_html__( 'Field Mapping', 'gravityflowformconnector' ),
-					'type'           => 'dynamic_field_map',
-					'disable_custom' => true,
-					'field_map'      => $this->field_mappings(),
-					'tooltip'        => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
-					'dependency'     => array(
-						'field'  => 'action',
-						'values' => array( 'update', 'user_input' ),
-					),
-				);
-			}
+			$mapping_field = array(
+				'name'                => 'mappings',
+				'label'               => esc_html__( 'Field Mapping', 'gravityflowformconnector' ),
+				'type'                => 'generic_map',
+				'enable_custom_key'   => false,
+				'enable_custom_value' => true,
+				'key_field_title'     => esc_html__( 'Field', 'gravityflowformconnector' ),
+				'value_field_title'   => esc_html__( 'Value', 'gravityflowformconnector' ),
+				'value_choices'       => $this->value_mappings(),
+				'key_choices'         => $this->field_mappings(),
+				'tooltip'             => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
+				'dependency'          => array(
+					'field'  => 'action',
+					'values' => array( 'update', 'user_input' ),
+				),
+			);
 
 			$settings['fields'][] = $mapping_field;
 
-			$action   = $this->get_setting( 'action' );
+			$action = $this->get_setting( 'action' );
 
 			if ( $this->get_setting( 'server_type' ) == 'remote' && in_array( $action, array(
 					'approval',
