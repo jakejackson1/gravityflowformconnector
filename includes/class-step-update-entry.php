@@ -354,7 +354,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$this->log_debug( __METHOD__ . '(): update result - ' . print_r( $result, true ) );
 
 					if ( $this->action == 'user_input' ) {
-						$route = 'entries/' . $target_entry_id . '/assignees/' . $this->remote_assignee;
+						$assignee_key = strtolower( urlencode( sanitize_text_field( $this->remote_assignee ) ) );
+						$route = 'entries/' . $target_entry_id . '/assignees/' . $assignee_key;
 						$body  = json_encode( array( 'status' => 'complete' ) );
 
 						$assignee_update_result = $this->remote_request( $route, 'POST', $body );
