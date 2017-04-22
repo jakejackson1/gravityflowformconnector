@@ -13,4 +13,4 @@
 - Fixed an issue with the approval action of the Update Entry Step for entries created with the New Entry step.
 - Fixed an issue with the field mappings which may affect some forms.
 - Fixed an issue with the update step when triggered by a schedule or the expiration of a previous step where the approval or user input action does not complete.
-- Fixed an issue with the update step where remote approvals can fail on some servers. Requires Gravity Flow 1.6.2-dev+.
+- Fixed an issue with the update step where remote approval and user input steps can fail on some servers. Requires Gravity Flow 1.6.2-dev+.
