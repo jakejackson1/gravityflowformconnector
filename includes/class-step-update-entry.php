@@ -363,7 +363,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 					break;
 				case 'approval' :
-					$assignee_key    = sanitize_text_field( $this->remote_assignee );
+					$assignee_key    = strtolower( urlencode( sanitize_text_field( $this->remote_assignee ) ) );
 					$status          = sanitize_text_field( strtolower( rgar( $entry, $this->approval_status_field ) ) );
 					$route           = sprintf( 'entries/%d/assignees/%s', $target_entry_id, $assignee_key );
 					$body            = json_encode( array( 'status' => $status ) );
