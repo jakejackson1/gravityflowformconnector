@@ -311,6 +311,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$expires = strtotime( '+5 mins' );
 			$string_to_sign = sprintf( '%s:%s:%s:%s', $api_key, $method, $route, $expires );
+
+			$this->log_debug( __METHOD__ . '(): string to sign: ' . $string_to_sign );
+
 			$sig = $this->calculate_signature( $string_to_sign, $private_key );
 			$site_url = trailingslashit( $site_url );
 			$route = trailingslashit( $route );
