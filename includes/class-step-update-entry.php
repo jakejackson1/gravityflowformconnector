@@ -237,7 +237,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		public function process_local_action() {
 			$entry = $this->get_entry();
 
-			$api = new Gravity_Flow_API( $this->target_form_id );
+			$target_form_id = $this->target_form_id;
+
+			$api = new Gravity_Flow_API( $target_form_id );
 
 			$steps = $api->get_steps();
 
@@ -245,7 +247,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$target_entry_id = rgar( $entry, $this->update_entry_id );
 
-			$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $entry, $form, $this );
+			$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
 
 			if ( empty( $target_entry_id ) ) {
 				return true;
@@ -330,11 +332,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$new_entry = $this->do_mapping( $form, $entry );
 
-			$new_entry['form_id'] = $this->target_form_id;
+			$target_form_id = $this->target_form_id;
+
+			$new_entry['form_id'] = $target_form_id;
 
 			$target_entry_id = rgar( $entry, $this->update_entry_id );
 
-			$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $entry, $form, $this );
+			$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
 
 			if ( empty( $target_entry_id ) ) {
 				return true;

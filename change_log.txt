@@ -1,12 +1,12 @@
 - Added the Store New Entry ID setting to the New Entry step settings.
 - Added the gravityflowformconnector_update_entry_id filter to allow the target entry ID to be modified.
   Example:
-  add_filter( 'gravityflowformconnector_update_entry_id', 'sh_gravityflowformconnector_update_entry_id', 10, 4);
-  function sh_gravityflowformconnector_update_entry_id( $target_entry_id, $entry, $form, $step ) {
+  add_filter( 'gravityflowformconnector_update_entry_id', 'sh_gravityflowformconnector_update_entry_id', 10, 5);
+  function sh_gravityflowformconnector_update_entry_id( $target_entry_id, $target_form_id, $entry, $form, $step ) {
       // Custom search for the target entry ID based on the value of field ID 4.
       $search_criteria['status'] = 'active';
       $search_criteria['field_filters'][] = array( 'key' => '2', 'value' => $entry['4'] );
-      $entries = GFAPI::get_entries( $form['id'], $search_criteria );
+      $entries = GFAPI::get_entries( $target_form_id, $search_criteria );
       // Return the ID of the first entry in the results.
       return $entries[0]['id'];
   }
