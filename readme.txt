@@ -10,9 +10,9 @@ Create, update and link entries in Gravity Flow.
 
 == Description ==
 
-The Gravity Flow Form Connector Extension is an extension for Gravity Flow.
+The Gravity Flow Form Connector Extension is an advanced extension for Gravity Flow.
 
-Gravity Flow is a commerical Add-On for [Gravity Forms](https://gravityflow.io/gravityforms)
+Gravity Flow is a premium Add-On for [Gravity Forms](https://gravityflow.io/gravityforms)
 
 Facebook: [Steven Henty](https://www.facebook.com/gravityflow.io)
 
