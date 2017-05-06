@@ -124,6 +124,14 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				}
 			}
 
+			if ( $this->get_setting( 'target_form_id' ) == $this->get_form_id() ) {
+				$self_entry_id_choice = array( array( 'label' => esc_html__( 'Entry ID (Self)', 'gravityflowformconnector' ), 'value' => 'id' ) );
+				if ( ! isset( $entry_id_field['args']['append_choices'] ) ) {
+					$entry_id_field['args']['append_choices'] = array();
+				}
+				$entry_id_field['args']['append_choices'] = array_merge( $entry_id_field['args']['append_choices'], $self_entry_id_choice );
+			}
+
 			$settings['fields'][] = $entry_id_field;
 			$settings['fields'][] = array(
 				'name'       => 'approval_status_field',
