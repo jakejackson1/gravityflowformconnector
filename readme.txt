@@ -2,7 +2,7 @@
 Contributors: stevehenty
 Tags: gravity forms, approvals, workflow
 Requires at least: 4.0
-Tested up to: 4.7.3
+Tested up to: 4.7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,9 +20,9 @@ Facebook: [Steven Henty](https://www.facebook.com/gravityflow.io)
 
 1. [Purchase and install Gravity Forms](https://gravityflow.io/gravityforms)
 1. [Purchase and install Gravity Flow](https://gravityflow.io)
-1. Wordpress 4.3+
-1. Gravity Forms 1.9.4+
-1. Gravity Flow 1.1.0.4+
+1. Wordpress 4.7+
+1. Gravity Forms 2.1+
+1. Gravity Flow 1.7+
 
 
 = Support =
