@@ -44,6 +44,26 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.2 =
+- Added the Store New Entry ID setting to the New Entry step settings.
+- Added the gravityflowformconnector_update_entry_id filter to allow the target entry ID to be modified.
+  Example:
+  add_filter( 'gravityflowformconnector_update_entry_id', 'sh_gravityflowformconnector_update_entry_id', 10, 5);
+  function sh_gravityflowformconnector_update_entry_id( $target_entry_id, $target_form_id, $entry, $form, $step ) {
+      // Custom search for the target entry ID based on the value of field ID 4.
+      $search_criteria['status'] = 'active';
+      $search_criteria['field_filters'][] = array( 'key' => '2', 'value' => $entry['4'] );
+      $entries = GFAPI::get_entries( $target_form_id, $search_criteria );
+      // Return the ID of the first entry in the results.
+      return $entries[0]['id'];
+  }
+- Added support for updating the same entry when the target and source forms are the same. Select Entry ID (Self) in the Entry ID field setting.
+- Fixed an issue with the approval action of the Update Entry Step for entries created with the New Entry step.
+- Fixed an issue with the field mappings which may affect some forms.
+- Fixed an issue with the update step when triggered by a schedule or the expiration of a previous step where the approval or user input action does not complete.
+- Fixed an issue with the update step where remote approval and user input steps can fail on some servers. Requires Gravity Flow 1.6.2-dev+.
+
+
 = 1.1 =
 - Added translations for Chinese (China) and Dutch (Netherlands).
 - Added integration with the Gravity Flow Parent-Child Forms Extension; a parent form can now be selected for the 'Entry ID Field' setting on the 'Update an Entry' step.

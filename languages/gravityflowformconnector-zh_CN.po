@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-03-14 09:06:34+00:00\n"
+"POT-Creation-Date: 2017-03-18 12:25:05+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: michael edi <michaeledi@163.com>, 2016\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/gravityflow/teams/50678/zh_CN/)\n"
@@ -25,36 +25,36 @@ msgstr ""
 
 #: class-form-connector.php:299
 msgid "Submission received."
-msgstr ""
+msgstr "已收到提交项目。"
 
 #: class-form-connector.php:353 class-form-connector.php:361
 msgid "The link to this form is no longer valid."
-msgstr ""
+msgstr "此表单链接已失效。"
 
 #: class-form-connector.php:361
 msgid "This form requires you to log in. Please log in first."
-msgstr ""
+msgstr "此表单要求您登录。请先登录。"
 
 #: class-form-connector.php:401
 msgid "This form is no longer valid."
-msgstr ""
+msgstr "此表单已失效。"
 
 #: class-form-connector.php:411
 msgid "This form is no longer accepting submissions."
-msgstr ""
+msgstr "此表单已经不再接受新的项目提交。"
 
 #: class-form-connector.php:420
 msgid "Your input is no longer required."
-msgstr ""
+msgstr "您的输入不再是必需的。"
 
 #: class-form-connector.php:426
 msgid "There was a problem with you submission. Please use the link provided."
-msgstr ""
+msgstr "您提交的项目存在问题。请使用提供的链接。"
 
 #: includes/class-step-form-submission.php:20
 #: includes/class-step-form-submission.php:43
 msgid "Form Submission"
-msgstr ""
+msgstr "表单提交"
 
 #: includes/class-step-form-submission.php:28
 #: includes/class-step-new-entry.php:26
@@ -64,84 +64,91 @@ msgstr "请选择表单"
 
 #: includes/class-step-form-submission.php:36
 msgid "Select"
-msgstr ""
+msgstr "选择"
 
 #: includes/class-step-form-submission.php:37
 msgid "Conditional Routing"
-msgstr ""
+msgstr "条件式发送规则"
 
-#: includes/class-step-form-submission.php:47
-#: includes/class-step-new-entry.php:76
-#: includes/class-step-update-entry.php:80
-msgid "Form"
-msgstr "表单"
-
-#: includes/class-step-form-submission.php:58
+#: includes/class-step-form-submission.php:51
 msgid "Assignee Policy"
-msgstr ""
+msgstr "负责人指定规则"
 
-#: includes/class-step-form-submission.php:59
+#: includes/class-step-form-submission.php:52
 msgid ""
 "Define how this step should be processed. If all assignees must complete "
 "this step then the entry will require input from every assignee before the "
 "step can be completed. If the step is assigned to a role only one user in "
 "that role needs to complete the step."
 msgstr ""
+"定义该步骤如何操作。如果所有的负责人都必须完成这一步，那么在步骤完成之前，该条目将先要求每个负责人填写。如果该步骤被分配给一个角色，那么只需要一个属于该角色的用户来完成该步骤。"
 
-#: includes/class-step-form-submission.php:64
+#: includes/class-step-form-submission.php:57
 msgid "At least one assignee must complete this step"
-msgstr ""
+msgstr "至少一个负责人必须完成此步骤"
 
-#: includes/class-step-form-submission.php:68
+#: includes/class-step-form-submission.php:61
 msgid "All assignees must complete this step"
-msgstr ""
+msgstr "所有的负责人必须完成这个步骤"
 
-#: includes/class-step-form-submission.php:77
-msgid "Send an email to the assignee"
-msgstr ""
+#: includes/class-step-form-submission.php:70
+msgid "Assignee email"
+msgstr "负责人邮箱"
+
+#: includes/class-step-form-submission.php:74
+msgid "Please submit the following form: {workflow_form_submission_link}"
+msgstr "请在下表中提交项目： {workflow_form_submission_link}"
+
+#: includes/class-step-form-submission.php:80
+#: includes/class-step-new-entry.php:76
+#: includes/class-step-update-entry.php:80
+msgid "Form"
+msgstr "表单"
 
 #: includes/class-step-form-submission.php:81
-msgid "Please submit the following form: {workflow_form_submission_link}"
-msgstr ""
+msgid "Select the form to be used for this form submission step."
+msgstr "选择此表单提交步骤所用的表单。"
 
-#: includes/class-step-form-submission.php:87
+#: includes/class-step-form-submission.php:88
 msgid ""
 "Select the page to be used for the form submission. This can be the Workflow"
 " Submit Page in the WordPress Admin Dashboard or you can choose a page with "
 "either a Gravity Flow submit shortcode or a Gravity Forms shortcode."
 msgstr ""
+"选择要用于表单提交的页面。它可以位于 WordPress "
+"管理仪表板中的工作流提交页面，你也可以选择包含GravityForms/GravityFlow短代码的页面。"
 
-#: includes/class-step-form-submission.php:88
-msgid "Submit Page"
-msgstr ""
+#: includes/class-step-form-submission.php:89
+msgid "Submission Page"
+msgstr "提交页面"
 
-#: includes/class-step-form-submission.php:99
+#: includes/class-step-form-submission.php:100
 #: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
 #: includes/class-step-update-entry.php:137
 #: includes/class-step-update-entry.php:154
 msgid "Field Mapping"
 msgstr "字段映射"
 
-#: includes/class-step-form-submission.php:103
+#: includes/class-step-form-submission.php:104
 #: includes/class-step-new-entry.php:93
 #: includes/class-step-update-entry.php:141
 msgid "Field"
 msgstr "字段"
 
-#: includes/class-step-form-submission.php:104
+#: includes/class-step-form-submission.php:105
 #: includes/class-step-new-entry.php:94
 #: includes/class-step-update-entry.php:142
 msgid "Value"
 msgstr "值"
 
-#: includes/class-step-form-submission.php:107
+#: includes/class-step-form-submission.php:108
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
 #: includes/class-step-update-entry.php:145
 #: includes/class-step-update-entry.php:158
 msgid "Mapping"
 msgstr "映射"
 
-#: includes/class-step-form-submission.php:107
+#: includes/class-step-form-submission.php:108
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
 #: includes/class-step-update-entry.php:145
 #: includes/class-step-update-entry.php:158
@@ -150,89 +157,89 @@ msgid ""
 " be saved in the entry in the selected form"
 msgstr "将本表单的字段映射到指定表单。本表单的值将保存到选择的表单条目中。"
 
-#: includes/class-step-form-submission.php:158
+#: includes/class-step-form-submission.php:159
 msgid "Pending."
-msgstr ""
+msgstr "待处理。"
 
-#: includes/class-step-form-submission.php:204
+#: includes/class-step-form-submission.php:205
 #: includes/class-step-new-entry.php:312
 msgid "Select a Field"
 msgstr "选择一个字段"
 
-#: includes/class-step-form-submission.php:211
+#: includes/class-step-form-submission.php:212
 #: includes/class-step-new-entry.php:319
 msgid "Select a %s Field"
 msgstr "选择一个 %s 字段"
 
-#: includes/class-step-form-submission.php:219
+#: includes/class-step-form-submission.php:220
 #: includes/class-step-new-entry.php:327
 msgid "Entry ID"
 msgstr "条目 ID"
 
-#: includes/class-step-form-submission.php:220
+#: includes/class-step-form-submission.php:221
 #: includes/class-step-new-entry.php:328
 msgid "Entry Date"
 msgstr "条目日期"
 
-#: includes/class-step-form-submission.php:221
+#: includes/class-step-form-submission.php:222
 #: includes/class-step-new-entry.php:329
 msgid "User IP"
 msgstr "用户 IP"
 
-#: includes/class-step-form-submission.php:222
+#: includes/class-step-form-submission.php:223
 #: includes/class-step-new-entry.php:330
 msgid "Source Url"
 msgstr "源URL"
 
-#: includes/class-step-form-submission.php:223
+#: includes/class-step-form-submission.php:224
 #: includes/class-step-new-entry.php:331
 msgid "Created By"
 msgstr "创建者"
 
-#: includes/class-step-form-submission.php:260
-#: includes/class-step-form-submission.php:267
-#: includes/class-step-form-submission.php:287
+#: includes/class-step-form-submission.php:261
+#: includes/class-step-form-submission.php:268
+#: includes/class-step-form-submission.php:288
 #: includes/class-step-new-entry.php:369 includes/class-step-new-entry.php:376
 #: includes/class-step-new-entry.php:396
 msgid "Full"
 msgstr "全部"
 
-#: includes/class-step-form-submission.php:274
+#: includes/class-step-form-submission.php:275
 #: includes/class-step-new-entry.php:383
 msgid "Selected"
 msgstr "已选择"
 
-#: includes/class-step-form-submission.php:529
+#: includes/class-step-form-submission.php:530
 msgid "Open Form"
-msgstr ""
+msgstr "打开表单"
 
-#: includes/class-step-form-submission.php:584
+#: includes/class-step-form-submission.php:585
 msgid "User"
-msgstr ""
+msgstr "用户"
 
-#: includes/class-step-form-submission.php:588
+#: includes/class-step-form-submission.php:589
 msgid "Email"
-msgstr ""
+msgstr "邮箱"
 
-#: includes/class-step-form-submission.php:592
+#: includes/class-step-form-submission.php:593
 msgid "Role"
-msgstr ""
+msgstr "角色"
 
-#: includes/class-step-form-submission.php:609
-msgid "Pending Input"
-msgstr ""
+#: includes/class-step-form-submission.php:610
+msgid "Pending Submission"
+msgstr "等待提交"
 
-#: includes/class-step-form-submission.php:613
+#: includes/class-step-form-submission.php:614
 msgid "Complete"
-msgstr ""
+msgstr "完成"
 
-#: includes/class-step-form-submission.php:615
+#: includes/class-step-form-submission.php:616
 msgid "Queued"
-msgstr ""
+msgstr "已队列"
 
-#: includes/class-step-form-submission.php:711
+#: includes/class-step-form-submission.php:712
 msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
-msgstr ""
+msgstr "默认值 - WordPress 管理仪表板︰ 工作流提交页"
 
 #: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
 msgid "New Entry"
