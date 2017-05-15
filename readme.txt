@@ -14,7 +14,7 @@ The Gravity Flow Form Connector Extension is an advanced extension for Gravity F
 
 Gravity Flow is a premium Add-On for [Gravity Forms](https://gravityflow.io/gravityforms)
 
-Facebook: [Steven Henty](https://www.facebook.com/gravityflow.io)
+Facebook: [Gravity Flow](https://www.facebook.com/gravityflow.io)
 
 = Requirements =
 
