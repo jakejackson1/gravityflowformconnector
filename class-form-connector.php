@@ -339,6 +339,12 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$parent_entry_id = absint( rgget( 'workflow_parent_entry_id' ) );
 
+			$hash = sanitize_text_field( rgget( 'workflow_hash' ) );
+
+			if ( empty( $hash ) ) {
+				return $form_tag;
+			}
+
 			$parent_entry = GFAPI::get_entry( $parent_entry_id );
 
 			$api = new Gravity_Flow_API( $parent_entry['form_id'] );
@@ -362,8 +368,6 @@ if ( class_exists( 'GFForms' ) ) {
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', $message );
 				return $form_tag;
 			}
-
-			$hash = sanitize_text_field( rgget( 'workflow_hash' ) );
 
 			$hash_tag = sprintf( '<input type="hidden" name="workflow_hash" value="%s"/>', $hash );
 			$parent_entry_id_tag = sprintf( '<input type="hidden" name="workflow_parent_entry_id" value="%s"/>',  $parent_entry_id );
