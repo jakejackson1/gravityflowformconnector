@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-03-18 12:25:05+00:00\n"
+"POT-Creation-Date: 2017-05-15 07:38:48+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: michael edi <michaeledi@163.com>, 2016\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/gravityflow/teams/50678/zh_CN/)\n"
@@ -58,7 +58,7 @@ msgstr "表单提交"
 
 #: includes/class-step-form-submission.php:28
 #: includes/class-step-new-entry.php:26
-#: includes/class-step-update-entry.php:27
+#: includes/class-step-update-entry.php:32
 msgid "Select a Form"
 msgstr "请选择表单"
 
@@ -101,7 +101,7 @@ msgstr "请在下表中提交项目： {workflow_form_submission_link}"
 
 #: includes/class-step-form-submission.php:80
 #: includes/class-step-new-entry.php:76
-#: includes/class-step-update-entry.php:80
+#: includes/class-step-update-entry.php:85
 msgid "Form"
 msgstr "表单"
 
@@ -124,34 +124,31 @@ msgstr "提交页面"
 
 #: includes/class-step-form-submission.php:100
 #: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
-#: includes/class-step-update-entry.php:137
-#: includes/class-step-update-entry.php:154
+#: includes/class-step-update-entry.php:148
 msgid "Field Mapping"
 msgstr "字段映射"
 
 #: includes/class-step-form-submission.php:104
 #: includes/class-step-new-entry.php:93
-#: includes/class-step-update-entry.php:141
+#: includes/class-step-update-entry.php:152
 msgid "Field"
 msgstr "字段"
 
 #: includes/class-step-form-submission.php:105
 #: includes/class-step-new-entry.php:94
-#: includes/class-step-update-entry.php:142
+#: includes/class-step-update-entry.php:153
 msgid "Value"
 msgstr "值"
 
 #: includes/class-step-form-submission.php:108
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
-#: includes/class-step-update-entry.php:145
-#: includes/class-step-update-entry.php:158
+#: includes/class-step-update-entry.php:156
 msgid "Mapping"
 msgstr "映射"
 
 #: includes/class-step-form-submission.php:108
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
-#: includes/class-step-update-entry.php:145
-#: includes/class-step-update-entry.php:158
+#: includes/class-step-update-entry.php:156
 msgid ""
 "Map the fields of this form to the selected form. Values from this form will"
 " be saved in the entry in the selected form"
@@ -162,50 +159,50 @@ msgid "Pending."
 msgstr "待处理。"
 
 #: includes/class-step-form-submission.php:205
-#: includes/class-step-new-entry.php:312
+#: includes/class-step-new-entry.php:382
 msgid "Select a Field"
 msgstr "选择一个字段"
 
 #: includes/class-step-form-submission.php:212
-#: includes/class-step-new-entry.php:319
+#: includes/class-step-new-entry.php:389
 msgid "Select a %s Field"
 msgstr "选择一个 %s 字段"
 
 #: includes/class-step-form-submission.php:220
-#: includes/class-step-new-entry.php:327
+#: includes/class-step-new-entry.php:397
 msgid "Entry ID"
 msgstr "条目 ID"
 
 #: includes/class-step-form-submission.php:221
-#: includes/class-step-new-entry.php:328
+#: includes/class-step-new-entry.php:398
 msgid "Entry Date"
 msgstr "条目日期"
 
 #: includes/class-step-form-submission.php:222
-#: includes/class-step-new-entry.php:329
+#: includes/class-step-new-entry.php:399
 msgid "User IP"
 msgstr "用户 IP"
 
 #: includes/class-step-form-submission.php:223
-#: includes/class-step-new-entry.php:330
+#: includes/class-step-new-entry.php:400
 msgid "Source Url"
 msgstr "源URL"
 
 #: includes/class-step-form-submission.php:224
-#: includes/class-step-new-entry.php:331
+#: includes/class-step-new-entry.php:401
 msgid "Created By"
 msgstr "创建者"
 
 #: includes/class-step-form-submission.php:261
 #: includes/class-step-form-submission.php:268
 #: includes/class-step-form-submission.php:288
-#: includes/class-step-new-entry.php:369 includes/class-step-new-entry.php:376
-#: includes/class-step-new-entry.php:396
+#: includes/class-step-new-entry.php:439 includes/class-step-new-entry.php:446
+#: includes/class-step-new-entry.php:466
 msgid "Full"
 msgstr "全部"
 
 #: includes/class-step-form-submission.php:275
-#: includes/class-step-new-entry.php:383
+#: includes/class-step-new-entry.php:453
 msgid "Selected"
 msgstr "已选择"
 
@@ -246,72 +243,84 @@ msgid "New Entry"
 msgstr "新条目"
 
 #: includes/class-step-new-entry.php:37
-#: includes/class-step-update-entry.php:41
+#: includes/class-step-update-entry.php:46
 msgid "Site"
 msgstr "站点"
 
 #: includes/class-step-new-entry.php:43
-#: includes/class-step-update-entry.php:47
+#: includes/class-step-update-entry.php:52
 msgid "This site"
 msgstr "此站点"
 
 #: includes/class-step-new-entry.php:44
-#: includes/class-step-update-entry.php:48
+#: includes/class-step-update-entry.php:53
 msgid "A different site"
 msgstr "其他站点"
 
 #: includes/class-step-new-entry.php:49
-#: includes/class-step-update-entry.php:53
+#: includes/class-step-update-entry.php:58
 msgid "Site Url"
 msgstr "网站URL"
 
 #: includes/class-step-new-entry.php:58
-#: includes/class-step-update-entry.php:62
+#: includes/class-step-update-entry.php:67
 msgid "Public Key"
 msgstr "公共Key"
 
 #: includes/class-step-new-entry.php:67
-#: includes/class-step-update-entry.php:71
+#: includes/class-step-update-entry.php:76
 msgid "Private Key"
 msgstr "私有Key"
 
-#: includes/class-step-new-entry.php:166
+#: includes/class-step-new-entry.php:122
+msgid "Store New Entry ID"
+msgstr "保存新条目ID"
+
+#: includes/class-step-new-entry.php:125
+msgid "Store the ID of the new entry."
+msgstr "保存新条目的ID"
+
+#: includes/class-step-new-entry.php:190
 msgid "Processed."
 msgstr "处理完成。"
 
 #: includes/class-step-update-entry.php:20
-#: includes/class-step-update-entry.php:37
-#: includes/class-step-update-entry.php:191
+#: includes/class-step-update-entry.php:42
+#: includes/class-step-update-entry.php:193
 msgid "Update an Entry"
 msgstr "更新一个条目"
 
-#: includes/class-step-update-entry.php:87
+#: includes/class-step-update-entry.php:92
 msgid "Action"
 msgstr "操作"
 
-#: includes/class-step-update-entry.php:99
+#: includes/class-step-update-entry.php:104
 msgid "Entry ID Field"
 msgstr "条目ID字段"
 
-#: includes/class-step-update-entry.php:101
+#: includes/class-step-update-entry.php:106
 msgid ""
 "Select the field which will contain the entry ID of the entry that will be "
 "updated. This is used to lookup the entry so it can be updated."
 msgstr "选择包含有将被更新的条目的ID的字段。这将用于查找指定条目以便更新。"
 
-#: includes/class-step-update-entry.php:125
+#: includes/class-step-update-entry.php:128
+msgid "Entry ID (Self)"
+msgstr "条目ID(自身)"
+
+#: includes/class-step-update-entry.php:138
 msgid "Approval Status Field"
 msgstr "审批状态字段"
 
-#: includes/class-step-update-entry.php:179
+#: includes/class-step-update-entry.php:176
 msgid "Assignee"
 msgstr "负责人"
 
-#: includes/class-step-update-entry.php:229
+#: includes/class-step-update-entry.php:231
 msgid "Approval"
 msgstr "批准"
 
-#: includes/class-step-update-entry.php:232
+#: includes/class-step-update-entry.php:234
 msgid "User Input"
 msgstr "用户输入"
 
