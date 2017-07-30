@@ -110,7 +110,7 @@ if ( class_exists( 'GFForms' ) ) {
 				return $form;
 			}
 
-			if ( $parent_entry_current_step->get_type() != 'form_submission' ) {
+			if ( ! $parent_entry_current_step instanceof Gravity_Flow_Step_Form_Submission ) {
 				return $form;
 			}
 
@@ -279,7 +279,7 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$current_step = $api->get_current_step( $parent_entry );
 
-			if ( empty( $current_step ) || $current_step->get_type() != 'form_submission' ) {
+			if ( empty( $current_step ) || ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
 				return;
 			}
 
@@ -355,7 +355,7 @@ if ( class_exists( 'GFForms' ) ) {
 				return $form_tag;
 			}
 
-			if ( $current_step->get_type() != 'form_submission' ) {
+			if ( ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.' ) );
 				return $form_tag;
 			}
@@ -518,7 +518,7 @@ if ( class_exists( 'GFForms' ) ) {
 			/* @var Gravity_Flow_Step_Form_Submission $current_step */
 			$current_step = $api->get_current_step( $parent_entry );
 
-			if ( empty( $current_step ) || $current_step->get_type() != 'form_submission' ) {
+			if ( empty( $current_step ) || $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
 				return $value;
 			}
 
@@ -553,7 +553,7 @@ if ( class_exists( 'GFForms' ) ) {
 				return $text;
 			}
 
-			if ( $step->get_type() != 'form_submission' ) {
+			if ( ! $step instanceof Gravity_Flow_Step_Form_Submission ) {
 				return $text;
 			}
 
@@ -593,7 +593,7 @@ if ( class_exists( 'GFForms' ) ) {
 					return;
 				}
 
-				if ( $current_step->get_type() != 'form_submission' ) {
+				if ( ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
 					$this->log_debug( __METHOD__ . '() parent entry not on a form submission step. Bailing.' );
 
 					return;
