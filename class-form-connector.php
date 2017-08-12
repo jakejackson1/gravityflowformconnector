@@ -69,6 +69,24 @@ if ( class_exists( 'GFForms' ) ) {
 			add_filter( 'gform_post_payment_completed', array( $this, 'action_gform_post_payment_completed' ), 10, 3 );
 		}
 
+		/**
+		 * Add the extension capabilities to the Gravity Flow group in Members.
+		 *
+		 * @since 1.2.1
+		 *
+		 * @param array $caps The capabilities and their human readable labels.
+		 *
+		 * @return array
+		 */
+		public function get_members_capabilities( $caps ) {
+			$prefix = $this->get_short_title() . ': ';
+
+			$caps['gravityflowformconnector_settings']  = $prefix . __( 'Manage Settings', 'gravityflowformconnector' );
+			$caps['gravityflowformconnector_uninstall'] = $prefix . __( 'Uninstall', 'gravityflowformconnector' );
+
+			return $caps;
+		}
+
 		public function upgrade( $previous_version ) {
 			if ( ! empty( $previous_version ) && version_compare( '1.0-beta-2', $previous_version, '<' ) ) {
 				$this->upgrade_steps();

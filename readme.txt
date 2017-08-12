@@ -44,6 +44,9 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.2.1 =
+- Updated Members 2.0 integration to use human readable labels for the capabilities. Requires Gravity Flow 1.8.1 or greater.
+
 = 1.2 =
 - Added the Store New Entry ID setting to the New Entry step settings.
 - Added the gravityflowformconnector_update_entry_id filter to allow the target entry ID to be modified.
