@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-05-15 07:38:48+00:00\n"
+"POT-Creation-Date: 2017-07-23 19:53:52+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: michael edi <michaeledi@163.com>, 2016\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/gravityflow/teams/50678/zh_CN/)\n"
@@ -27,27 +27,27 @@ msgstr ""
 msgid "Submission received."
 msgstr "已收到提交项目。"
 
-#: class-form-connector.php:353 class-form-connector.php:361
+#: class-form-connector.php:359 class-form-connector.php:367
 msgid "The link to this form is no longer valid."
 msgstr "此表单链接已失效。"
 
-#: class-form-connector.php:361
+#: class-form-connector.php:367
 msgid "This form requires you to log in. Please log in first."
 msgstr "此表单要求您登录。请先登录。"
 
-#: class-form-connector.php:401
+#: class-form-connector.php:405
 msgid "This form is no longer valid."
 msgstr "此表单已失效。"
 
-#: class-form-connector.php:411
+#: class-form-connector.php:415
 msgid "This form is no longer accepting submissions."
 msgstr "此表单已经不再接受新的项目提交。"
 
-#: class-form-connector.php:420
+#: class-form-connector.php:424
 msgid "Your input is no longer required."
 msgstr "您的输入不再是必需的。"
 
-#: class-form-connector.php:426
+#: class-form-connector.php:430
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr "您提交的项目存在问题。请使用提供的链接。"
 
