@@ -374,7 +374,7 @@ if ( class_exists( 'GFForms' ) ) {
 			}
 
 			if ( ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
-				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.' ) );
+				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) );
 
 				return $form_tag;
 			}
