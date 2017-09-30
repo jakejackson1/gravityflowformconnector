@@ -2,7 +2,7 @@
 Contributors: stevehenty
 Tags: gravity forms, approvals, workflow
 Requires at least: 4.0
-Tested up to: 4.7.4
+Tested up to: 4.8.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,8 +13,6 @@ Create, update and link entries in Gravity Flow.
 The Gravity Flow Form Connector Extension is an advanced extension for Gravity Flow.
 
 Gravity Flow is a premium Add-On for [Gravity Forms](https://gravityflow.io/gravityforms)
-
-Facebook: [Gravity Flow](https://www.facebook.com/gravityflow.io)
 
 = Requirements =
 
@@ -43,6 +41,10 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 
 == ChangeLog ==
+
+= 1.2.1 =
+- Added support for steps extending Gravity_Flow_Step_Form_Submission
+- Fixed an issue with the Parent-Child Forms extension where an invalid link message is displayed when the parent entry is on a step that is not a Form Submission step.
 
 = 1.2 =
 - Added the Store New Entry ID setting to the New Entry step settings.

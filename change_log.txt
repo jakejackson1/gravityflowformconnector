@@ -1,3 +1,1 @@
-- Added support for steps extending Gravity_Flow_Step_Form_Submission
-- Fixed an issue with the Parent-Child Forms extension where an invalid link message is displayed when the parent entry is on a step that is not a Form Submission step.
 - Updated Members 2.0 integration to use human readable labels for the capabilities. Requires Gravity Flow 1.8.1 or greater.

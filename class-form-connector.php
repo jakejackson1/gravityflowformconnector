@@ -72,7 +72,7 @@ if ( class_exists( 'GFForms' ) ) {
 		/**
 		 * Add the extension capabilities to the Gravity Flow group in Members.
 		 *
-		 * @since 1.2.1
+		 * @since 1.2.2-dev
 		 *
 		 * @param array $caps The capabilities and their human readable labels.
 		 *
