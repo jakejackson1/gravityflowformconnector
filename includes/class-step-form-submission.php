@@ -157,7 +157,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$this->log_debug( __METHOD__ . '() starting' );
 			$complete = $this->assign();
 			$note = $this->get_name() . ': ' . esc_html__( 'Pending.', 'gravityflowformconnector' );
-			$this->add_note( $note, 0, $this->get_type() );
+			$this->add_note( $note );
 			$this->log_debug( __METHOD__ . '() complete: ' . $complete );
 			return $complete;
 		}
@@ -623,9 +623,12 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 * Returns the URL for the target form.
 		 *
 		 * @param int|string $page_id
+		 * @param null       $assignee
+		 * @param string     $access_token
+		 *
 		 * @return string
 		 */
-		public function get_target_form_url( $page_id = null, $assignee = null ) {
+		public function get_target_form_url( $page_id = null, $assignee = null, $access_token = '' ) {
 			$args = array(
 				'id' => $this->target_form_id,
 				'workflow_parent_entry_id' => $this->get_entry_id(),
@@ -636,7 +639,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				$args['page'] = 'gravityflow-submit';
 			}
 
-			return Gravity_Flow_Common::get_workflow_url( $args, $page_id, $assignee );
+			return Gravity_Flow_Common::get_workflow_url( $args, $page_id, $assignee, $access_token );
 		}
 
 		public function supports_expiration() {
@@ -664,10 +667,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$args = shortcode_atts(
 						array(
 							'page_id' => $this->submit_page,
+							'token' => false,
 						), $options
 					);
 
-					$submission_url = $this->get_target_form_url( $args['page_id'], $assignee );
+					$token = $this->get_workflow_access_token( $args, $assignee );
+
+					$submission_url = $this->get_target_form_url( $args['page_id'], $assignee, $token );
 					$submission_url = esc_url_raw( $submission_url );
 
 					$text = str_replace( $full_tag, $submission_url, $text );
@@ -688,10 +694,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						array(
 							'page_id' => $this->submit_page,
 							'text'    => $form['title'],
+							'token' => false,
 						), $options
 					);
 
-					$submission_url = $this->get_target_form_url( $args['page_id'], $assignee );
+					$token = $this->get_workflow_access_token( $args, $assignee );
+
+					$submission_url = $this->get_target_form_url( $args['page_id'], $assignee, $token );
 					$submission_url  = esc_url_raw( $submission_url );
 					$submission_link = sprintf( '<a href="%s">%s</a>', $submission_url, esc_html( $args['text'] ) );
 					$text         = str_replace( $full_tag, $submission_link, $text );
@@ -723,6 +732,28 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			}
 
 			return $choices;
+		}
+
+		/**
+		 * Get the access token for the workflow_entry_ and workflow_inbox_ merge tags.
+		 *
+		 * @param array                      $a The merge tag attributes.
+		 *
+		 * @param null|Gravity_Flow_Assignee $assignee
+		 *
+		 * @return string
+		 */
+		public function get_workflow_access_token( $a, $assignee = null ) {
+			$force_token = $a['token'] == 'true';
+			$token       = '';
+
+			if ( $assignee && $force_token ) {
+				$token_lifetime_days        = apply_filters( 'gravityflowformconnector_form_submission_token_expiration_days', 30, $this->assignee );
+				$token_expiration_timestamp = strtotime( '+' . (int) $token_lifetime_days . ' days' );
+				$token                      = gravity_flow()->generate_access_token( $assignee, null, $token_expiration_timestamp );
+			}
+
+			return $token;
 		}
 	}
 
