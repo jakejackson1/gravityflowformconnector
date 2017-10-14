@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Gravity Flow Form Connector
-Plugin URI: http://gravityflow.io
+Plugin URI: https://gravityflow.io
 Description: Form Connector Extension for Gravity Flow.
 Version: 1.2.2-dev
-Author: Steve Henty
-Author URI: http://gravityflow.io
+Author: Gravity Flow
+Author URI: https://gravityflow.io
 License: GPL-3.0+
 
 ------------------------------------------------------------------------
