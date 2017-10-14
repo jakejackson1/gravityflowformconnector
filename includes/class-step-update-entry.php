@@ -178,6 +178,16 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'choices' => $this->get_remote_assignee_choices( $target_form_id ),
 					);
 				}
+			} elseif ( $this->get_setting( 'server_type' ) == 'local' && $this->get_setting( 'action' ) == 'user_input' ) {
+				$target_form_id = $this->get_setting( 'target_form_id' );
+				if ( ! empty ( $target_form_id ) ) {
+					$settings['fields'][] = array(
+						'name'    => 'local_assignee',
+						'label'   => esc_html__( 'Assignee', 'gravityflowformconnector' ),
+						'type'    => 'select',
+						'choices' => $this->get_local_assignee_choices( $target_form_id ),
+					);
+				}
 			}
 
 			return $settings;
@@ -289,22 +299,29 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 						$status = ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete';
 
-						if ( $token = gravity_flow()->decode_access_token() ) {
-							$assignee_key = sanitize_text_field( $token['sub'] );
-
+						if ( empty( $this->local_assignee ) || $this->local_assignee == 'created_by') {
+							$assignee_key = gravity_flow()->get_current_user_assignee_key();
+							if ( ! $assignee_key && rgar( $entry, 'created_by' ) ) {
+								$assignee_key = 'user_id|' . $entry['created_by'];
+							}
 						} else {
-							$user         = wp_get_current_user();
-							$assignee_key = 'user_id|' . $user->ID;
+							$assignee_key = $this->local_assignee;
 						}
 
-						$is_assignee = $current_step->is_assignee( $assignee_key );
+						$assignees = array();
 
-						if ( $is_assignee ) {
-							$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
-							$assignees = array( $assignee );
-						} else {
-							// Triggered via cron or by a user who's not an assignee
-							$assignees = $current_step->get_assignees();
+						if ( $assignee_key ) {
+							$is_assignee = $current_step->is_assignee( $assignee_key );
+
+							if ( $is_assignee ) {
+								$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
+								$assignees = array( $assignee );
+							} else {
+								// Assignee not set by the local_assignee setting or by current user.
+								// Could be legacy settings triggered by cron or anonymous form submission.
+								// Complete step for all assignees.
+								$assignees = $current_step->get_assignees();
+							}
 						}
 
 						$form = GFAPI::get_form( $this->target_form_id );
@@ -448,6 +465,51 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				foreach ( $step['assignees'] as $assignee ) {
 					$assignee_keys[ $assignee['key'] ] = $assignee['display_name'];
 				}
+			}
+
+			foreach ( $assignee_keys as $assignee_key => $display_name ) {
+				$choices[] = array( 'label' => $display_name, 'value' => $assignee_key );
+			}
+
+			return $choices;
+		}
+
+		/**
+		 * Returns the remote assignees.
+		 *
+		 * @param $form_id
+		 *
+		 * @return array
+		 */
+		public function get_local_assignee_choices( $form_id ) {
+
+			$steps = gravity_flow()->get_steps( $form_id );
+
+			if ( empty( $steps ) ) {
+				return array();
+			}
+
+			$assignee_keys = $choices = array();
+
+			foreach ( $steps as $step ) {
+				$assignees = $step->get_assignees();
+				foreach ( $assignees as $assignee ) {
+					$assignee_keys[ $assignee->get_key() ] = $assignee->get_display_name();
+				}
+			}
+
+			$source_form = $this->get_form();
+
+			$choices[] = array(
+				'label' => __( 'Select an assignee', 'gravityflow' ),
+				'value' => '',
+			);
+
+			if ( rgar( $source_form, 'requireLogin' ) ) {
+				$choices[] = array(
+					'label' => __( 'User (created_by)', 'gravityflow' ),
+					'value' => 'created_by',
+				);
 			}
 
 			foreach ( $assignee_keys as $assignee_key => $display_name ) {
