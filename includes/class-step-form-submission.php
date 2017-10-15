@@ -748,7 +748,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			$token       = '';
 
 			if ( $assignee && $force_token ) {
-				$token_lifetime_days        = apply_filters( 'gravityflowformconnector_form_submission_token_expiration_days', 30, $this->assignee );
+				$token_lifetime_days        = apply_filters( 'gravityflowformconnector_form_submission_token_expiration_days', 30, $assignee );
 				$token_expiration_timestamp = strtotime( '+' . (int) $token_lifetime_days . ' days' );
 				$token                      = gravity_flow()->generate_access_token( $assignee, null, $token_expiration_timestamp );
 			}
