@@ -316,7 +316,7 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$note = esc_html__( 'Submission received.', 'gravityflowformconnector' );
 
-			$current_step->add_note( $note, false, $current_step->get_type() );
+			$current_step->add_note( $note );
 
 			$assignee_status = 'pending';
 
@@ -383,7 +383,7 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$is_assignee = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
-				$message  = is_user_logged_in() ? esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) : esc_html__( 'This form requires you to log in. Please log in first.', 'gravityflowformconnector' );
+        $message = esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' );
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', $message );
 
 				return $form_tag;
