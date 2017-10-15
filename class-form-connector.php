@@ -69,6 +69,24 @@ if ( class_exists( 'GFForms' ) ) {
 			add_filter( 'gform_post_payment_completed', array( $this, 'action_gform_post_payment_completed' ), 10, 3 );
 		}
 
+		/**
+		 * Add the extension capabilities to the Gravity Flow group in Members.
+		 *
+		 * @since 1.2.2-dev
+		 *
+		 * @param array $caps The capabilities and their human readable labels.
+		 *
+		 * @return array
+		 */
+		public function get_members_capabilities( $caps ) {
+			$prefix = $this->get_short_title() . ': ';
+
+			$caps['gravityflowformconnector_settings']  = $prefix . __( 'Manage Settings', 'gravityflowformconnector' );
+			$caps['gravityflowformconnector_uninstall'] = $prefix . __( 'Uninstall', 'gravityflowformconnector' );
+
+			return $caps;
+		}
+
 		public function upgrade( $previous_version ) {
 			if ( ! empty( $previous_version ) && version_compare( '1.0-beta-2', $previous_version, '<' ) ) {
 				$this->upgrade_steps();
@@ -135,15 +153,15 @@ if ( class_exists( 'GFForms' ) ) {
 		/**
 		 * Set up dynamic population to map the default values from the parent entry.
 		 *
-		 * @param $form
+		 * @param                                   $form
 		 * @param Gravity_Flow_Step_Form_Submission $parent_entry_current_step
-		 * @param bool $user_id
+		 * @param bool                              $user_id
 		 *
 		 * @return mixed
 		 */
 		public function prepopulate_form( $form, $parent_entry_current_step, $user_id = false ) {
-			$parent_entry = $parent_entry_current_step->get_entry();
-			$parent_form = GFAPI::get_form( $parent_entry['form_id'] );
+			$parent_entry  = $parent_entry_current_step->get_entry();
+			$parent_form   = GFAPI::get_form( $parent_entry['form_id'] );
 			$mapped_fields = $parent_entry_current_step->do_mapping( $parent_form, $parent_entry );
 
 			$mapped_field_ids = array_map( 'intval', array_keys( $mapped_fields ) );
@@ -289,7 +307,7 @@ if ( class_exists( 'GFForms' ) ) {
 			}
 
 			$assignee_key = gravity_flow()->get_current_user_assignee_key();
-			$is_assignee = $current_step->is_assignee( $assignee_key );
+			$is_assignee  = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
 				return;
 			}
@@ -310,13 +328,13 @@ if ( class_exists( 'GFForms' ) ) {
 				if ( strtolower( $entry['payment_status'] ) == 'processing' ) {
 					$processing_meta = array(
 						'parent_entry_id' => $parent_entry_id,
-						'assignee_key' => $assignee_key,
+						'assignee_key'    => $assignee_key,
 					);
 					gform_update_meta( $entry['id'], 'workflow_form_submission_step_processing_meta', $processing_meta );
 				}
 			}
 
-			$this->log_debug( __METHOD__ . '() entry payment status: ' .  $entry['payment_status'] );
+			$this->log_debug( __METHOD__ . '() entry payment status: ' . $entry['payment_status'] );
 			$this->log_debug( __METHOD__ . '() assignee status: ' . $assignee_status );
 
 			$assignee->update_status( $assignee_status );
@@ -356,7 +374,8 @@ if ( class_exists( 'GFForms' ) ) {
 			}
 
 			if ( ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
-				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.' ) );
+				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) );
+
 				return $form_tag;
 			}
 
@@ -364,13 +383,14 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$is_assignee = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
-				$message = is_user_logged_in() ? esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) : esc_html__( 'This form requires you to log in. Please log in first.', 'gravityflowformconnector' );
+				$message  = is_user_logged_in() ? esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) : esc_html__( 'This form requires you to log in. Please log in first.', 'gravityflowformconnector' );
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', $message );
+
 				return $form_tag;
 			}
 
-			$hash_tag = sprintf( '<input type="hidden" name="workflow_hash" value="%s"/>', $hash );
-			$parent_entry_id_tag = sprintf( '<input type="hidden" name="workflow_parent_entry_id" value="%s"/>',  $parent_entry_id );
+			$hash_tag            = sprintf( '<input type="hidden" name="workflow_hash" value="%s"/>', $hash );
+			$parent_entry_id_tag = sprintf( '<input type="hidden" name="workflow_parent_entry_id" value="%s"/>', $parent_entry_id );
 
 			return $form_tag . $parent_entry_id_tag . $hash_tag;
 		}
@@ -404,6 +424,7 @@ if ( class_exists( 'GFForms' ) ) {
 				$validation_result['is_valid'] = false;
 				$this->customize_validation_message( __( 'This form is no longer valid.', 'gravityflowformconnector' ) );
 				add_filter( 'gform_validation_message', array( $this, 'filter_gform_validation_message' ), 10, 2 );
+
 				return $validation_result;
 			}
 
@@ -414,14 +435,16 @@ if ( class_exists( 'GFForms' ) ) {
 			if ( empty( $current_step ) ) {
 				$this->customize_validation_message( __( 'This form is no longer accepting submissions.', 'gravityflowformconnector' ) );
 				$validation_result['is_valid'] = false;
+
 				return $validation_result;
 			}
 
 			$assignee_key = gravity_flow()->get_current_user_assignee_key();
-			$is_assignee = $current_step->is_assignee( $assignee_key );
+			$is_assignee  = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
 				$validation_result['is_valid'] = false;
 				$this->customize_validation_message( __( 'Your input is no longer required.', 'gravityflowformconnector' ) );
+
 				return $validation_result;
 			}
 
@@ -437,7 +460,7 @@ if ( class_exists( 'GFForms' ) ) {
 		/**
 		 * Returns a hash based on the current entry ID and the step timestamp.
 		 *
-		 * @param int $parent_entry_id
+		 * @param int               $parent_entry_id
 		 * @param Gravity_Flow_Step $step
 		 *
 		 * @return string
@@ -478,11 +501,11 @@ if ( class_exists( 'GFForms' ) ) {
 		 * Ensures that the values for hidden and administrative fields are mapped from the source entry.
 		 *
 		 *
-		 * @param string $value
-		 * @param array $entry
+		 * @param string   $value
+		 * @param array    $entry
 		 * @param GF_Field $field
-		 * @param array $form
-		 * @param string $input_id
+		 * @param array    $form
+		 * @param string   $input_id
 		 *
 		 * @return mixed
 		 */
@@ -533,11 +556,11 @@ if ( class_exists( 'GFForms' ) ) {
 		 *
 		 *
 		 * @param string $text
-		 * @param array $form
-		 * @param array $entry
-		 * @param bool $url_encode
-		 * @param bool $esc_html
-		 * @param bool $nl2br
+		 * @param array  $form
+		 * @param array  $entry
+		 * @param bool   $url_encode
+		 * @param bool   $esc_html
+		 * @param bool   $nl2br
 		 * @param string $format
 		 *
 		 * @return string
@@ -558,7 +581,7 @@ if ( class_exists( 'GFForms' ) ) {
 			}
 
 			$assignee_key = gravity_flow()->get_current_user_assignee_key();
-			$is_assignee = $step->is_assignee( $assignee_key );
+			$is_assignee  = $step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
 				return $text;
 			}
@@ -580,10 +603,10 @@ if ( class_exists( 'GFForms' ) ) {
 			if ( $processing_meta ) {
 				$this->log_debug( __METHOD__ . '() processing meta: ' . print_r( $processing_meta, 1 ) );
 
-				$assignee_key = $processing_meta['assignee_key'];
+				$assignee_key    = $processing_meta['assignee_key'];
 				$parent_entry_id = $processing_meta['parent_entry_id'];
-				$parent_entry = GFAPI::get_entry( $parent_entry_id );
-				$api = new Gravity_Flow_API( $parent_entry['form_id'] );
+				$parent_entry    = GFAPI::get_entry( $parent_entry_id );
+				$api             = new Gravity_Flow_API( $parent_entry['form_id'] );
 
 				$current_step = $api->get_current_step( $parent_entry );
 
