@@ -324,6 +324,7 @@ if ( class_exists( 'GFForms' ) ) {
 
 			if ( empty( $payment_status ) || $payment_status == 'paid' ) {
 				$assignee_status = 'complete';
+				$current_step->process_assignee_status( $assignee, $assignee_status, $form );
 			} else {
 				if ( strtolower( $entry['payment_status'] ) == 'processing' ) {
 					$processing_meta = array(
@@ -336,10 +337,6 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$this->log_debug( __METHOD__ . '() entry payment status: ' . $entry['payment_status'] );
 			$this->log_debug( __METHOD__ . '() assignee status: ' . $assignee_status );
-
-			if ( $assignee_status == 'complete' ) {
-				$current_step->process_assignee_status( $assignee, $assignee_status, $form );
-			}
 
 			$api->process_workflow( $parent_entry_id );
 		}
