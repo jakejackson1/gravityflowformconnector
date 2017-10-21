@@ -755,6 +755,43 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			return $token;
 		}
+
+		/**
+		 * Process a status change for an assignee.
+		 *
+		 * @param Gravity_Flow_Assignee $assignee
+		 * @param string $new_status
+		 * @param array $form
+		 *
+		 * @return string|bool Return a success feedback message safe for page output or false.
+		 */
+		public function process_assignee_status( $assignee, $new_status, $form ) {
+
+			if ( $new_status != 'complete' ) {
+				$this->log_debug( __METHOD__ . '() bailing - assignee ' . $assignee->get_key() . ' ' . $new_status );
+				return false;
+			}
+
+			$current_user_status = $assignee->get_status();
+
+			list( $role, $current_role_status ) = $this->get_current_role_status();
+
+			if ( $current_user_status == 'pending' ) {
+				$assignee->update_status( $new_status );
+			}
+
+			if ( $current_role_status == 'pending' ) {
+				$this->update_role_status( $role, $new_status );
+			}
+
+			$this->log_debug( __METHOD__ . '() assignee ' . $assignee->get_key() . ' complete' );
+
+
+			$note = $this->get_name() . ': ' . esc_html__( 'Processed', 'gravityflow' );
+			$this->add_note( $note );
+
+			return $note;
+		}
 	}
 
 }
