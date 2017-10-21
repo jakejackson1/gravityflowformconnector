@@ -324,6 +324,7 @@ if ( class_exists( 'GFForms' ) ) {
 
 			if ( empty( $payment_status ) || $payment_status == 'paid' ) {
 				$assignee_status = 'complete';
+				$current_step->process_assignee_status( $assignee, $assignee_status, $form );
 			} else {
 				if ( strtolower( $entry['payment_status'] ) == 'processing' ) {
 					$processing_meta = array(
@@ -336,8 +337,6 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$this->log_debug( __METHOD__ . '() entry payment status: ' . $entry['payment_status'] );
 			$this->log_debug( __METHOD__ . '() assignee status: ' . $assignee_status );
-
-			$assignee->update_status( $assignee_status );
 
 			$api->process_workflow( $parent_entry_id );
 		}
@@ -597,7 +596,6 @@ if ( class_exists( 'GFForms' ) ) {
 		public function action_gform_post_payment_completed( $entry, $action ) {
 			$this->log_debug( __METHOD__ . '() starting' );
 
-
 			$processing_meta = gform_get_meta( $entry['id'], 'workflow_form_submission_step_processing_meta' );
 
 			if ( $processing_meta ) {
@@ -630,9 +628,7 @@ if ( class_exists( 'GFForms' ) ) {
 				}
 
 				$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
-				$assignee->update_status( 'complete' );
-
-				$this->log_debug( __METHOD__ . '() assignee ' . $assignee_key . ' complete' );
+				$current_step->process_assignee_status( $assignee, 'complete', $current_step->get_form() );
 
 				$api->process_workflow( $parent_entry_id );
 			}
