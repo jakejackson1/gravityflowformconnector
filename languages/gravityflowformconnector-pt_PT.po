@@ -1,19 +1,18 @@
 # Copyright 2015-2017 Steven Henty.
 # Translators:
 # FX Bénard <fxb@wp-translations.org>, 2017
-# Thom <thom.pp9@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
 "POT-Creation-Date: 2017-09-02 12:32:54+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Thom <thom.pp9@gmail.com>, 2017\n"
-"Language-Team: Dutch (Netherlands) (https://www.transifex.com/gravityflow/teams/50678/nl_NL/)\n"
+"Last-Translator: FX Bénard <fxb@wp-translations.org>, 2017\n"
+"Language-Team: Portuguese (Portugal) (https://www.transifex.com/gravityflow/teams/50678/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl_NL\n"
+"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gravity Flow Build Script\n"
 "X-Poedit-Basepath: ../\n"
@@ -26,54 +25,56 @@ msgstr ""
 
 #: class-form-connector.php:299
 msgid "Submission received."
-msgstr "Inzending ontvangen."
+msgstr "Submissão recebida."
 
 #: class-form-connector.php:359 class-form-connector.php:367
 msgid "The link to this form is no longer valid."
-msgstr "De link naar dit formulier is niet meer geldig."
+msgstr "A ligação para este formulário já não está válida."
 
 #: class-form-connector.php:367
 msgid "This form requires you to log in. Please log in first."
-msgstr "Dit formulier vereist dat je ingelogd bent. Log eerst in."
+msgstr ""
 
 #: class-form-connector.php:405
 msgid "This form is no longer valid."
-msgstr "Dit formulier is niet meer geldig."
+msgstr "Este formulário já não está válido."
 
 #: class-form-connector.php:415
 msgid "This form is no longer accepting submissions."
-msgstr "Dit formulier accepteert geen inzendingen meer."
+msgstr "Este formulário já não aceita submissões."
 
 #: class-form-connector.php:424
 msgid "Your input is no longer required."
-msgstr "Jouw bijdrage is niet meer nodig."
+msgstr "O seu contributo já não é necessário."
 
 #: class-form-connector.php:430
 msgid "There was a problem with you submission. Please use the link provided."
-msgstr "Er was een probleem met je inzending. Gebruik de opgegeven link."
+msgstr ""
+"Ocorreu um problema com a sua submissão. Por favor, use a ligação "
+"disponível."
 
 #: includes/class-step-form-submission.php:20
 #: includes/class-step-form-submission.php:43
 msgid "Form Submission"
-msgstr "Formulierinzending"
+msgstr "Submissão do formulário"
 
 #: includes/class-step-form-submission.php:28
 #: includes/class-step-new-entry.php:26
 #: includes/class-step-update-entry.php:32
 msgid "Select a Form"
-msgstr "Selecteer een formulier"
+msgstr "Seleccione um formulário"
 
 #: includes/class-step-form-submission.php:36
 msgid "Select"
-msgstr "Selecteren"
+msgstr "Seleccione"
 
 #: includes/class-step-form-submission.php:37
 msgid "Conditional Routing"
-msgstr "Voorwaardelijke routering"
+msgstr "Encaminhamento condicional"
 
 #: includes/class-step-form-submission.php:51
 msgid "Assignee Policy"
-msgstr "Beleid voor toewijzing"
+msgstr "Política de titulares"
 
 #: includes/class-step-form-submission.php:52
 msgid ""
@@ -82,39 +83,37 @@ msgid ""
 "step can be completed. If the step is assigned to a role only one user in "
 "that role needs to complete the step."
 msgstr ""
-"Bepaal hoe deze stap moet worden verwerkt. Als alle toegewezen medewerkers "
-"deze stap moeten voltooien dan vereist de inzending een bijdrage van elke "
-"toegewezen medewerker, voordat de stap kan worden voltooid. Als de stap is "
-"toegewezen aan een rol, hoeft maar één gebruiker in die rol de stap te "
-"voltooien."
+"Defina como este passo deve ser processado. Se todos os titulares têm de "
+"concluir este passo, então o registo exigirá a participação de todos. Se o "
+"passo estiver atribuído a um papel, apenas um utilizador nesse papel precisa"
+" de o concluir."
 
 #: includes/class-step-form-submission.php:57
 msgid "At least one assignee must complete this step"
-msgstr "Minstens één toegewezen medewerker moet deze stap voltooien"
+msgstr "Pelo menos um dos titulares tem de completar este passo."
 
 #: includes/class-step-form-submission.php:61
 msgid "All assignees must complete this step"
-msgstr "Alle toegewezen medewerkers moeten deze stap voltooien"
+msgstr "Todos os titulares têm de concluir este passo"
 
 #: includes/class-step-form-submission.php:70
 msgid "Assignee email"
-msgstr "Toegewezen medewerker e-mail"
+msgstr "Email do titular"
 
 #: includes/class-step-form-submission.php:74
 msgid "Please submit the following form: {workflow_form_submission_link}"
-msgstr "Verstuur het volgende formulier: {workflow_form_submission_link}"
+msgstr ""
+"Por favor, submeta o formulário seguinte: {workflow_form_submission_link}"
 
 #: includes/class-step-form-submission.php:80
 #: includes/class-step-new-entry.php:76
 #: includes/class-step-update-entry.php:85
 msgid "Form"
-msgstr "Formulier"
+msgstr "Formulário"
 
 #: includes/class-step-form-submission.php:81
 msgid "Select the form to be used for this form submission step."
-msgstr ""
-"Selecteer het formulier dat gebruikt moet worden voor deze formulier "
-"inzending stap. "
+msgstr "Seleccione o formulário a ser utilizado nesta submissão."
 
 #: includes/class-step-form-submission.php:88
 msgid ""
@@ -122,38 +121,38 @@ msgid ""
 " Submit Page in the WordPress Admin Dashboard or you can choose a page with "
 "either a Gravity Flow submit shortcode or a Gravity Forms shortcode."
 msgstr ""
-"Selecteer de pagina die gebruikt moet worden voor de formulier inzending. "
-"Dit kan de Workflow Inzenden Pagina in de WordPress Admin Dashboard zijn of "
-"je kunt een pagina kiezen met de Gravity Flow inzenden shortcode of een "
-"Gravity Forms shortcode. "
+"Seleccione a página a ser utilizada para a submissão do formulário. Esta "
+"pode ser a página de submissão do Workflow no painel de administração do "
+"WordPress ou pode escolher uma página com o shortcode do Gravity Flow ou o "
+"shortcode do Gravity Forms."
 
 #: includes/class-step-form-submission.php:89
 msgid "Submission Page"
-msgstr "Inzendingspagina"
+msgstr "Página de submissão"
 
 #: includes/class-step-form-submission.php:100
 #: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
 #: includes/class-step-update-entry.php:148
 msgid "Field Mapping"
-msgstr "Veldkoppeling"
+msgstr "Campo de mapeamento"
 
 #: includes/class-step-form-submission.php:104
 #: includes/class-step-new-entry.php:93
 #: includes/class-step-update-entry.php:152
 msgid "Field"
-msgstr "Veld"
+msgstr "Campo"
 
 #: includes/class-step-form-submission.php:105
 #: includes/class-step-new-entry.php:94
 #: includes/class-step-update-entry.php:153
 msgid "Value"
-msgstr "Waarde"
+msgstr "Valor"
 
 #: includes/class-step-form-submission.php:108
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
 #: includes/class-step-update-entry.php:156
 msgid "Mapping"
-msgstr "Koppelen"
+msgstr "Mapeamento"
 
 #: includes/class-step-form-submission.php:108
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
@@ -162,48 +161,47 @@ msgid ""
 "Map the fields of this form to the selected form. Values from this form will"
 " be saved in the entry in the selected form"
 msgstr ""
-"Koppel de velden van dit formulier aan het geselecteerde formulier. Waarden "
-"van dit formulier worden opgeslagen in de inzending van het geselecteerde "
-"formulier."
+"Mapeie os campos deste formulário para o formulário seleccionado. Os valores"
+" deste formulário serão guardados no registo do formulário seleccionado"
 
 #: includes/class-step-form-submission.php:159
 msgid "Pending."
-msgstr "Wachtend."
+msgstr "Pendente."
 
 #: includes/class-step-form-submission.php:205
 #: includes/class-step-new-entry.php:382
 msgid "Select a Field"
-msgstr "Selecteer een veld"
+msgstr "Seleccione um campo"
 
 #: includes/class-step-form-submission.php:212
 #: includes/class-step-new-entry.php:389
 msgid "Select a %s Field"
-msgstr "Selecteer een %s veld"
+msgstr "Seleccione um campo %s"
 
 #: includes/class-step-form-submission.php:220
 #: includes/class-step-new-entry.php:397
 msgid "Entry ID"
-msgstr "Inzending ID"
+msgstr "ID do registo"
 
 #: includes/class-step-form-submission.php:221
 #: includes/class-step-new-entry.php:398
 msgid "Entry Date"
-msgstr "Inzendingsdatum"
+msgstr "Data do registo"
 
 #: includes/class-step-form-submission.php:222
 #: includes/class-step-new-entry.php:399
 msgid "User IP"
-msgstr "Gebruiker IP"
+msgstr "IP do utilizador"
 
 #: includes/class-step-form-submission.php:223
 #: includes/class-step-new-entry.php:400
 msgid "Source Url"
-msgstr "Bron URL"
+msgstr "URL de origem"
 
 #: includes/class-step-form-submission.php:224
 #: includes/class-step-new-entry.php:401
 msgid "Created By"
-msgstr "Aangemaakt door"
+msgstr "Criado por"
 
 #: includes/class-step-form-submission.php:261
 #: includes/class-step-form-submission.php:268
@@ -211,48 +209,50 @@ msgstr "Aangemaakt door"
 #: includes/class-step-new-entry.php:439 includes/class-step-new-entry.php:446
 #: includes/class-step-new-entry.php:466
 msgid "Full"
-msgstr "Vol"
+msgstr "Completo"
 
 #: includes/class-step-form-submission.php:275
 #: includes/class-step-new-entry.php:453
 msgid "Selected"
-msgstr "Geselecteerd"
+msgstr "Seleccionado"
 
 #: includes/class-step-form-submission.php:530
 msgid "Open Form"
-msgstr "Open formulier"
+msgstr "Abrir formulário"
 
 #: includes/class-step-form-submission.php:585
 msgid "User"
-msgstr "Gebruiker"
+msgstr "Utilizador"
 
 #: includes/class-step-form-submission.php:589
 msgid "Email"
-msgstr "E-mailadres"
+msgstr "Email"
 
 #: includes/class-step-form-submission.php:593
 msgid "Role"
-msgstr "Rol"
+msgstr "Papel"
 
 #: includes/class-step-form-submission.php:610
 msgid "Pending Submission"
-msgstr "Wacht op inzending"
+msgstr "Submissão pendente"
 
 #: includes/class-step-form-submission.php:614
 msgid "Complete"
-msgstr "Voltooid"
+msgstr "Concluído"
 
 #: includes/class-step-form-submission.php:616
 msgid "Queued"
-msgstr "In de wachtrij"
+msgstr "Em fila"
 
 #: includes/class-step-form-submission.php:712
 msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
-msgstr "Standaard - WordPress dashboard beheerder: inzendingspagina workflow"
+msgstr ""
+"Por omissão - Página de submissão do Workflow no painel de administração do "
+"WordPress"
 
 #: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
 msgid "New Entry"
-msgstr "Nieuwe inzending"
+msgstr "Novo registo"
 
 #: includes/class-step-new-entry.php:37
 #: includes/class-step-update-entry.php:46
@@ -262,82 +262,81 @@ msgstr "Site"
 #: includes/class-step-new-entry.php:43
 #: includes/class-step-update-entry.php:52
 msgid "This site"
-msgstr "Deze site"
+msgstr "Este site"
 
 #: includes/class-step-new-entry.php:44
 #: includes/class-step-update-entry.php:53
 msgid "A different site"
-msgstr "Een andere site"
+msgstr "Um site diferente"
 
 #: includes/class-step-new-entry.php:49
 #: includes/class-step-update-entry.php:58
 msgid "Site Url"
-msgstr "Site URL"
+msgstr "URL do site"
 
 #: includes/class-step-new-entry.php:58
 #: includes/class-step-update-entry.php:67
 msgid "Public Key"
-msgstr "Publieke sleutel"
+msgstr "Chave Pública"
 
 #: includes/class-step-new-entry.php:67
 #: includes/class-step-update-entry.php:76
 msgid "Private Key"
-msgstr "Geheime sleutel"
+msgstr "Chave Privada"
 
 #: includes/class-step-new-entry.php:122
 msgid "Store New Entry ID"
-msgstr "Nieuwe inzending ID opslaan"
+msgstr "Guardar ID de novo registo"
 
 #: includes/class-step-new-entry.php:125
 msgid "Store the ID of the new entry."
-msgstr "Sla het ID van de nieuwe inzending op."
+msgstr "Guardar o ID do novo registo."
 
 #: includes/class-step-new-entry.php:190
 msgid "Processed."
-msgstr "Verwerkt. "
+msgstr "Processado."
 
 #: includes/class-step-update-entry.php:20
 #: includes/class-step-update-entry.php:42
 #: includes/class-step-update-entry.php:193
 msgid "Update an Entry"
-msgstr "Inzending bijwerken"
+msgstr "Actualizar um registo"
 
 #: includes/class-step-update-entry.php:92
 msgid "Action"
-msgstr "Actie"
+msgstr "Acção"
 
 #: includes/class-step-update-entry.php:104
 msgid "Entry ID Field"
-msgstr "Inzending ID-veld"
+msgstr "Campo de ID do registo"
 
 #: includes/class-step-update-entry.php:106
 msgid ""
 "Select the field which will contain the entry ID of the entry that will be "
 "updated. This is used to lookup the entry so it can be updated."
 msgstr ""
-"Selecteer het veld dat het inzending ID bevat van de inzending die je wilt "
-"bijwerken. Dit wordt gebruikt om de inzending te vinden, zodat deze kan "
-"worden bijgewerkt."
+"Seleccione o campo que irá conter o ID do registo que irá ser actualizado. "
+"Isto é usado para referenciar o registo para que possa ser actualizado."
 
 #: includes/class-step-update-entry.php:128
 msgid "Entry ID (Self)"
-msgstr "Inzending ID (eigen)"
+msgstr "ID do registo (próprio)"
 
 #: includes/class-step-update-entry.php:138
 msgid "Approval Status Field"
-msgstr "Status goedkeuring-veld"
+msgstr "Campo de estado de aprovação"
 
 #: includes/class-step-update-entry.php:176
 msgid "Assignee"
-msgstr "Gemachtigde"
+msgstr "Titular"
 
 #: includes/class-step-update-entry.php:231
 msgid "Approval"
-msgstr "Goedkeuring"
+msgstr "Aprovação"
 
 #: includes/class-step-update-entry.php:234
 msgid "User Input"
-msgstr "Gebruikersinvoer"
+msgstr "Contribuição do utilizador"
 
 #. Plugin Name of the plugin/theme
 msgid "Gravity Flow Form Connector"
@@ -349,7 +348,7 @@ msgstr "http://gravityflow.io"
 
 #. Description of the plugin/theme
 msgid "Form Connector Extension for Gravity Flow."
-msgstr "Formulier verbinding-extensie voor Gravity Flow."
+msgstr "Extensão Connector para Gravity Flow."
 
 #. Author of the plugin/theme
 msgid "Steve Henty"

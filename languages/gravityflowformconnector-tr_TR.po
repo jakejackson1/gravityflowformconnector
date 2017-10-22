@@ -1,13 +1,14 @@
 # Copyright 2015-2017 Steven Henty.
 # Translators:
-# Süha Karalar <suhakaralar@gmail.com>, 2017
+# FX Bénard <fxb@wp-translations.org>, 2017
+# Türker YILDIRIM <turker.biz@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-07-23 19:53:52+00:00\n"
+"POT-Creation-Date: 2017-09-02 12:32:54+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Süha Karalar <suhakaralar@gmail.com>, 2017\n"
+"Last-Translator: Türker YILDIRIM <turker.biz@gmail.com>, 2017\n"
 "Language-Team: Turkish (Turkey) (https://www.transifex.com/gravityflow/teams/50678/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -33,7 +34,7 @@ msgstr "Bu forma bağlantı artık geçerli değil."
 
 #: class-form-connector.php:367
 msgid "This form requires you to log in. Please log in first."
-msgstr "Bu form oturum açmanızı gerektirir. Lütfen önce giriş yapın."
+msgstr ""
 
 #: class-form-connector.php:405
 msgid "This form is no longer valid."
@@ -55,13 +56,13 @@ msgstr ""
 #: includes/class-step-form-submission.php:20
 #: includes/class-step-form-submission.php:43
 msgid "Form Submission"
-msgstr "Form Gönderimi"
+msgstr "Form gönderimi"
 
 #: includes/class-step-form-submission.php:28
 #: includes/class-step-new-entry.php:26
 #: includes/class-step-update-entry.php:32
 msgid "Select a Form"
-msgstr "Bir Form Seçin"
+msgstr "Bir form seçin"
 
 #: includes/class-step-form-submission.php:36
 msgid "Select"
@@ -69,11 +70,11 @@ msgstr "Seç"
 
 #: includes/class-step-form-submission.php:37
 msgid "Conditional Routing"
-msgstr "Koşullu Yönlendirme"
+msgstr "Koşullu yönlendirme"
 
 #: includes/class-step-form-submission.php:51
 msgid "Assignee Policy"
-msgstr "Görevlendirme Kuralları"
+msgstr "Görevlendirme kuralları"
 
 #: includes/class-step-form-submission.php:52
 msgid ""
@@ -97,7 +98,7 @@ msgstr "Tüm görevlilerin bu adımı tamamlaması gerekir"
 
 #: includes/class-step-form-submission.php:70
 msgid "Assignee email"
-msgstr "Görevlilere Eposta"
+msgstr "Görevli e-postası"
 
 #: includes/class-step-form-submission.php:74
 msgid "Please submit the following form: {workflow_form_submission_link}"
@@ -119,20 +120,20 @@ msgid ""
 " Submit Page in the WordPress Admin Dashboard or you can choose a page with "
 "either a Gravity Flow submit shortcode or a Gravity Forms shortcode."
 msgstr ""
-"Form gönderimi için kullanılacak sayfayı seçin. Bu, WordPress Yönetici "
-"Kontrol Paneli’ndeki İş Akışı Gönderme Sayfası olabilir veya Gravity Flow "
+"Form gönderimi için kullanılacak sayfayı seçin. Bu, WordPress yönetici "
+"kontrol panelindeki iş akışı gönderme sayfası olabilir veya Gravity Flow "
 "gönderimli kısa kod veya Gravity Forms kısayolu içeren bir sayfa "
 "seçebilirsiniz."
 
 #: includes/class-step-form-submission.php:89
 msgid "Submission Page"
-msgstr "Gönderi Sayfası"
+msgstr "Gönderi sayfası"
 
 #: includes/class-step-form-submission.php:100
 #: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
 #: includes/class-step-update-entry.php:148
 msgid "Field Mapping"
-msgstr "Alan Eşleştirme"
+msgstr "Alan eşleştirme"
 
 #: includes/class-step-form-submission.php:104
 #: includes/class-step-new-entry.php:93
@@ -169,22 +170,22 @@ msgstr "Beklemede"
 #: includes/class-step-form-submission.php:205
 #: includes/class-step-new-entry.php:382
 msgid "Select a Field"
-msgstr "Bir Alan Seçin"
+msgstr "Bir alan seçin"
 
 #: includes/class-step-form-submission.php:212
 #: includes/class-step-new-entry.php:389
 msgid "Select a %s Field"
-msgstr "Bir %s Alanı Seçin"
+msgstr "Bir %s alanı seçin"
 
 #: includes/class-step-form-submission.php:220
 #: includes/class-step-new-entry.php:397
 msgid "Entry ID"
-msgstr "Kayıt NO:"
+msgstr "Kayıt no:"
 
 #: includes/class-step-form-submission.php:221
 #: includes/class-step-new-entry.php:398
 msgid "Entry Date"
-msgstr "Kayıt Tarihi"
+msgstr "Kayıt tarihi"
 
 #: includes/class-step-form-submission.php:222
 #: includes/class-step-new-entry.php:399
@@ -194,7 +195,7 @@ msgstr "Kullanıcı IP"
 #: includes/class-step-form-submission.php:223
 #: includes/class-step-new-entry.php:400
 msgid "Source Url"
-msgstr "Kaynak URL"
+msgstr "Kaynak adres"
 
 #: includes/class-step-form-submission.php:224
 #: includes/class-step-new-entry.php:401
@@ -216,7 +217,7 @@ msgstr "Seçilmiş"
 
 #: includes/class-step-form-submission.php:530
 msgid "Open Form"
-msgstr "Form Aç"
+msgstr "Form aç"
 
 #: includes/class-step-form-submission.php:585
 msgid "User"
@@ -232,7 +233,7 @@ msgstr "Rol"
 
 #: includes/class-step-form-submission.php:610
 msgid "Pending Submission"
-msgstr "Bekleyen Gönderi"
+msgstr "Bekleyen gönderi"
 
 #: includes/class-step-form-submission.php:614
 msgid "Complete"
@@ -244,11 +245,12 @@ msgstr "Sıraya alındı"
 
 #: includes/class-step-form-submission.php:712
 msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
-msgstr "Varsayılan - WordPress Yönetici Panosu: İş Akışı Gönderme Sayfası"
+msgstr ""
+"Varsayılan - WordPress yönetici kontrol paneli: İş akışı gönderme sayfası"
 
 #: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
 msgid "New Entry"
-msgstr "Yeni Kayıt"
+msgstr "Yeni kayıt"
 
 #: includes/class-step-new-entry.php:37
 #: includes/class-step-update-entry.php:46
@@ -268,7 +270,7 @@ msgstr "Farklı bir site"
 #: includes/class-step-new-entry.php:49
 #: includes/class-step-update-entry.php:58
 msgid "Site Url"
-msgstr "Site URL’si"
+msgstr "Site adresi"
 
 #: includes/class-step-new-entry.php:58
 #: includes/class-step-update-entry.php:67
@@ -282,11 +284,11 @@ msgstr "Özel Anahtar"
 
 #: includes/class-step-new-entry.php:122
 msgid "Store New Entry ID"
-msgstr "Yeni Kayıt No’yu Sakla"
+msgstr "Yeni kayıt no’yu sakla"
 
 #: includes/class-step-new-entry.php:125
 msgid "Store the ID of the new entry."
-msgstr "Yeni kaydın No’sunu sakla."
+msgstr "Yeni kaydın no’sunu sakla."
 
 #: includes/class-step-new-entry.php:190
 msgid "Processed."
@@ -296,7 +298,7 @@ msgstr "İşlendi."
 #: includes/class-step-update-entry.php:42
 #: includes/class-step-update-entry.php:193
 msgid "Update an Entry"
-msgstr "Kayıt Güncelle"
+msgstr "Kayıt güncelle"
 
 #: includes/class-step-update-entry.php:92
 msgid "Action"
@@ -304,7 +306,7 @@ msgstr "Eylem"
 
 #: includes/class-step-update-entry.php:104
 msgid "Entry ID Field"
-msgstr "Kayıt NO Alanı"
+msgstr "Kayıt no alanı"
 
 #: includes/class-step-update-entry.php:106
 msgid ""
@@ -316,11 +318,11 @@ msgstr ""
 
 #: includes/class-step-update-entry.php:128
 msgid "Entry ID (Self)"
-msgstr "Kayıt NO (Kendisi)"
+msgstr "Kayıt no (Kendisi)"
 
 #: includes/class-step-update-entry.php:138
 msgid "Approval Status Field"
-msgstr "Onay Durumu Alanı"
+msgstr "Onay durumu alanı"
 
 #: includes/class-step-update-entry.php:176
 msgid "Assignee"
@@ -336,11 +338,11 @@ msgstr "Kullanıcı Girişi"
 
 #. Plugin Name of the plugin/theme
 msgid "Gravity Flow Form Connector"
-msgstr "Gravity Flow Form Bağlayıcı"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "http://gravityflow.io"
-msgstr "http://gravityflow.io"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid "Form Connector Extension for Gravity Flow."
@@ -348,4 +350,4 @@ msgstr "Gravity Flow için Form Bağlayıcı Uzantısı."
 
 #. Author of the plugin/theme
 msgid "Steve Henty"
-msgstr "Steven Henty"
+msgstr ""

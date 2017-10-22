@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-07-23 19:53:52+00:00\n"
+"POT-Creation-Date: 2017-09-02 12:32:54+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: michael edi <michaeledi@163.com>, 2016\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/gravityflow/teams/50678/zh_CN/)\n"
@@ -33,7 +33,7 @@ msgstr "此表单链接已失效。"
 
 #: class-form-connector.php:367
 msgid "This form requires you to log in. Please log in first."
-msgstr "此表单要求您登录。请先登录。"
+msgstr ""
 
 #: class-form-connector.php:405
 msgid "This form is no longer valid."
@@ -326,11 +326,11 @@ msgstr "用户输入"
 
 #. Plugin Name of the plugin/theme
 msgid "Gravity Flow Form Connector"
-msgstr "Gravity Flow Form Connector"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "http://gravityflow.io"
-msgstr "http://gravityflow.io"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid "Form Connector Extension for Gravity Flow."
@@ -338,4 +338,4 @@ msgstr "连接不同表单的数据"
 
 #. Author of the plugin/theme
 msgid "Steve Henty"
-msgstr "Steven Henty"
+msgstr ""
