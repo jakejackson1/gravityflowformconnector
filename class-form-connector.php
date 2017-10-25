@@ -540,7 +540,7 @@ if ( class_exists( 'GFForms' ) ) {
 			/* @var Gravity_Flow_Step_Form_Submission $current_step */
 			$current_step = $api->get_current_step( $parent_entry );
 
-			if ( empty( $current_step ) || $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
+			if ( empty( $current_step ) || ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
 				return $value;
 			}
 

@@ -2,4 +2,5 @@
 - Added the Assignee setting to the Update Entry step to allow the assignee to be selected for User Input and Approval actions.
 - Fixed a misleading message at the top of the form for email assignees when the link is not valid.
 - Fixed an issue with the Form Submission step where the role and email assignees can't complete the step.
+- Fixed an issue with the Form Submission step where hidden and administrative fields may not get mapped.
 - Updated Members 2.0 integration to use human readable labels for the capabilities. Requires Gravity Flow 1.8.1 or greater.
