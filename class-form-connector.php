@@ -181,6 +181,7 @@ if ( class_exists( 'GFForms' ) ) {
 						$value = rgar( $mapped_fields, $field->id );
 
 						if ( empty( $value ) ) {
+							$value = array();
 							foreach ( $field->inputs as $input ) {
 								$val = rgar( $mapped_fields, (string) $input['id'] );
 								if ( is_array( $val ) ) {
