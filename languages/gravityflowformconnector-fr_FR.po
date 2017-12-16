@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-09-02 12:32:54+00:00\n"
+"POT-Creation-Date: 2017-10-22 17:19:38+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FX Bénard <fxb@wp-translations.org>, 2017\n"
 "Language-Team: French (France) (https://www.transifex.com/gravityflow/teams/50678/fr_FR/)\n"
@@ -23,32 +23,35 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Textdomain-Support: yes\n"
 
-#: class-form-connector.php:299
+#: class-form-connector.php:84
+msgid "Manage Settings"
+msgstr "Gérer les réglages"
+
+#: class-form-connector.php:85
+msgid "Uninstall"
+msgstr "Désinstaller"
+
+#: class-form-connector.php:317
 msgid "Submission received."
 msgstr "Soumission reçue."
 
-#: class-form-connector.php:359 class-form-connector.php:367
+#: class-form-connector.php:376 class-form-connector.php:385
 msgid "The link to this form is no longer valid."
 msgstr "Le lien pour ce formulaire n’est plus valide."
 
-#: class-form-connector.php:367
-msgid "This form requires you to log in. Please log in first."
-msgstr ""
-"Ce formulaire nécessite que vous soyez connecté. Veuillez-vous connecter."
-
-#: class-form-connector.php:405
+#: class-form-connector.php:424
 msgid "This form is no longer valid."
 msgstr "Ce formulaire n’est plus valide."
 
-#: class-form-connector.php:415
+#: class-form-connector.php:435
 msgid "This form is no longer accepting submissions."
 msgstr "Ce formulaire n’accepte plus les soumissions."
 
-#: class-form-connector.php:424
+#: class-form-connector.php:445
 msgid "Your input is no longer required."
 msgstr "Votre entrée n’est plus nécessaire."
 
-#: class-form-connector.php:430
+#: class-form-connector.php:452
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr ""
 "Un problème s’est produit avec votre soumission. Veuillez utiliser le lien "
@@ -247,11 +250,15 @@ msgstr "Terminé"
 msgid "Queued"
 msgstr "En file d’attente"
 
-#: includes/class-step-form-submission.php:712
+#: includes/class-step-form-submission.php:721
 msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
 msgstr ""
 "Par défaut - Tableau de bord d’administration WordPress : Page de soumission"
 " workflow"
+
+#: includes/class-step-form-submission.php:790
+msgid "Processed"
+msgstr "Traité"
 
 #: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
 msgid "New Entry"
@@ -301,7 +308,7 @@ msgstr "Traité."
 
 #: includes/class-step-update-entry.php:20
 #: includes/class-step-update-entry.php:42
-#: includes/class-step-update-entry.php:193
+#: includes/class-step-update-entry.php:203
 msgid "Update an Entry"
 msgstr "Mettre à jour une entrée"
 
@@ -331,29 +338,38 @@ msgid "Approval Status Field"
 msgstr "Champ d’état d’approbation"
 
 #: includes/class-step-update-entry.php:176
+#: includes/class-step-update-entry.php:186
 msgid "Assignee"
 msgstr "Assigné"
 
-#: includes/class-step-update-entry.php:231
+#: includes/class-step-update-entry.php:241
 msgid "Approval"
 msgstr "Acceptation"
 
-#: includes/class-step-update-entry.php:234
+#: includes/class-step-update-entry.php:244
 msgid "User Input"
 msgstr "Entrée utilisateur"
+
+#: includes/class-step-update-entry.php:504
+msgid "Select an assignee"
+msgstr "Sélectionner un assigné"
+
+#: includes/class-step-update-entry.php:510
+msgid "User (created_by)"
+msgstr "Utilisateur (created_by)"
 
 #. Plugin Name of the plugin/theme
 msgid "Gravity Flow Form Connector"
 msgstr "Gravity Flow Form Connector"
 
 #. Author URI of the plugin/theme
-msgid "http://gravityflow.io"
-msgstr "http://gravityflow.io"
+msgid "https://gravityflow.io"
+msgstr "https://gravityflow.io"
 
 #. Description of the plugin/theme
 msgid "Form Connector Extension for Gravity Flow."
 msgstr "Extension de connecteur de formulaire pour Gravity Flow."
 
 #. Author of the plugin/theme
-msgid "Steve Henty"
-msgstr "Steve Henty"
+msgid "Gravity Flow"
+msgstr "Gravity Flow"

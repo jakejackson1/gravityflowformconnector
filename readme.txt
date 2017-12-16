@@ -42,6 +42,15 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.3 =
+- Added support for the token attribute to the {workflow_form_submission_url} and {workflow_form_submission_link} merge tags.
+- Added the Assignee setting to the Update Entry step to allow the assignee to be selected for User Input and Approval actions.
+- Fixed a misleading message at the top of the form for email assignees when the link is not valid.
+- Fixed an issue with the Form Submission step where the role and email assignees can't complete the step.
+- Fixed an issue with the Form Submission step where hidden and administrative fields may not get mapped.
+- Updated Members 2.0 integration to use human readable labels for the capabilities. Requires Gravity Flow 1.8.1 or greater.
+
+
 = 1.2.1 =
 - Added support for steps extending Gravity_Flow_Step_Form_Submission
 - Fixed an issue with the Parent-Child Forms extension where an invalid link message is displayed when the parent entry is on a step that is not a Form Submission step.

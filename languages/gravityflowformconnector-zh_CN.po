@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-09-02 12:32:54+00:00\n"
+"POT-Creation-Date: 2017-10-22 17:19:38+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: michael edi <michaeledi@163.com>, 2016\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/gravityflow/teams/50678/zh_CN/)\n"
@@ -23,31 +23,35 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Textdomain-Support: yes\n"
 
-#: class-form-connector.php:299
+#: class-form-connector.php:84
+msgid "Manage Settings"
+msgstr ""
+
+#: class-form-connector.php:85
+msgid "Uninstall"
+msgstr ""
+
+#: class-form-connector.php:317
 msgid "Submission received."
 msgstr "已收到提交项目。"
 
-#: class-form-connector.php:359 class-form-connector.php:367
+#: class-form-connector.php:376 class-form-connector.php:385
 msgid "The link to this form is no longer valid."
 msgstr "此表单链接已失效。"
 
-#: class-form-connector.php:367
-msgid "This form requires you to log in. Please log in first."
-msgstr ""
-
-#: class-form-connector.php:405
+#: class-form-connector.php:424
 msgid "This form is no longer valid."
 msgstr "此表单已失效。"
 
-#: class-form-connector.php:415
+#: class-form-connector.php:435
 msgid "This form is no longer accepting submissions."
 msgstr "此表单已经不再接受新的项目提交。"
 
-#: class-form-connector.php:424
+#: class-form-connector.php:445
 msgid "Your input is no longer required."
 msgstr "您的输入不再是必需的。"
 
-#: class-form-connector.php:430
+#: class-form-connector.php:452
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr "您提交的项目存在问题。请使用提供的链接。"
 
@@ -234,9 +238,13 @@ msgstr "完成"
 msgid "Queued"
 msgstr "已队列"
 
-#: includes/class-step-form-submission.php:712
+#: includes/class-step-form-submission.php:721
 msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
 msgstr "默认值 - WordPress 管理仪表板︰ 工作流提交页"
+
+#: includes/class-step-form-submission.php:790
+msgid "Processed"
+msgstr ""
 
 #: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
 msgid "New Entry"
@@ -286,7 +294,7 @@ msgstr "处理完成。"
 
 #: includes/class-step-update-entry.php:20
 #: includes/class-step-update-entry.php:42
-#: includes/class-step-update-entry.php:193
+#: includes/class-step-update-entry.php:203
 msgid "Update an Entry"
 msgstr "更新一个条目"
 
@@ -313,23 +321,32 @@ msgid "Approval Status Field"
 msgstr "审批状态字段"
 
 #: includes/class-step-update-entry.php:176
+#: includes/class-step-update-entry.php:186
 msgid "Assignee"
 msgstr "负责人"
 
-#: includes/class-step-update-entry.php:231
+#: includes/class-step-update-entry.php:241
 msgid "Approval"
 msgstr "批准"
 
-#: includes/class-step-update-entry.php:234
+#: includes/class-step-update-entry.php:244
 msgid "User Input"
 msgstr "用户输入"
+
+#: includes/class-step-update-entry.php:504
+msgid "Select an assignee"
+msgstr ""
+
+#: includes/class-step-update-entry.php:510
+msgid "User (created_by)"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Gravity Flow Form Connector"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://gravityflow.io"
+msgid "https://gravityflow.io"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -337,5 +354,5 @@ msgid "Form Connector Extension for Gravity Flow."
 msgstr "连接不同表单的数据"
 
 #. Author of the plugin/theme
-msgid "Steve Henty"
+msgid "Gravity Flow"
 msgstr ""

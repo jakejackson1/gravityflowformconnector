@@ -2,13 +2,14 @@
 # Translators:
 # FX Bénard <fxb@wp-translations.org>, 2017
 # Ecron <ecron_89@hotmail.com>, 2017
+# Xavi Ivars <xavi.ivars@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-09-02 12:32:54+00:00\n"
+"POT-Creation-Date: 2017-10-22 17:19:38+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Ecron <ecron_89@hotmail.com>, 2017\n"
+"Last-Translator: Xavi Ivars <xavi.ivars@gmail.com>, 2017\n"
 "Language-Team: Catalan (https://www.transifex.com/gravityflow/teams/50678/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -24,31 +25,35 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Textdomain-Support: yes\n"
 
-#: class-form-connector.php:299
+#: class-form-connector.php:84
+msgid "Manage Settings"
+msgstr "Gestiona els paràmetres"
+
+#: class-form-connector.php:85
+msgid "Uninstall"
+msgstr "Desinstal·la"
+
+#: class-form-connector.php:317
 msgid "Submission received."
 msgstr "S'ha rebut la tramesa."
 
-#: class-form-connector.php:359 class-form-connector.php:367
+#: class-form-connector.php:376 class-form-connector.php:385
 msgid "The link to this form is no longer valid."
 msgstr "L'enllaç a aquest formulari ja no és vàlid."
 
-#: class-form-connector.php:367
-msgid "This form requires you to log in. Please log in first."
-msgstr "Cal que inicieu sessió abans d'utilitzar el formulari."
-
-#: class-form-connector.php:405
+#: class-form-connector.php:424
 msgid "This form is no longer valid."
 msgstr "Aquest formulari ja no és vàlid."
 
-#: class-form-connector.php:415
+#: class-form-connector.php:435
 msgid "This form is no longer accepting submissions."
 msgstr "Aquest formulari ja no accepta trameses."
 
-#: class-form-connector.php:424
+#: class-form-connector.php:445
 msgid "Your input is no longer required."
 msgstr "Ja no es requereix la vostra entrada."
 
-#: class-form-connector.php:430
+#: class-form-connector.php:452
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr ""
 "Hi ha hagut un problema amb la tramesa. Utilitzeu l'enllaç que se us "
@@ -245,11 +250,15 @@ msgstr "Completat"
 msgid "Queued"
 msgstr "En cua"
 
-#: includes/class-step-form-submission.php:712
+#: includes/class-step-form-submission.php:721
 msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
 msgstr ""
 "Per omissió - Tauler de control de WordPress: Pàgina de Tramesa del Flux de "
 "Treball"
+
+#: includes/class-step-form-submission.php:790
+msgid "Processed"
+msgstr "S'ha processat"
 
 #: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
 msgid "New Entry"
@@ -299,7 +308,7 @@ msgstr "S'ha processat."
 
 #: includes/class-step-update-entry.php:20
 #: includes/class-step-update-entry.php:42
-#: includes/class-step-update-entry.php:193
+#: includes/class-step-update-entry.php:203
 msgid "Update an Entry"
 msgstr "Actualitza una entrada"
 
@@ -328,29 +337,38 @@ msgid "Approval Status Field"
 msgstr "Camp d'estat d'aprovació"
 
 #: includes/class-step-update-entry.php:176
+#: includes/class-step-update-entry.php:186
 msgid "Assignee"
 msgstr "Encarregat"
 
-#: includes/class-step-update-entry.php:231
+#: includes/class-step-update-entry.php:241
 msgid "Approval"
 msgstr "Aprovació"
 
-#: includes/class-step-update-entry.php:234
+#: includes/class-step-update-entry.php:244
 msgid "User Input"
 msgstr "Introducció d'usuari"
+
+#: includes/class-step-update-entry.php:504
+msgid "Select an assignee"
+msgstr "Seleccioneu un assignat"
+
+#: includes/class-step-update-entry.php:510
+msgid "User (created_by)"
+msgstr "Usuari (creat per)"
 
 #. Plugin Name of the plugin/theme
 msgid "Gravity Flow Form Connector"
 msgstr "Connector de formularis del Gravity Flow"
 
 #. Author URI of the plugin/theme
-msgid "http://gravityflow.io"
-msgstr "http://gravityflow.io"
+msgid "https://gravityflow.io"
+msgstr "https://gravityflow.io"
 
 #. Description of the plugin/theme
 msgid "Form Connector Extension for Gravity Flow."
 msgstr "Extensió Connector de Formularis per al Gravity Flow."
 
 #. Author of the plugin/theme
-msgid "Steve Henty"
-msgstr "Steve Henty"
+msgid "Gravity Flow"
+msgstr "Gravity Flow"
