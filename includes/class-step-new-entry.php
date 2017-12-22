@@ -548,7 +548,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 							$new_entry[ $input_id ] = $this->get_target_field_value( $source_field_value, $target_field, $input_id );
 						}
 					} else {
-						$new_entry[ $target_field_id ] = $source_field->get_value_export( $entry, $source_field_id, true );
+						$new_entry[ $target_field_id ] = $this->get_source_field_value( $entry, $source_field, $source_field_id );
 					}
 				} else {
 					$source_field_value            = $this->get_source_field_value( $entry, $source_field, $source_field_id );
@@ -577,9 +577,9 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 * @return string
 		 */
 		public function get_source_field_value( $entry, $source_field, $source_field_id ) {
-			$field_value = $entry[ $source_field_id ];
-
 			if ( in_array( $source_field->type, array( 'poll', 'quiz', 'survey' ) ) ) {
+				$field_value = $entry[ $source_field_id ];
+
 				if ( $source_field->inputType == 'rank' ) {
 					$values = explode( ',', $field_value );
 					foreach ( $values as &$value ) {
@@ -594,6 +594,19 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				}
 
 				return $this->get_source_choice_text( $field_value, $source_field );
+			} else {
+				/**
+				 * Allow choice text to be returned when retrieving the source field value.
+				 *
+				 * @since 1.3.1-dev
+				 *
+				 * @param bool              $use_choice_text When processing choice based fields should the choice text be returned instead of the value. Default is false.
+				 * @param GF_Field          $source_field    The source field being processed.
+				 * @param array             $entry           The entry being processed by this step.
+				 * @param Gravity_Flow_Step $this            The current step.
+				 */
+				$use_choice_text = apply_filters( 'gravityflowformconnector_' . $this->get_type() . '_use_choice_text', false, $source_field, $entry, $this );
+				$field_value     = $source_field->get_value_export( $entry, $source_field_id, $use_choice_text );
 			}
 
 			return $field_value;
