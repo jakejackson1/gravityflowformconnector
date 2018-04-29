@@ -44,7 +44,8 @@ class Gravity_Flow_Form_Connector_Bootstrap {
 
 		require_once( 'class-form-connector.php' );
 
-		gravity_flow_form_connector();
+		// Registers the class name with GFAddOn.
+		GFAddOn::register( 'Gravity_Flow_Form_Connector' );
 	}
 }
 
