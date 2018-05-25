@@ -126,17 +126,21 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	 * @return bool Has the step finished?
 	 */
 	public function process_local_action() {
-		$entry           = $this->get_entry();
+		$entry = $this->get_entry();
 		$target_entry_id = rgar( $entry, $this->delete_entry_id );
 
 		if ( empty( $target_entry_id ) ) {
 			return true;
 		}
 
+		$this->log_debug( __METHOD__ . '(): running for entry #' . $target_entry_id );
+
 		if ( $target_entry_id == $entry['id'] ) {
+			$this->log_debug( __METHOD__ . '(): entry to be deleted is the current entry; deletion will occur post processing' );
 			add_action( 'gravityflow_post_process_workflow', array( $this, 'delete_local_entry_post_process_workflow' ), 10, 3 );
 		} else {
-			$this->delete_local_entry( $target_entry_id );
+			$result = GFAPI::delete_entry( $target_entry_id );
+			$this->log_debug( __METHOD__ . '(): result => ' . print_r( $result, 1 ) );
 		}
 
 		return true;
@@ -149,14 +153,10 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	 */
 	public function process_remote_action() {
 		$entry = $this->get_entry();
-
-		$form = $this->get_form();
-
-		$target_form_id = $this->target_form_id;
+		$form  = $this->get_form();
 
 		$target_entry_id = rgar( $entry, $this->delete_entry_id );
-
-		$target_entry_id = apply_filters( 'gravityflowformconnector_delete_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
+		$target_entry_id = apply_filters( 'gravityflowformconnector_delete_entry_id', $target_entry_id, $entry, $form, $this );
 
 		if ( empty( $target_entry_id ) ) {
 			return true;
@@ -171,13 +171,11 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		$route  = 'entries/' . absint( $entry_id );
 		$method = 'DELETE';
 
+		$this->log_debug( __METHOD__ . '(): running for entry #' . $entry_id );
 		$result = $this->remote_request( $route, $method );
+		$this->log_debug( __METHOD__ . '(): result => ' . print_r( $result, 1 ) );
 
 		return $result;
-	}
-
-	public function delete_local_entry( $entry_id ) {
-		return GFAPI::delete_entry( $entry_id );
 	}
 
 	public function delete_local_entry_post_process_workflow( $form, $entry_id, $step_id ) {
@@ -186,7 +184,8 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		}
 
 		$this->log_debug( __METHOD__ . '(): running for entry #' . $entry_id );
-		$this->delete_local_entry( $entry_id );
+		$result = GFAPI::delete_entry( $entry_id );
+		$this->log_debug( __METHOD__ . '(): result => ' . print_r( $result, 1 ) );
 	}
 
 }
