@@ -167,6 +167,13 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		return true;
 	}
 
+	/**
+	 * Sends a request to delete a remote entry.
+	 *
+	 * @param int $entry_id The ID of the entry to be deleted.
+	 *
+	 * @return bool
+	 */
 	public function delete_remote_entry( $entry_id ) {
 		$route  = 'entries/' . absint( $entry_id );
 		$method = 'DELETE';
@@ -178,6 +185,13 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		return $result;
 	}
 
+	/**
+	 * Deletes the current entry.
+	 *
+	 * @param array $form     The current form.
+	 * @param int   $entry_id The ID of the current entry.
+	 * @param int   $step_id  The ID of the last step which was processed.
+	 */
 	public function delete_local_entry_post_process_workflow( $form, $entry_id, $step_id ) {
 		if ( $step_id !== $this->get_id() || $entry_id !== $this->get_entry_id() ) {
 			return;
