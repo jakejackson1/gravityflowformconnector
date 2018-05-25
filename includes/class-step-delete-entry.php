@@ -28,16 +28,6 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	 * @return array
 	 */
 	public function get_settings() {
-
-		$forms          = $this->get_forms();
-		$form_choices[] = array(
-			'label' => esc_html__( 'Select a Form', 'gravityflowformconnector' ),
-			'value' => '',
-		);
-		foreach ( $forms as $form ) {
-			$form_choices[] = array( 'label' => $form->title, 'value' => $form->id );
-		}
-
 		$settings = array(
 			'title'  => esc_html__( 'Delete an Entry', 'gravityflow' ),
 			'fields' => array(
