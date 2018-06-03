@@ -373,7 +373,10 @@ if ( class_exists( 'GFForms' ) ) {
 				return $form_tag;
 			}
 
+			$this->log_debug( __METHOD__ . '() - current step: ' . $current_step->get_name() . ' for entry id ' . $parent_entry_id );
+
 			if ( ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
+				$this->log_debug( __METHOD__ . '(): adding validation error; not form submission step' );
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) );
 
 				return $form_tag;
@@ -383,7 +386,8 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$is_assignee = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
-        $message = esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' );
+				$this->log_debug( __METHOD__ . '(): adding validation error; not assignee' );
+				$message  = esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' );
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', $message );
 
 				return $form_tag;
