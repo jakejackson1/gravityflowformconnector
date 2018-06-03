@@ -33,7 +33,7 @@ add_action( 'gravityflow_loaded', array( 'Gravity_Flow_Form_Connector_Bootstrap'
 class Gravity_Flow_Form_Connector_Bootstrap {
 
 	public static function load() {
-
+		require_once( 'includes/class-dynamic-hook.php' );
 		require_once( 'includes/class-step-form-submission.php' );
 		require_once( 'includes/class-step-new-entry.php' );
 		require_once( 'includes/class-step-update-entry.php' );

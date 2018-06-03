@@ -265,9 +265,23 @@ if ( class_exists( 'GFForms' ) ) {
 		public function prepopulate_input( $input_id, $value ) {
 
 			$filter_name = 'gravityflow_field_' . str_replace( '.', '_', $input_id );
-			add_filter( "gform_field_value_{$filter_name}", create_function( "", "return maybe_unserialize('" . str_replace( "'", "\'", maybe_serialize( $value ) ) . "');" ) );
+			add_filter( "gform_field_value_{$filter_name}", array( new Gravity_Flow_Form_Connector_Dynamic_Hook( $value, $this ), 'filter_gform_field_value' ) );
 
 			return $filter_name;
+		}
+
+		/**
+		 * Filters the field value to prepoulate the value.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param $filter_values
+		 * @param $preopulate_value
+		 *
+		 * @return mixed
+		 */
+		public function filter_gform_field_value( $filter_values, $preopulate_value ) {
+			return $preopulate_value;
 		}
 
 		/**
