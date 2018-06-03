@@ -276,12 +276,12 @@ if ( class_exists( 'GFForms' ) ) {
 		 * @since 1.3.1
 		 *
 		 * @param $filter_values
-		 * @param $preopulate_value
+		 * @param $prepopulate_value
 		 *
 		 * @return mixed
 		 */
-		public function filter_gform_field_value( $filter_values, $preopulate_value ) {
-			return $preopulate_value;
+		public function filter_gform_field_value( $filter_values, $prepopulate_value ) {
+			return $prepopulate_value;
 		}
 
 		/**
