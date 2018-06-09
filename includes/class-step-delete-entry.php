@@ -195,6 +195,11 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		return $result;
 	}
 
+	/**
+	 * Deletes the local entries when the Gravity Flow cron is processed.
+	 *
+	 * @return void
+	 */
 	public static function cron_delete_local_entries() {
 
 		$form_ids = gravity_flow()->get_workflow_form_ids();
