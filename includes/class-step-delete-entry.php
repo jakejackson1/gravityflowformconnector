@@ -173,9 +173,13 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		if ( $this->delete_action === 'trash' ) {
 			$result = GFAPI::update_entry_property( $target_entry_id, 'status', 'trash' );
 			$this->log_debug( __METHOD__ . '() trashed entry: ' . var_export( $result, 1 ) );
+			if ( $result ) {
+				$this->add_note( esc_html__( 'Moved entry to the trash.', 'gravityflowformconnector' ) );
+			}
 		} elseif ( $target_entry_id == $this->get_entry_id() ) {
 			gform_add_meta( $target_entry_id, 'workflow_delete_entry', 1 );
 			$this->log_debug( __METHOD__ . '(): scheduled for deletion.' );
+			$this->add_note( esc_html__( 'Scheduled entry for deletion on workflow completion.', 'gravityflowformconnector' ) );
 		} else {
 			$result = GFAPI::delete_entry( $target_entry_id );
 			$this->log_debug( __METHOD__ . '(): deleted entry => ' . var_export( $result, 1 ) );
@@ -225,11 +229,13 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	 * @return void
 	 */
 	public static function cron_delete_local_entries() {
+		gravity_flow_form_connector()->log_debug( __METHOD__ . '(): Starting.' );
 
 		$form_ids = gravity_flow()->get_workflow_form_ids();
 
 		if ( empty( $form_ids ) ) {
-			gravity_flow_form_connector()->log_debug( __METHOD__ . '(): aborting; no forms.' );
+			gravity_flow_form_connector()->log_debug( __METHOD__ . '(): aborting; no applicable forms.' );
+
 			return;
 		}
 
@@ -240,12 +246,15 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 					'key'   => 'workflow_delete_entry',
 					'value' => 1,
 				),
+				array(
+					'key'      => 'workflow_final_status',
+					'operator' => 'not in',
+					'value'    => array( 'pending', 'cancelled' ),
+				)
 			),
 		);
 
 		$entry_ids = GFAPI::get_entry_ids( 0, $criteria );
-
-		gravity_flow_form_connector()->log_debug( __METHOD__ . '(): IDs => ' . print_r( $entry_ids, 1 ) );
 
 		foreach ( $entry_ids as $entry_id ) {
 			gravity_flow_form_connector()->log_debug( __METHOD__ . '(): deleting entry #' . $entry_id );
@@ -253,6 +262,7 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 			gravity_flow_form_connector()->log_debug( __METHOD__ . '(): result => ' . print_r( $result, 1 ) );
 		}
 
+		gravity_flow_form_connector()->log_debug( __METHOD__ . '(): Finished. Processed: ' . count( $entry_ids ) );
 	}
 
 }
