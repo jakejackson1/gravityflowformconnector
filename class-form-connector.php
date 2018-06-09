@@ -59,6 +59,8 @@ if ( class_exists( 'GFForms' ) ) {
 
 		/**
 		 * Adds the cron job hook.
+		 *
+		 * @since 1.3.1-dev
 		 */
 		public function pre_init() {
 			parent::pre_init();
@@ -67,8 +69,10 @@ if ( class_exists( 'GFForms' ) ) {
 
 		/**
 		 * Perform tasks when the Gravity Flow cron runs.
+		 *
+		 * @since 1.3.1-dev
 		 */
-		function cron() {
+		public function cron() {
 			$this->log_debug( __METHOD__ . '() Starting cron.' );
 
 			Gravity_Flow_Step_Delete_Entry::cron_delete_local_entries();
