@@ -40,7 +40,10 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 					'onchange'      => 'jQuery(this).closest("form").submit();',
 					'choices'       => array(
 						array( 'label' => esc_html__( 'This site', 'gravityflowformconnector' ), 'value' => 'local' ),
-						array( 'label' => esc_html__( 'A different site', 'gravityflowformconnector' ), 'value' => 'remote' ),
+						array(
+							'label' => esc_html__( 'A different site', 'gravityflowformconnector' ),
+							'value' => 'remote'
+						),
 					),
 				),
 				array(
@@ -68,6 +71,27 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 					'dependency' => array(
 						'field'  => 'server_type',
 						'values' => array( 'remote' ),
+					),
+				),
+				array(
+					'name'          => 'delete_action',
+					'label'         => esc_html__( 'Delete Action', 'gravityflowformconnector' ),
+					'type'          => 'radio',
+					'default_value' => 'permanently',
+					'horizontal'    => true,
+					'choices'       => array(
+						array(
+							'label' => esc_html__( 'Permanently delete the entry', 'gravityflowformconnector' ),
+							'value' => 'permanently',
+						),
+						array(
+							'label' => esc_html__( 'Move the entry to the trash', 'gravityflowformconnector' ),
+							'value' => 'trash',
+						),
+					),
+					'dependency'    => array(
+						'field'  => 'server_type',
+						'values' => array( 'local' ),
 					),
 				),
 			),
@@ -146,10 +170,10 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 
 		$this->log_debug( __METHOD__ . '(): running for entry #' . $target_entry_id );
 
-		if ( $this->trash_entry ) {
+		if ( $this->delete_action === 'trash' ) {
 			$result = GFAPI::update_entry_property( $target_entry_id, 'status', 'trash' );
 			$this->log_debug( __METHOD__ . '() trashed entry: ' . var_export( $result, 1 ) );
-		} elseif ( $target_entry_id === $entry['id'] ) {
+		} elseif ( $target_entry_id == $this->get_entry_id() ) {
 			gform_add_meta( $target_entry_id, 'workflow_delete_entry', 1 );
 			$this->log_debug( __METHOD__ . '(): scheduled for deletion.' );
 		} else {
