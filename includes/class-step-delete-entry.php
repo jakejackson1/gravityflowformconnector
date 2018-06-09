@@ -116,7 +116,7 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	 * @return bool Has the step finished?
 	 */
 	public function process_local_action() {
-		$entry = $this->get_entry();
+		$entry           = $this->get_entry();
 		$target_entry_id = rgar( $entry, $this->delete_entry_id );
 
 		if ( empty( $target_entry_id ) ) {
@@ -125,12 +125,15 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 
 		$this->log_debug( __METHOD__ . '(): running for entry #' . $target_entry_id );
 
-		if ( $target_entry_id == $entry['id'] ) {
-			$this->log_debug( __METHOD__ . '(): entry to be deleted is the current entry; deletion will occur post processing' );
-			add_action( 'gravityflow_post_process_workflow', array( $this, 'delete_local_entry_post_process_workflow' ), 10, 3 );
+		if ( $this->trash_entry ) {
+			$result = GFAPI::update_entry_property( $target_entry_id, 'status', 'trash' );
+			$this->log_debug( __METHOD__ . '() trashed entry: ' . var_export( $result, 1 ) );
+		} elseif ( $target_entry_id == $entry['id'] ) {
+			gform_add_meta( $target_entry_id, 'workflow_delete_entry', 1 );
+			$this->log_debug( __METHOD__ . '(): scheduled for deletion.' );
 		} else {
 			$result = GFAPI::delete_entry( $target_entry_id );
-			$this->log_debug( __METHOD__ . '(): result => ' . print_r( $result, 1 ) );
+			$this->log_debug( __METHOD__ . '(): deleted entry => ' . var_export( $result, 1 ) );
 		}
 
 		return true;
@@ -175,21 +178,35 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		return $result;
 	}
 
-	/**
-	 * Deletes the current entry.
-	 *
-	 * @param array $form     The current form.
-	 * @param int   $entry_id The ID of the current entry.
-	 * @param int   $step_id  The ID of the last step which was processed.
-	 */
-	public function delete_local_entry_post_process_workflow( $form, $entry_id, $step_id ) {
-		if ( $step_id !== $this->get_id() || $entry_id !== $this->get_entry_id() ) {
+	public static function cron_delete_local_entries() {
+
+		$form_ids = gravity_flow()->get_workflow_form_ids();
+
+		if ( empty( $form_ids ) ) {
+			gravity_flow_form_connector()->log_debug( __METHOD__ . '(): aborting; no forms.' );
 			return;
 		}
 
-		$this->log_debug( __METHOD__ . '(): running for entry #' . $entry_id );
-		$result = GFAPI::delete_entry( $entry_id );
-		$this->log_debug( __METHOD__ . '(): result => ' . print_r( $result, 1 ) );
+		$criteria = array(
+			'status'        => 'active',
+			'field_filters' => array(
+				array(
+					'key'   => 'workflow_delete_entry',
+					'value' => 1,
+				),
+			),
+		);
+
+		$entry_ids = GFAPI::get_entry_ids( 0, $criteria );
+
+		gravity_flow_form_connector()->log_debug( __METHOD__ . '(): IDs => ' . print_r( $entry_ids, 1 ) );
+
+		foreach ( $entry_ids as $entry_id ) {
+			gravity_flow_form_connector()->log_debug( __METHOD__ . '(): deleting entry #' . $entry_id );
+			$result = GFAPI::delete_entry( $entry_id );
+			gravity_flow_form_connector()->log_debug( __METHOD__ . '(): result => ' . print_r( $result, 1 ) );
+		}
+
 	}
 
 }
