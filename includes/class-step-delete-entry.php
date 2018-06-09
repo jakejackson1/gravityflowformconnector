@@ -74,11 +74,11 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		);
 
 		$entry_id_field = array(
-			'name'       => 'delete_entry_id',
-			'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
-			'type'       => 'field_select',
-			'tooltip'    => __( 'Select the field which will contain the entry ID of the entry that will be deleted. This is used to lookup the entry so it can be deleted.', 'gravityflowformconnector' ),
-			'required'   => true,
+			'name'     => 'delete_entry_id',
+			'label'    => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
+			'type'     => 'field_select',
+			'tooltip'  => __( 'Select the field which will contain the entry ID of the entry that will be deleted. This is used to lookup the entry so it can be deleted.', 'gravityflowformconnector' ),
+			'required' => true,
 		);
 
 		if ( function_exists( 'gravity_flow_parent_child' ) ) {
@@ -97,8 +97,8 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		$self_entry_id_choice = array(
 			array(
 				'label' => esc_html__( 'Entry ID (Self)', 'gravityflowformconnector' ),
-				'value' => 'id'
-			)
+				'value' => 'id',
+			),
 		);
 		if ( ! isset( $entry_id_field['args']['append_choices'] ) ) {
 			$entry_id_field['args']['append_choices'] = array();
@@ -111,13 +111,34 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	}
 
 	/**
+	 * Returns the ID of the entry to be deleted.
+	 */
+	public function get_target_entry_id() {
+		$entry = $this->get_entry();
+		$form  = $this->get_form();
+
+		$target_entry_id = rgar( $entry, $this->delete_entry_id );
+
+		/**
+		 * Allow the ID of the entry to be deleted to be overidden.
+		 *
+		 * @param string|int                     $target_entry_id The ID of the entry to be deleted.
+		 * @param array                          $entry           The entry being processed by the current step.
+		 * @param array                          $form            The form which created the current entry.
+		 * @param Gravity_Flow_Step_Delete_Entry $step            The step currently being processed.
+		 */
+		$target_entry_id = apply_filters( 'gravityflowformconnector_delete_entry_id', $target_entry_id, $entry, $form, $this );
+
+		return $target_entry_id;
+	}
+
+	/**
 	 * Deletes a local entry.
 	 *
 	 * @return bool Has the step finished?
 	 */
 	public function process_local_action() {
-		$entry           = $this->get_entry();
-		$target_entry_id = rgar( $entry, $this->delete_entry_id );
+		$target_entry_id = $this->get_target_entry_id();
 
 		if ( empty( $target_entry_id ) ) {
 			return true;
@@ -128,7 +149,7 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 		if ( $this->trash_entry ) {
 			$result = GFAPI::update_entry_property( $target_entry_id, 'status', 'trash' );
 			$this->log_debug( __METHOD__ . '() trashed entry: ' . var_export( $result, 1 ) );
-		} elseif ( $target_entry_id == $entry['id'] ) {
+		} elseif ( $target_entry_id === $entry['id'] ) {
 			gform_add_meta( $target_entry_id, 'workflow_delete_entry', 1 );
 			$this->log_debug( __METHOD__ . '(): scheduled for deletion.' );
 		} else {
@@ -145,11 +166,7 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	 * @return bool Has the step finished?
 	 */
 	public function process_remote_action() {
-		$entry = $this->get_entry();
-		$form  = $this->get_form();
-
-		$target_entry_id = rgar( $entry, $this->delete_entry_id );
-		$target_entry_id = apply_filters( 'gravityflowformconnector_delete_entry_id', $target_entry_id, $entry, $form, $this );
+		$target_entry_id = $this->get_target_entry_id();
 
 		if ( empty( $target_entry_id ) ) {
 			return true;
