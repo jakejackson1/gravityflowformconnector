@@ -287,9 +287,23 @@ if ( class_exists( 'GFForms' ) ) {
 		public function prepopulate_input( $input_id, $value ) {
 
 			$filter_name = 'gravityflow_field_' . str_replace( '.', '_', $input_id );
-			add_filter( "gform_field_value_{$filter_name}", create_function( "", "return maybe_unserialize('" . str_replace( "'", "\'", maybe_serialize( $value ) ) . "');" ) );
+			add_filter( "gform_field_value_{$filter_name}", array( new Gravity_Flow_Form_Connector_Dynamic_Hook( $value, $this ), 'filter_gform_field_value' ) );
 
 			return $filter_name;
+		}
+
+		/**
+		 * Filters the field value to prepoulate the value.
+		 *
+		 * @since 1.3.1
+		 *
+		 * @param $filter_values
+		 * @param $prepopulate_value
+		 *
+		 * @return mixed
+		 */
+		public function filter_gform_field_value( $filter_values, $prepopulate_value ) {
+			return $prepopulate_value;
 		}
 
 		/**
@@ -395,7 +409,10 @@ if ( class_exists( 'GFForms' ) ) {
 				return $form_tag;
 			}
 
+			$this->log_debug( __METHOD__ . '() - current step: ' . $current_step->get_name() . ' for entry id ' . $parent_entry_id );
+
 			if ( ! $current_step instanceof Gravity_Flow_Step_Form_Submission ) {
+				$this->log_debug( __METHOD__ . '(): adding validation error; not form submission step' );
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' ) );
 
 				return $form_tag;
@@ -405,7 +422,8 @@ if ( class_exists( 'GFForms' ) ) {
 
 			$is_assignee = $current_step->is_assignee( $assignee_key );
 			if ( ! $is_assignee ) {
-        $message = esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' );
+				$this->log_debug( __METHOD__ . '(): adding validation error; not assignee' );
+				$message  = esc_html__( 'The link to this form is no longer valid.', 'gravityflowformconnector' );
 				$form_tag .= sprintf( '<div class="validation_error">%s</div>', $message );
 
 				return $form_tag;
