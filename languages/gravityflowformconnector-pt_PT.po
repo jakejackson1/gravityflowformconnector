@@ -2,14 +2,13 @@
 # Translators:
 # FX Bénard <fxb@wp-translations.org>, 2017
 # Jose Manuel Cardoso Freitas <josefreitas2@gmail.com>, 2017
-# Álvaro Góis dos Santos <alvarogois@ovni.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-10-22 17:19:38+00:00\n"
+"POT-Creation-Date: 2017-12-16 16:42:27+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Álvaro Góis dos Santos <alvarogois@ovni.org>, 2017\n"
+"Last-Translator: Jose Manuel Cardoso Freitas <josefreitas2@gmail.com>, 2017\n"
 "Language-Team: Portuguese (Portugal) (https://www.transifex.com/gravityflow/teams/50678/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -33,27 +32,27 @@ msgstr "Gerir definições"
 msgid "Uninstall"
 msgstr "Desinstalar"
 
-#: class-form-connector.php:317
+#: class-form-connector.php:318
 msgid "Submission received."
 msgstr "Submissão recebida."
 
-#: class-form-connector.php:376 class-form-connector.php:385
+#: class-form-connector.php:377 class-form-connector.php:386
 msgid "The link to this form is no longer valid."
 msgstr "A ligação para este formulário já não está válida."
 
-#: class-form-connector.php:424
+#: class-form-connector.php:425
 msgid "This form is no longer valid."
 msgstr "Este formulário já não está válido."
 
-#: class-form-connector.php:435
+#: class-form-connector.php:436
 msgid "This form is no longer accepting submissions."
 msgstr "Este formulário já não aceita submissões."
 
-#: class-form-connector.php:445
+#: class-form-connector.php:446
 msgid "Your input is no longer required."
 msgstr "O seu contributo já não é necessário."
 
-#: class-form-connector.php:452
+#: class-form-connector.php:453
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr ""
 "Ocorreu um problema com a sua submissão. Por favor, use a ligação "

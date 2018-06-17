@@ -1,13 +1,13 @@
-# Copyright 2015-2017 Steven Henty.
+# Copyright 2015-2018 Steven Henty.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gravity Flow Form Connector 1.3\n"
+"Project-Id-Version: Gravity Flow Form Connector 1.4\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-12-16 16:42:27+00:00\n"
+"POT-Creation-Date: 2018-06-17 13:22:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Steven Henty <support@gravityflow.io>\n"
 "Language-Team: Steven Henty <support@gravityflow.io>\n"
 "X-Generator: Gravity Flow Build Script\n"
@@ -24,36 +24,107 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Textdomain-Support: yes\n"
 
-#: class-form-connector.php:84
+#: class-form-connector.php:106
 msgid "Manage Settings"
 msgstr ""
 
-#: class-form-connector.php:85
+#: class-form-connector.php:107
 msgid "Uninstall"
 msgstr ""
 
-#: class-form-connector.php:318
+#: class-form-connector.php:354
 msgid "Submission received."
 msgstr ""
 
-#: class-form-connector.php:377 class-form-connector.php:386
+#: class-form-connector.php:416 class-form-connector.php:426
 msgid "The link to this form is no longer valid."
 msgstr ""
 
-#: class-form-connector.php:425
+#: class-form-connector.php:465
 msgid "This form is no longer valid."
 msgstr ""
 
-#: class-form-connector.php:436
+#: class-form-connector.php:476
 msgid "This form is no longer accepting submissions."
 msgstr ""
 
-#: class-form-connector.php:446
+#: class-form-connector.php:486
 msgid "Your input is no longer required."
 msgstr ""
 
-#: class-form-connector.php:453
+#: class-form-connector.php:493
 msgid "There was a problem with you submission. Please use the link provided."
+msgstr ""
+
+#: includes/class-step-delete-entry.php:22
+#: includes/class-step-delete-entry.php:32
+msgid "Delete an Entry"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:36 includes/class-step-new-entry.php:37
+#: includes/class-step-update-entry.php:46
+msgid "Site"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:42 includes/class-step-new-entry.php:43
+#: includes/class-step-update-entry.php:52
+msgid "This site"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:44 includes/class-step-new-entry.php:44
+#: includes/class-step-update-entry.php:53
+msgid "A different site"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:51 includes/class-step-new-entry.php:49
+#: includes/class-step-update-entry.php:58
+msgid "Site Url"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:60 includes/class-step-new-entry.php:58
+#: includes/class-step-update-entry.php:67
+msgid "Public Key"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:69 includes/class-step-new-entry.php:67
+#: includes/class-step-update-entry.php:76
+msgid "Private Key"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:78
+msgid "Delete Action"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:84
+msgid "Permanently delete the entry"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:88
+msgid "Move the entry to the trash"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:102
+#: includes/class-step-update-entry.php:104
+msgid "Entry ID Field"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:104
+msgid ""
+"Select the field which will contain the entry ID of the entry that will be "
+"deleted. This is used to lookup the entry so it can be deleted."
+msgstr ""
+
+#: includes/class-step-delete-entry.php:123
+#: includes/class-step-update-entry.php:128
+msgid "Entry ID (Self)"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:177
+msgid "Moved entry to the trash."
+msgstr ""
+
+#: includes/class-step-delete-entry.php:182
+msgid "Scheduled entry for deletion on workflow completion."
 msgstr ""
 
 #: includes/class-step-form-submission.php:20
@@ -247,30 +318,6 @@ msgstr ""
 msgid "New Entry"
 msgstr ""
 
-#: includes/class-step-new-entry.php:37 includes/class-step-update-entry.php:46
-msgid "Site"
-msgstr ""
-
-#: includes/class-step-new-entry.php:43 includes/class-step-update-entry.php:52
-msgid "This site"
-msgstr ""
-
-#: includes/class-step-new-entry.php:44 includes/class-step-update-entry.php:53
-msgid "A different site"
-msgstr ""
-
-#: includes/class-step-new-entry.php:49 includes/class-step-update-entry.php:58
-msgid "Site Url"
-msgstr ""
-
-#: includes/class-step-new-entry.php:58 includes/class-step-update-entry.php:67
-msgid "Public Key"
-msgstr ""
-
-#: includes/class-step-new-entry.php:67 includes/class-step-update-entry.php:76
-msgid "Private Key"
-msgstr ""
-
 #: includes/class-step-new-entry.php:122
 msgid "Store New Entry ID"
 msgstr ""
@@ -293,18 +340,10 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: includes/class-step-update-entry.php:104
-msgid "Entry ID Field"
-msgstr ""
-
 #: includes/class-step-update-entry.php:106
 msgid ""
 "Select the field which will contain the entry ID of the entry that will be "
 "updated. This is used to lookup the entry so it can be updated."
-msgstr ""
-
-#: includes/class-step-update-entry.php:128
-msgid "Entry ID (Self)"
 msgstr ""
 
 #: includes/class-step-update-entry.php:138

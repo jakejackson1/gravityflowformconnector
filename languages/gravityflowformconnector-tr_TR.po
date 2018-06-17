@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-10-22 17:19:38+00:00\n"
+"POT-Creation-Date: 2017-12-16 16:42:27+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Emre Erkan <kara+transifex@karalamalar.net>, 2017\n"
 "Language-Team: Turkish (Turkey) (https://www.transifex.com/gravityflow/teams/50678/tr_TR/)\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr_TR\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gravity Flow Build Script\n"
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-Bookmarks: \n"
@@ -33,27 +33,27 @@ msgstr "Ayarları yönet"
 msgid "Uninstall"
 msgstr "Kaldır"
 
-#: class-form-connector.php:317
+#: class-form-connector.php:318
 msgid "Submission received."
 msgstr "Gönderi ulaştı."
 
-#: class-form-connector.php:376 class-form-connector.php:385
+#: class-form-connector.php:377 class-form-connector.php:386
 msgid "The link to this form is no longer valid."
 msgstr "Bu forma bağlantı artık geçerli değil."
 
-#: class-form-connector.php:424
+#: class-form-connector.php:425
 msgid "This form is no longer valid."
 msgstr "Bu form artık geçerli değil."
 
-#: class-form-connector.php:435
+#: class-form-connector.php:436
 msgid "This form is no longer accepting submissions."
 msgstr "Bu form artık gönderi kabul etmiyor."
 
-#: class-form-connector.php:445
+#: class-form-connector.php:446
 msgid "Your input is no longer required."
 msgstr "Girişiniz artık gerekli değil."
 
-#: class-form-connector.php:452
+#: class-form-connector.php:453
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr ""
 "Gönderizle ilgili bir sorun oluştu. Lütfen verilen bağlantıyı kullanın."

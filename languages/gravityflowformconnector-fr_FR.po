@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-10-22 17:19:38+00:00\n"
+"POT-Creation-Date: 2017-12-16 16:42:27+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FX Bénard <fxb@wp-translations.org>, 2017\n"
 "Language-Team: French (France) (https://www.transifex.com/gravityflow/teams/50678/fr_FR/)\n"
@@ -31,27 +31,27 @@ msgstr "Gérer les réglages"
 msgid "Uninstall"
 msgstr "Désinstaller"
 
-#: class-form-connector.php:317
+#: class-form-connector.php:318
 msgid "Submission received."
 msgstr "Soumission reçue."
 
-#: class-form-connector.php:376 class-form-connector.php:385
+#: class-form-connector.php:377 class-form-connector.php:386
 msgid "The link to this form is no longer valid."
 msgstr "Le lien pour ce formulaire n’est plus valide."
 
-#: class-form-connector.php:424
+#: class-form-connector.php:425
 msgid "This form is no longer valid."
 msgstr "Ce formulaire n’est plus valide."
 
-#: class-form-connector.php:435
+#: class-form-connector.php:436
 msgid "This form is no longer accepting submissions."
 msgstr "Ce formulaire n’accepte plus les soumissions."
 
-#: class-form-connector.php:445
+#: class-form-connector.php:446
 msgid "Your input is no longer required."
 msgstr "Votre entrée n’est plus nécessaire."
 
-#: class-form-connector.php:452
+#: class-form-connector.php:453
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr ""
 "Un problème s’est produit avec votre soumission. Veuillez utiliser le lien "
@@ -258,7 +258,7 @@ msgstr ""
 
 #: includes/class-step-form-submission.php:790
 msgid "Processed"
-msgstr "Traité"
+msgstr "Effectué"
 
 #: includes/class-step-new-entry.php:20 includes/class-step-new-entry.php:33
 msgid "New Entry"
