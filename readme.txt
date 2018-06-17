@@ -42,6 +42,12 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.4 =
+- Added the Delete Entry step.
+- Added the "gravityflowformconnector_{step_type}_use_choice_text" filter allowing the choice text to be returned instead of the choice values.
+- Fixed an issue where a checkbox field (selected) mapped to a text field would return the choice text instead of the choice values.
+- Fixed a PHP deprecation notice on PHP 7.2 with the Form Submission step.
+
 = 1.3 =
 - Added support for the token attribute to the {workflow_form_submission_url} and {workflow_form_submission_link} merge tags.
 - Added the Assignee setting to the Update Entry step to allow the assignee to be selected for User Input and Approval actions.

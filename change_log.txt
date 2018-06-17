@@ -1,4 +1,1 @@
-- Fixed an issue where a checkbox field (selected) mapped to a text field would return the choice text instead of the choice values.
-- Added the "gravityflowformconnector_{step_type}_use_choice_text" filter allowing the choice text to be returned instead of the choice values.
-- Fixed a PHP deprecation notice on PHP 7.2 with the Form Submission step.
-- Added the Delete Entry step.
+
