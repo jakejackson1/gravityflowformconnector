@@ -199,6 +199,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$new_entry = $this->do_mapping( $form, $entry );
 
+			gravity_flow()->log_debug( __METHOD__ . '(): JO: ' . print_r( $new_entry, true ) );
 			if ( ! empty( $new_entry ) ) {
 				$new_entry['form_id'] = $this->target_form_id;
 				$entry_id = GFAPI::add_entry( $new_entry );
@@ -457,7 +458,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						foreach ( $inputs as $input ) {
 							$fields[] = array(
 								'value' => $input['id'],
-								'label' => GFCommon::get_label( $field, $input['id'] )
+								'label' => GFCommon::get_label( $field, $input['id'] ),
 							);
 						}
 					} elseif ( $input_type == 'list' && $field->enableColumns && $field_is_valid_type && ! $exclude_field ) {
@@ -606,7 +607,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				 * @param Gravity_Flow_Step $this            The current step.
 				 */
 				$use_choice_text = apply_filters( 'gravityflowformconnector_' . $this->get_type() . '_use_choice_text', false, $source_field, $entry, $this );
-				$field_value     = $source_field->get_value_export( $entry, $source_field_id, $use_choice_text );
+				if ( $source_field->type == 'list' && isset( $entry[ $source_field_id ] ) ) {
+					$field_value = $entry[ $source_field_id ];
+				} else {
+					$field_value = $source_field->get_value_export( $entry, $source_field_id, $use_choice_text );
+				}
 			}
 
 			return $field_value;
