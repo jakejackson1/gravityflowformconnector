@@ -199,7 +199,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$new_entry = $this->do_mapping( $form, $entry );
 
-			gravity_flow()->log_debug( __METHOD__ . '(): JO: ' . print_r( $new_entry, true ) );
 			if ( ! empty( $new_entry ) ) {
 				$new_entry['form_id'] = $this->target_form_id;
 				$entry_id = GFAPI::add_entry( $new_entry );
@@ -460,19 +459,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 								'value' => $input['id'],
 								'label' => GFCommon::get_label( $field, $input['id'] ),
 							);
-						}
-					} elseif ( $input_type == 'list' && $field->enableColumns && $field_is_valid_type && ! $exclude_field ) {
-						$fields[] = array(
-							'value' => $field->id,
-							'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityflowformconnector' ) . ')',
-						);
-						$col_index = 0;
-						foreach ( $field->choices as $column ) {
-							$fields[] = array(
-								'value' => $field->id . '.' . $col_index,
-								'label' => GFCommon::get_label( $field ) . ' (' . esc_html( rgar( $column, 'text' ) ) . ')',
-							);
-							$col_index ++;
 						}
 					} elseif ( ! rgar( $field, 'displayOnly' ) && $field_is_valid_type && ! $exclude_field ) {
 						$fields[] = array( 'value' => $field->id, 'label' => GFCommon::get_label( $field ) );
