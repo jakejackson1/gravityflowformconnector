@@ -581,6 +581,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				}
 
 				return $this->get_source_choice_text( $field_value, $source_field );
+			} elseif ( in_array( $source_field->type, array( 'list', 'fileupload' ) ) && isset( $entry[ $source_field_id ] ) ) {
+				$field_value = $entry[ $source_field_id ];
 			} else {
 				/**
 				 * Allow choice text to be returned when retrieving the source field value.
@@ -593,11 +595,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				 * @param Gravity_Flow_Step $this            The current step.
 				 */
 				$use_choice_text = apply_filters( 'gravityflowformconnector_' . $this->get_type() . '_use_choice_text', false, $source_field, $entry, $this );
-				if ( $source_field->type == 'list' && isset( $entry[ $source_field_id ] ) ) {
-					$field_value = $entry[ $source_field_id ];
-				} else {
-					$field_value = $source_field->get_value_export( $entry, $source_field_id, $use_choice_text );
-				}
+				$field_value = $source_field->get_value_export( $entry, $source_field_id, $use_choice_text );
 			}
 
 			return $field_value;
