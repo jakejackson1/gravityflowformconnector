@@ -457,21 +457,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						foreach ( $inputs as $input ) {
 							$fields[] = array(
 								'value' => $input['id'],
-								'label' => GFCommon::get_label( $field, $input['id'] )
+								'label' => GFCommon::get_label( $field, $input['id'] ),
 							);
-						}
-					} elseif ( $input_type == 'list' && $field->enableColumns && $field_is_valid_type && ! $exclude_field ) {
-						$fields[] = array(
-							'value' => $field->id,
-							'label' => GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityflowformconnector' ) . ')',
-						);
-						$col_index = 0;
-						foreach ( $field->choices as $column ) {
-							$fields[] = array(
-								'value' => $field->id . '.' . $col_index,
-								'label' => GFCommon::get_label( $field ) . ' (' . esc_html( rgar( $column, 'text' ) ) . ')',
-							);
-							$col_index ++;
 						}
 					} elseif ( ! rgar( $field, 'displayOnly' ) && $field_is_valid_type && ! $exclude_field ) {
 						$fields[] = array( 'value' => $field->id, 'label' => GFCommon::get_label( $field ) );
@@ -594,6 +581,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				}
 
 				return $this->get_source_choice_text( $field_value, $source_field );
+			} elseif ( in_array( $source_field->type, array( 'list', 'fileupload' ) ) && isset( $entry[ $source_field_id ] ) ) {
+				$field_value = $entry[ $source_field_id ];
 			} else {
 				/**
 				 * Allow choice text to be returned when retrieving the source field value.
@@ -606,7 +595,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				 * @param Gravity_Flow_Step $this            The current step.
 				 */
 				$use_choice_text = apply_filters( 'gravityflowformconnector_' . $this->get_type() . '_use_choice_text', false, $source_field, $entry, $this );
-				$field_value     = $source_field->get_value_export( $entry, $source_field_id, $use_choice_text );
+				$field_value = $source_field->get_value_export( $entry, $source_field_id, $use_choice_text );
 			}
 
 			return $field_value;
