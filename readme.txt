@@ -42,6 +42,11 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 == ChangeLog ==
 
+= 1.4.1 =
+- Fixed an issue with New/Update an Entry steps with mapped list field types not copying data.
+- Fixed an issue with New/Update an Entry steps settings for list field types. Individual columns are no longer shown for selection.
+
+
 = 1.4 =
 - Added the Delete Entry step.
 - Added the "gravityflowformconnector_{step_type}_use_choice_text" filter allowing the choice text to be returned instead of the choice values.

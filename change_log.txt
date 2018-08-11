@@ -1,2 +1,0 @@
-* Fixed an issue with New/Update an Entry steps with mapped list field types not copying data.
-* Fixed an issue with New/Update an Entry steps settings for list field types. Individual columns are no longer shown for selection.
