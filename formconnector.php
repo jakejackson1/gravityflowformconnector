@@ -3,7 +3,7 @@
 Plugin Name: Gravity Flow Form Connector
 Plugin URI: https://gravityflow.io
 Description: Form Connector Extension for Gravity Flow.
-Version: 1.4-2-dev
+Version: 1.4.2-dev
 Author: Gravity Flow
 Author URI: https://gravityflow.io
 License: GPL-3.0+
