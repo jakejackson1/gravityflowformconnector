@@ -1,4 +1,4 @@
-# Copyright 2015-2017 Steven Henty.
+# Copyright 2015-2018 Steven Henty.
 # Translators:
 # FX Bénard <fxb@wp-translations.org>, 2017
 # raffaella isidori <r.isidori@thesign.it>, 2017
@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2017-12-16 16:42:27+00:00\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-06-17 13:22:04+00:00\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: raffaella isidori <r.isidori@thesign.it>, 2017\n"
 "Language-Team: Italian (Italy) (https://www.transifex.com/gravityflow/teams/50678/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -24,38 +24,115 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Textdomain-Support: yes\n"
 
-#: class-form-connector.php:84
+#: class-form-connector.php:106
 msgid "Manage Settings"
 msgstr "Gestisci le impostazioni"
 
-#: class-form-connector.php:85
+#: class-form-connector.php:107
 msgid "Uninstall"
 msgstr "Disinstalla"
 
-#: class-form-connector.php:318
+#: class-form-connector.php:354
 msgid "Submission received."
 msgstr "Invio ricevuto."
 
-#: class-form-connector.php:377 class-form-connector.php:386
+#: class-form-connector.php:416 class-form-connector.php:426
 msgid "The link to this form is no longer valid."
 msgstr "Il link a questo modulo non è più valido."
 
-#: class-form-connector.php:425
+#: class-form-connector.php:465
 msgid "This form is no longer valid."
 msgstr "Questo modulo non è più valido."
 
-#: class-form-connector.php:436
+#: class-form-connector.php:476
 msgid "This form is no longer accepting submissions."
 msgstr "Questo modulo non accetta altri invii."
 
-#: class-form-connector.php:446
+#: class-form-connector.php:486
 msgid "Your input is no longer required."
 msgstr "Il tuo input non è più necessario."
 
-#: class-form-connector.php:453
+#: class-form-connector.php:493
 msgid "There was a problem with you submission. Please use the link provided."
 msgstr ""
 "C'è stato un problema con il tuo invio. Usa il link che ti è stato fornito."
+
+#: includes/class-step-delete-entry.php:22
+#: includes/class-step-delete-entry.php:32
+msgid "Delete an Entry"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:36
+#: includes/class-step-new-entry.php:37
+#: includes/class-step-update-entry.php:46
+msgid "Site"
+msgstr "Sito"
+
+#: includes/class-step-delete-entry.php:42
+#: includes/class-step-new-entry.php:43
+#: includes/class-step-update-entry.php:52
+msgid "This site"
+msgstr "Questo sito"
+
+#: includes/class-step-delete-entry.php:44
+#: includes/class-step-new-entry.php:44
+#: includes/class-step-update-entry.php:53
+msgid "A different site"
+msgstr "Un sito diverso"
+
+#: includes/class-step-delete-entry.php:51
+#: includes/class-step-new-entry.php:49
+#: includes/class-step-update-entry.php:58
+msgid "Site Url"
+msgstr "URL del sito"
+
+#: includes/class-step-delete-entry.php:60
+#: includes/class-step-new-entry.php:58
+#: includes/class-step-update-entry.php:67
+msgid "Public Key"
+msgstr "Chiave pubblica"
+
+#: includes/class-step-delete-entry.php:69
+#: includes/class-step-new-entry.php:67
+#: includes/class-step-update-entry.php:76
+msgid "Private Key"
+msgstr "Chiave privata"
+
+#: includes/class-step-delete-entry.php:78
+msgid "Delete Action"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:84
+msgid "Permanently delete the entry"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:88
+msgid "Move the entry to the trash"
+msgstr ""
+
+#: includes/class-step-delete-entry.php:102
+#: includes/class-step-update-entry.php:104
+msgid "Entry ID Field"
+msgstr "Campo dell'ID della voce"
+
+#: includes/class-step-delete-entry.php:104
+msgid ""
+"Select the field which will contain the entry ID of the entry that will be "
+"deleted. This is used to lookup the entry so it can be deleted."
+msgstr ""
+
+#: includes/class-step-delete-entry.php:123
+#: includes/class-step-update-entry.php:128
+msgid "Entry ID (Self)"
+msgstr "ID della voce (propria)"
+
+#: includes/class-step-delete-entry.php:177
+msgid "Moved entry to the trash."
+msgstr ""
+
+#: includes/class-step-delete-entry.php:182
+msgid "Scheduled entry for deletion on workflow completion."
+msgstr ""
 
 #: includes/class-step-form-submission.php:20
 #: includes/class-step-form-submission.php:43
@@ -259,36 +336,6 @@ msgstr "Elaborato"
 msgid "New Entry"
 msgstr "Nuova voce"
 
-#: includes/class-step-new-entry.php:37
-#: includes/class-step-update-entry.php:46
-msgid "Site"
-msgstr "Sito"
-
-#: includes/class-step-new-entry.php:43
-#: includes/class-step-update-entry.php:52
-msgid "This site"
-msgstr "Questo sito"
-
-#: includes/class-step-new-entry.php:44
-#: includes/class-step-update-entry.php:53
-msgid "A different site"
-msgstr "Un sito diverso"
-
-#: includes/class-step-new-entry.php:49
-#: includes/class-step-update-entry.php:58
-msgid "Site Url"
-msgstr "URL del sito"
-
-#: includes/class-step-new-entry.php:58
-#: includes/class-step-update-entry.php:67
-msgid "Public Key"
-msgstr "Chiave pubblica"
-
-#: includes/class-step-new-entry.php:67
-#: includes/class-step-update-entry.php:76
-msgid "Private Key"
-msgstr "Chiave privata"
-
 #: includes/class-step-new-entry.php:122
 msgid "Store New Entry ID"
 msgstr "Memorizza l'ID della nuova voce"
@@ -311,10 +358,6 @@ msgstr "Aggiorna una voce"
 msgid "Action"
 msgstr "Azione"
 
-#: includes/class-step-update-entry.php:104
-msgid "Entry ID Field"
-msgstr "Campo dell'ID della voce"
-
 #: includes/class-step-update-entry.php:106
 msgid ""
 "Select the field which will contain the entry ID of the entry that will be "
@@ -323,10 +366,6 @@ msgstr ""
 "Seleziona il campo che conterrà l'ID della voce della voce da aggiornare. "
 "Questo viene utilizzato per rintracciare la voce, così che possa essere "
 "aggiornata."
-
-#: includes/class-step-update-entry.php:128
-msgid "Entry ID (Self)"
-msgstr "ID della voce (propria)"
 
 #: includes/class-step-update-entry.php:138
 msgid "Approval Status Field"
