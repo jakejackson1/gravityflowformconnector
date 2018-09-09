@@ -61,14 +61,14 @@ class Gravity_Flow_Merge_Tag_Form_Submission_Url extends Gravity_Flow_Merge_Tag_
 
 				if ( $type == 'link' ) {
 					$target_form_id = $this->step->get_setting( 'target_form_id' );
-					$form = GFAPI::get_form( $target_form_id );
-					$link_text = $form['title'];
+					$form           = GFAPI::get_form( $target_form_id );
+					$link_text      = $form['title'];
 				}
 
 				$a = $this->get_attributes( $options_string, array(
-					'page_id' => $this->step->submit_page,
-					'text'    => $link_text,
-					'token'   => false,
+					'page_id'  => $this->step->submit_page,
+					'text'     => $link_text,
+					'token'    => false,
 					'assignee' => '',
 				) );
 
