@@ -7,6 +7,8 @@ js/*.min.js
 css/*.min.css
 node_modules
 Gruntfile.js
+package.json
+package-lock.json
 tests/wp-tests-config.php
 .svn/
 codeception.yml
@@ -21,5 +23,4 @@ tests/_output/*
 .env
 tests/acceptance-tests/_support/_generated/AcceptanceTesterActions.php
 codeclimate-report.html
-package.json
-package-lock.json
+
