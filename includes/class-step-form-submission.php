@@ -149,7 +149,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$form = $this->get_form();
 
-			$fields = $this->get_field_map_choices( $form );
+			$fields = $this->get_field_map_choices( $form, null, array( 'workflow_discussion' ) );
 			return $fields;
 		}
 
