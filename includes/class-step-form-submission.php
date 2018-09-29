@@ -30,13 +30,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				$form_choices[] = array( 'label' => $form->title, 'value' => $form->id );
 			}
 
-			$account_choices = gravity_flow()->get_users_as_choices();
-
-			$type_field_choices = array(
-				array( 'label' => __( 'Select', 'gravityflowformconnector' ), 'value' => 'select' ),
-				array( 'label' => __( 'Conditional Routing', 'gravityflowformconnector' ), 'value' => 'routing' ),
-			);
-
 			$page_choices = $this->get_page_choices();
 
 			$settings = array(
