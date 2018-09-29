@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2018-06-17 13:22:04+00:00\n"
+"POT-Creation-Date: 2018-08-11 20:28:49+00:00\n"
 "PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Christian Herrmann, 2017\n"
 "Language-Team: German (Germany) (https://www.transifex.com/gravityflow/teams/50678/de_DE/)\n"
@@ -293,7 +293,6 @@ msgstr "Erstellt von"
 #: includes/class-step-form-submission.php:268
 #: includes/class-step-form-submission.php:288
 #: includes/class-step-new-entry.php:439 includes/class-step-new-entry.php:446
-#: includes/class-step-new-entry.php:466
 msgid "Full"
 msgstr "Vollständig"
 

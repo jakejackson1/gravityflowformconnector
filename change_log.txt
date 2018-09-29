@@ -1,1 +1,0 @@
-- Add support for the form submission merge tag to be used in the confirmation for email assignees.

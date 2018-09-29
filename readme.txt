@@ -2,7 +2,7 @@
 Contributors: stevehenty
 Tags: gravity forms, approvals, workflow
 Requires at least: 4.0
-Tested up to: 4.8.1
+Tested up to: 4.9.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -41,6 +41,9 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 
 == ChangeLog ==
+
+= 1.4.2 =
+- Added support for the form submission merge tag to be used in the confirmation for email assignees.
 
 = 1.4.1 =
 - Fixed an issue with New/Update an Entry steps with mapped list field types not copying data.
