@@ -44,6 +44,7 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 
 = 1.4.2 =
 - Added support for the form submission merge tag to be used in the confirmation for email assignees.
+- Removed the discussion field from the available options for mapping on the Form submissions step.
 
 = 1.4.1 =
 - Fixed an issue with New/Update an Entry steps with mapped list field types not copying data.
