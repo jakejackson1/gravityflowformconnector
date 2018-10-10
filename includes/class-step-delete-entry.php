@@ -266,3 +266,5 @@ class Gravity_Flow_Step_Delete_Entry extends Gravity_Flow_Step_New_Entry {
 	}
 
 }
+
+Gravity_Flow_Steps::register( new Gravity_Flow_Step_Delete_Entry() );

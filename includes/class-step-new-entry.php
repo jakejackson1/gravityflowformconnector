@@ -682,5 +682,4 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 	}
 }
 
-
-
+Gravity_Flow_Steps::register( new Gravity_Flow_Step_New_Entry() );

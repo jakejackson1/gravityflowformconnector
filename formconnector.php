@@ -39,15 +39,7 @@ class Gravity_Flow_Form_Connector_Bootstrap {
 		require_once( 'includes/class-step-update-entry.php' );
 		require_once( 'includes/class-step-delete-entry.php' );
 		require_once( 'includes/class-merge-tag-form-submission.php' );
-
-		Gravity_Flow_Steps::register( new Gravity_Flow_Step_Form_Submission() );
-		Gravity_Flow_Steps::register( new Gravity_Flow_Step_New_Entry() );
-		Gravity_Flow_Steps::register( new Gravity_Flow_Step_Update_Entry() );
-		Gravity_Flow_Steps::register( new Gravity_Flow_Step_Delete_Entry() );
-
 		require_once( 'class-form-connector.php' );
-
-
 
 		// Registers the class name with GFAddOn.
 		GFAddOn::register( 'Gravity_Flow_Form_Connector' );
