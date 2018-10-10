@@ -77,7 +77,7 @@ class Gravity_Flow_Merge_Tag_Form_Submission_Url extends Gravity_Flow_Merge_Tag_
 					continue;
 				}
 
-				if ( ! empty( $a['page_id'] ) ) {
+				if ( empty( $a['page_id'] ) ) {
 					$a['page_id'] = $this->step->submit_page;
 				}
 
