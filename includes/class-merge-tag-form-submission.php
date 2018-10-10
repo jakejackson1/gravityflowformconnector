@@ -50,30 +50,53 @@ class Gravity_Flow_Merge_Tag_Form_Submission_Url extends Gravity_Flow_Merge_Tag_
 
 		$matches = $this->get_matches( $text );
 
-		if ( ! empty( $matches ) && $this->step && $this->step instanceof Gravity_Flow_Step_Form_Submission ) {
+		if ( ! empty( $matches ) ) {
 
 			foreach ( $matches as $match ) {
 				$full_tag       = $match[0];
 				$type           = $match[1];
 				$options_string = isset( $match[3] ) ? $match[3] : '';
 
-				$link_text = '';
-
-				if ( $type == 'link' ) {
-					$target_form_id = $this->step->get_setting( 'target_form_id' );
-					$form           = GFAPI::get_form( $target_form_id );
-					$link_text      = $form['title'];
-				}
-
 				$a = $this->get_attributes( $options_string, array(
-					'page_id'  => $this->step->submit_page,
-					'text'     => $link_text,
+					'page_id'  => '',
+					'text'     => '',
 					'token'    => false,
 					'assignee' => '',
+					'step'     => '',
 				) );
+
+				$original_step = $this->step;
+
+				if ( ! empty( $a['step'] ) ) {
+					$this->step = gravity_flow()->get_step( $a['step'], $this->entry );
+				}
+
+				if ( ! ( $this->step && $this->step instanceof Gravity_Flow_Step_Form_Submission ) ) {
+					$text       = str_replace( $full_tag, '', $text );
+					$this->step = $original_step;
+					continue;
+				}
+
+				if ( empty( $a['page_id'] ) ) {
+					$a['page_id'] = $this->step->submit_page;
+				}
+
+				if ( $type == 'link' && empty( $a['text'] ) ) {
+					$target_form_id = $this->step->get_setting( 'target_form_id' );
+					$form           = GFAPI::get_form( $target_form_id );
+					$a['text']      = $form['title'];
+				}
+
+				$original_assignee = $this->assignee;
 
 				if ( ! empty( $a['assignee'] ) ) {
 					$this->assignee = $this->step->get_assignee( $a['assignee'] );
+				}
+
+				if ( empty( $this->assignee ) ) {
+					$text           = str_replace( $full_tag, '', $text );
+					$this->assignee = $original_assignee;
+					continue;
 				}
 
 				$token = $this->get_workflow_url_access_token( $a );
@@ -87,6 +110,10 @@ class Gravity_Flow_Merge_Tag_Form_Submission_Url extends Gravity_Flow_Merge_Tag_
 				}
 
 				$text = str_replace( $full_tag, $url, $text );
+
+				$this->assignee = $original_assignee;
+
+				$this->step = $original_step;
 			}
 		}
 
