@@ -50,6 +50,240 @@ class Tests_Gravity_Flow_Form_Connector_Merge_Tags extends GF_UnitTestCase {
 		$this->assertEquals( $text_in, $text_out );
 	}
 
+	/**
+	 * Tests that the workflow_form_submission_url merge tag outputs the expected URL.
+	 */
+	public function test_workflow_form_submission_url() {
+		$this->_add_form_submission_step();
+		$entry    = $this->_create_entry();
+		$step     = $this->api->get_current_step( $entry );
+		$assignee = $step->get_assignee( 'user_id|1' );
+		$args     = array(
+			'step'     => $step,
+			'entry'    => $entry,
+			'assignee' => $assignee,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		// Verify the merge tag is replaced with the admin URL.
+		$text_in  = "{workflow_form_submission_url}";
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertStringStartsWith( admin_url( 'admin.php' ), $text_out, $this->_get_message( $text_in ) );
+
+		// Get the query string arguments.
+		$actual_query_args = $this->_parse_workflow_url( $text_out );
+
+		// Verify the query args are correct.
+		$expected_query_args = array(
+			'id'                       => $this->form_id,
+			'workflow_parent_entry_id' => $entry['id'],
+			'workflow_hash'            => gravity_flow_form_connector()->get_workflow_hash( $entry['id'], $step ),
+			'page'                     => 'gravityflow-submit'
+		);
+		$this->assertEquals( $expected_query_args, $actual_query_args, $this->_get_message( $text_in ) );
+	}
+
+	/**
+	 * Tests that the workflow_form_submission_url merge tag outputs the expected URL when using the page_id attribute.
+	 */
+	public function test_workflow_form_submission_url_page_id_attr() {
+		$this->_add_form_submission_step();
+		$entry    = $this->_create_entry();
+		$step     = $this->api->get_current_step( $entry );
+		$assignee = $step->get_assignee( 'user_id|1' );
+		$args     = array(
+			'step'     => $step,
+			'entry'    => $entry,
+			'assignee' => $assignee,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		$post_id = $this->_create_post();
+
+		// Verify the merge tag is replaced with the URL for the specified front-end page.
+		$text_in  = "{workflow_form_submission_url: page_id='{$post_id}'}";
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertStringStartsWith( get_permalink( $post_id ), $text_out, $this->_get_message( $text_in ) );
+
+		// Get the query string arguments.
+		$actual_query_args = $this->_parse_workflow_url( $text_out );
+
+		// Verify the query args are correct.
+		$expected_query_args = array(
+			'id'                       => $this->form_id,
+			'workflow_parent_entry_id' => $entry['id'],
+			'workflow_hash'            => gravity_flow_form_connector()->get_workflow_hash( $entry['id'], $step ),
+			'p'                        => $post_id
+		);
+		$this->assertEquals( $expected_query_args, $actual_query_args, $this->_get_message( $text_in ) );
+	}
+
+	/**
+	 * Tests that the workflow_form_submission_url token merge tag does not output content when the step and assignee are not passed.
+	 */
+	public function test_workflow_form_submission_url_token_attr_no_step_no_assignee() {
+		$entry = $this->_create_entry();
+		$args  = array(
+			'entry' => $entry,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		$text_in  = '{workflow_form_submission_url: token=true}';
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertEmpty( $text_out, $this->_get_message( $text_in ) );
+	}
+
+	/**
+	 * Tests that the workflow_form_submission_url merge tag does not output content when the token and step attributes are used and the assignee is not passed.
+	 */
+	public function test_workflow_form_submission_url_token_attr_step_attr_no_assignee() {
+		$step_id = $this->_add_form_submission_step();
+		$entry   = $this->_create_entry();
+		$args    = array(
+			'entry' => $entry,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		$text_in  = "{workflow_form_submission_url: token=true step='{$step_id}'}";
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertEmpty( $text_out, $this->_get_message( $text_in ) );
+	}
+
+	/**
+	 * Tests that the workflow_form_submission_url merge tag does not output content when the token and assignee attributes are used and the step is not passed.
+	 */
+	public function test_workflow_form_submission_url_token_attr_assignee_attr_no_step() {
+		$entry = $this->_create_entry();
+		$args  = array(
+			'entry' => $entry,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		$text_in  = "{workflow_form_submission_url: token=true assignee='user_id|1'}";
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertEmpty( $text_out, $this->_get_message( $text_in ) );
+	}
+
+	/**
+	 * Tests that the workflow_form_submission_url merge tag outputs the expected URL when using the token attribute.
+	 */
+	public function test_workflow_form_submission_url_token_attr() {
+		$this->_add_form_submission_step();
+		$entry    = $this->_create_entry();
+		$step     = $this->api->get_current_step( $entry );
+		$assignee = $step->get_assignee( 'user_id|1' );
+		$args     = array(
+			'step'     => $step,
+			'entry'    => $entry,
+			'assignee' => $assignee,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		$text_in  = '{workflow_form_submission_url: token=true}';
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertNotEmpty( $text_out, $this->_get_message( $text_in ) );
+
+		// Get the query string arguments.
+		$actual_query_args = $this->_parse_workflow_url( $text_out );
+
+		// Verify the access token is present.
+		$access_token = rgar( $actual_query_args, 'gflow_access_token' );
+		$this->assertNotEmpty( $access_token, $this->_get_message( $text_in ) );
+
+		// Verify the access token belongs to the correct assignee.
+		$actual_assignee = gravity_flow()->parse_token_assignee( gravity_flow()->decode_access_token( $access_token ) );
+		$this->assertEquals( $assignee->get_key(), $actual_assignee->get_key() );
+
+		// Remove the access token and verify the remaining arguments are correct.
+		unset( $actual_query_args['gflow_access_token'] );
+		$expected_query_args = array(
+			'id'                       => $this->form_id,
+			'workflow_parent_entry_id' => $entry['id'],
+			'workflow_hash'            => gravity_flow_form_connector()->get_workflow_hash( $entry['id'], $step ),
+			'page'                     => 'gravityflow-submit'
+		);
+		$this->assertEquals( $expected_query_args, $actual_query_args, $this->_get_message( $text_in ) );
+	}
+
+	/**
+	 * Tests that the workflow_form_submission_url merge tag outputs the expected URL when using the token, assignee, and step attributes.
+	 */
+	public function test_workflow_form_submission_url_token_attr_assignee_attr_step_attr() {
+		$step_id  = $this->_add_form_submission_step();
+		$entry    = $this->_create_entry();
+		$step     = $this->api->get_current_step( $entry );
+		$assignee = $step->get_assignee( 'user_id|1' );
+		$args     = array(
+			'entry' => $entry,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		$text_in  = "{workflow_form_submission_url: token=true assignee='user_id|1' step='{$step_id}'}";
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertNotEmpty( $text_out, $this->_get_message( $text_in ) );
+
+		// Get the query string arguments.
+		$actual_query_args = $this->_parse_workflow_url( $text_out );
+
+		// Verify the access token is present.
+		$access_token = rgar( $actual_query_args, 'gflow_access_token' );
+		$this->assertNotEmpty( $access_token, $this->_get_message( $text_in ) );
+
+		// Verify the access token belongs to the correct assignee.
+		$actual_assignee = gravity_flow()->parse_token_assignee( gravity_flow()->decode_access_token( $access_token ) );
+		$this->assertEquals( $assignee->get_key(), $actual_assignee->get_key() );
+
+		// Remove the access token and verify the remaining arguments are correct.
+		unset( $actual_query_args['gflow_access_token'] );
+		$expected_query_args = array(
+			'id'                       => $this->form_id,
+			'workflow_parent_entry_id' => $entry['id'],
+			'workflow_hash'            => gravity_flow_form_connector()->get_workflow_hash( $entry['id'], $step ),
+			'page'                     => 'gravityflow-submit'
+		);
+		$this->assertEquals( $expected_query_args, $actual_query_args, $this->_get_message( $text_in ) );
+	}
+
+	/**
+	 * Tests that the workflow_form_submission_link merge tags output the expected content.
+	 */
+	public function test_workflow_form_submission_link() {
+		$this->_add_form_submission_step();
+		$entry    = $this->_create_entry();
+		$step     = $this->api->get_current_step( $entry );
+		$assignee = $step->get_assignee( 'user_id|1' );
+		$args     = array(
+			'step'     => $step,
+			'entry'    => $entry,
+			'assignee' => $assignee,
+		);
+
+		$merge_tag = $this->_get_merge_tag( 'workflow_form_submission_url', $args );
+
+		// Verify the merge tag was replaced.
+		$text_in  = '{workflow_form_submission_link}';
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertNotEmpty( $text_out );
+
+		// Verify the link HTML matches the expected pattern.
+		$this->assertRegExp( '/<a(.*)href="([^"]*)">Standard test<\/a>/', $text_out, $this->_get_message( $text_in ) );
+
+		// Verify the merge tag was replaced.
+		$text_in  = '{workflow_form_submission_link: text=testing}';
+		$text_out = $merge_tag->replace( $text_in );
+		$this->assertNotEmpty( $text_out, $text_in );
+
+		// Verify the link HTML matches the expected pattern.
+		$this->assertRegExp( '/<a(.*)href="([^"]*)">testing<\/a>/', $text_out, $this->_get_message( $text_in ) );
+	}
+
 
 	// # HELPERS ------------------------------------------------------------------------------------------------------
 
@@ -125,7 +359,7 @@ class Tests_Gravity_Flow_Form_Connector_Merge_Tags extends GF_UnitTestCase {
 			'destination_complete'                    => 'next',
 			'destination_rejected'                    => 'complete',
 			'destination_approved'                    => 'next',
-			'target_form_id'                          => '1',
+			'target_form_id'                          => $this->form_id,
 			'submit_page'                             => 'admin',
 		);
 
