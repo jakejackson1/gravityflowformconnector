@@ -2091,7 +2091,7 @@
                         "resend_assignee_emailValue": "7",
                         "resend_assignee_email_repeatEnable": "0",
                         "resend_assignee_email_repeatValue": "3",
-                        "target_form_id": "",
+                        "target_form_id": "0003 FormConnector - Destination",
                         "submit_page": "9",
                         "mappings": [
                             {

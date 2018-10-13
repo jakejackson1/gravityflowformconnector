@@ -64,3 +64,64 @@ function tests_create_testing_users() {
 }
 
 tests_create_testing_users();
+
+$settings                = gravity_flow()->get_app_settings();
+$settings['inbox_page']  = create_workflow_page( 'inbox' );
+$settings['status_page'] = create_workflow_page( 'status' );
+$settings['submit_page'] = create_workflow_page( 'submit' );
+gravity_flow()->update_app_settings( $settings );
+
+/**
+ * Creates a new page containing the gravityflow shortcode for the specified page type.
+ *
+ * @param string $page The page type: inbox, status, or submit.
+ *
+ * @return int|string|WP_Error
+ */
+function create_workflow_page( $page ) {
+	$post = array(
+		'post_title'   => $page,
+		'post_content' => sprintf( '[gravityflow page="%s"]', $page ),
+		'post_excerpt' => $page,
+		'post_status'  => 'publish',
+		'post_type'    => 'page',
+	);
+
+	$post_id = wp_insert_post( $post );
+
+	return $post_id ? $post_id : '';
+}
+
+function maybe_fix_imported_feed_settings( $submit_page_id ) {
+	$feeds = gravity_flow()->get_feeds();
+	if ( ! empty( $feeds ) ) {
+		foreach ( $feeds as $feed ) {
+			$dirty = false;
+
+			// Replace the form title used in the json file with the form ID.
+			$target_form_id = rgars( $feed, 'meta/target_form_id' );
+			if ( $target_form_id && ! is_numeric( $target_form_id ) ) {
+				$form_id = GFFormsModel::get_form_id( $target_form_id );
+				if ( $form_id ) {
+					$feed['meta']['target_form_id'] = $form_id;
+
+					$dirty = true;
+				}
+			}
+
+			$submit_page = rgars( $feed, 'meta/submit_page' );
+			if ( $submit_page && $submit_page != 'admin' ) {
+				$feed['meta']['submit_page'] = $submit_page_id;
+
+				$dirty = true;
+			}
+
+			if ( $dirty ) {
+				gravity_flow()->update_feed_meta( $feed['id'], $feed['meta'] );
+				echo "\nUpdating feed #" . $feed['id'];
+			}
+		}
+	}
+}
+
+maybe_fix_imported_feed_settings( $settings['submit_page'] );
