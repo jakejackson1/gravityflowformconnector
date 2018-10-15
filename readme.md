@@ -52,7 +52,7 @@ If you'd like to translate the Gravity Flow Form Connector Extension into your l
 
 https://www.transifex.com/projects/p/gravityflow/
 
+## Legal
+Gravity Flow is a legally registered trademark belonging to Steven Henty S.L. Further details: https://gravityflow.io/trademark
 
-
-
-Copyright 2015-2018 Steven Henty
+Copyright 2015-2018 Steven Henty. All rights reserved.
