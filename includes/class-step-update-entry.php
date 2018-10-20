@@ -103,11 +103,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				'name'       => 'update_entry_id',
 				'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
 				'type'       => 'field_select',
-				'tooltip'    => __( 'Select the field which will contain the entry ID of the entry that will be updated. This is used to lookup the entry so it can be updated.', 'gravityflowformconnector' ),
+				'tooltip'    => __( 'REWRITE - Select the field which will contain the entry ID of the entry that will be updated. This is used to lookup the entry so it can be updated.', 'gravityflowformconnector' ),
 				'required'   => true,
 				'dependency' => array(
 					'field'  => 'action',
-					'values' => array( 'update', 'approval', 'user_input' ),
+					'values' => array( 'update', 'update_from', 'approval', 'user_input' ),
 				),
 			);
 
@@ -143,6 +143,16 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				),
 			);
 
+			$action = $this->get_setting( 'action' );
+
+			if ( $action == 'update_from' ) {
+				$key_choices = $this->value_mappings();
+				$value_choices = $this->field_mappings();
+			} else { 
+				$key_choices = $this->field_mappings();
+				$value_choices = $this->value_mappings();
+			}
+
 			$mapping_field = array(
 				'name'                => 'mappings',
 				'label'               => esc_html__( 'Field Mapping', 'gravityflowformconnector' ),
@@ -151,26 +161,23 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				'enable_custom_value' => true,
 				'key_field_title'     => esc_html__( 'Field', 'gravityflowformconnector' ),
 				'value_field_title'   => esc_html__( 'Value', 'gravityflowformconnector' ),
-				'value_choices'       => $this->value_mappings(),
-				'key_choices'         => $this->field_mappings(),
-				'tooltip'             => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
+				'value_choices'       => $value_choices,
+				'key_choices'         => $key_choices,
+				'tooltip'             => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'REWRITE - Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
 				'dependency'          => array(
 					'field'  => 'action',
-					'values' => array( 'update', 'user_input' ),
+					'values' => array( 'update', 'update_from', 'user_input' ),
 				),
 			);
 
 			$settings['fields'][] = $mapping_field;
 
-			$action = $this->get_setting( 'action' );
-
 			if ( $this->get_setting( 'server_type' ) == 'remote' && in_array( $action, array(
-					'approval',
-					'user_input',
-				) )
-			) {
+				'approval',
+				'user_input',
+			) ) ) {
 				$target_form_id = $this->get_setting( 'target_form_id' );
-				if ( ! empty ( $target_form_id ) ) {
+				if ( ! empty( $target_form_id ) ) {
 					$settings['fields'][] = array(
 						'name'    => 'remote_assignee',
 						'label'   => esc_html__( 'Assignee', 'gravityflowformconnector' ),
@@ -180,7 +187,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				}
 			} elseif ( $this->get_setting( 'server_type' ) == 'local' && $this->get_setting( 'action' ) == 'user_input' ) {
 				$target_form_id = $this->get_setting( 'target_form_id' );
-				if ( ! empty ( $target_form_id ) ) {
+				if ( ! empty( $target_form_id ) ) {
 					$settings['fields'][] = array(
 						'name'    => 'local_assignee',
 						'label'   => esc_html__( 'Assignee', 'gravityflowformconnector' ),
@@ -200,7 +207,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 */
 		public function action_choices() {
 			$choices = array(
-				array( 'label' => esc_html__( 'Update an Entry', 'gravityflow' ), 'value' => 'update' ),
+				array( 'label' => esc_html__( 'Update INTO An Entry', 'gravityflow' ), 'value' => 'update' ),
+				array( 'label' => esc_html__( 'Update FROM An Entry', 'gravityflow' ), 'value' => 'update_from' ),
 			);
 
 			$target_form_id = $this->get_setting( 'target_form_id' );
