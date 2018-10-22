@@ -103,11 +103,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				'name'       => 'update_entry_id',
 				'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
 				'type'       => 'field_select',
-				'tooltip'    => __( 'REWRITE - Select the field which will contain the entry ID of the entry that will be updated. This is used to lookup the entry so it can be updated.', 'gravityflowformconnector' ),
+				'tooltip'    => __( 'Select the field which will contain the entry ID of the entry that will be updated. This is used to lookup the entry so it can be updated.', 'gravityflowformconnector' ),
 				'required'   => true,
 				'dependency' => array(
 					'field'  => 'action',
-					'values' => array( 'update', 'update_from', 'approval', 'user_input' ),
+					'values' => array( 'update', 'approval', 'user_input' ),
 				),
 			);
 
@@ -143,16 +143,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				),
 			);
 
-			$action = $this->get_setting( 'action' );
-
-			if ( $action == 'update_from' ) {
-				$key_choices = $this->value_mappings();
-				$value_choices = $this->field_mappings();
-			} else { 
-				$key_choices = $this->field_mappings();
-				$value_choices = $this->value_mappings();
-			}
-
 			$mapping_field = array(
 				'name'                => 'mappings',
 				'label'               => esc_html__( 'Field Mapping', 'gravityflowformconnector' ),
@@ -161,23 +151,26 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				'enable_custom_value' => true,
 				'key_field_title'     => esc_html__( 'Field', 'gravityflowformconnector' ),
 				'value_field_title'   => esc_html__( 'Value', 'gravityflowformconnector' ),
-				'value_choices'       => $value_choices,
-				'key_choices'         => $key_choices,
-				'tooltip'             => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'REWRITE - Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
+				'value_choices'       => $this->value_mappings(),
+				'key_choices'         => $this->field_mappings(),
+				'tooltip'             => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
 				'dependency'          => array(
 					'field'  => 'action',
-					'values' => array( 'update', 'update_from', 'user_input' ),
+					'values' => array( 'update', 'user_input' ),
 				),
 			);
 
 			$settings['fields'][] = $mapping_field;
 
+			$action = $this->get_setting( 'action' );
+
 			if ( $this->get_setting( 'server_type' ) == 'remote' && in_array( $action, array(
-				'approval',
-				'user_input',
-			) ) ) {
+					'approval',
+					'user_input',
+				) )
+			) {
 				$target_form_id = $this->get_setting( 'target_form_id' );
-				if ( ! empty( $target_form_id ) ) {
+				if ( ! empty ( $target_form_id ) ) {
 					$settings['fields'][] = array(
 						'name'    => 'remote_assignee',
 						'label'   => esc_html__( 'Assignee', 'gravityflowformconnector' ),
@@ -187,7 +180,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				}
 			} elseif ( $this->get_setting( 'server_type' ) == 'local' && $this->get_setting( 'action' ) == 'user_input' ) {
 				$target_form_id = $this->get_setting( 'target_form_id' );
-				if ( ! empty( $target_form_id ) ) {
+				if ( ! empty ( $target_form_id ) ) {
 					$settings['fields'][] = array(
 						'name'    => 'local_assignee',
 						'label'   => esc_html__( 'Assignee', 'gravityflowformconnector' ),
@@ -245,13 +238,11 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			}
 
 			if ( $has_approval_step ) {
-				$choices[] = array( 'label' => esc_html__( 'Complete an Entry Approval', 'gravityflow' ), 'value' => 'approval' );
+				$choices[] = array( 'label' => esc_html__( 'Approval', 'gravityflow' ), 'value' => 'approval' );
 			}
 			if ( $has_user_input_step ) {
-				$choices[] = array( 'label' => esc_html__( 'Complete an Entry User Input', 'gravityflow' ), 'value' => 'user_input' );
+				$choices[] = array( 'label' => esc_html__( 'User Input', 'gravityflow' ), 'value' => 'user_input' );
 			}
-
-			$choices[] = array( 'label' => esc_html__( 'Update current Entry', 'gravityflow' ), 'value' => 'update_from' );
 
 			return $choices;
 		}
@@ -263,109 +254,88 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 */
 		public function process_local_action() {
 			$entry = $this->get_entry();
-	
-			if ( in_array( $this->action, array( 'update', 'update_from', 'user_input', 'approval' ) ) ) {
 
-				$target_form_id = $this->target_form_id;
+			$target_form_id = $this->target_form_id;
 
-				$api = new Gravity_Flow_API( $target_form_id );
+			$api = new Gravity_Flow_API( $target_form_id );
 
-				$steps = $api->get_steps();
+			$steps = $api->get_steps();
 
-				$form = $this->get_form();
+			$form = $this->get_form();
 
-				$target_entry_id = rgar( $entry, $this->update_entry_id );
+			$target_entry_id = rgar( $entry, $this->update_entry_id );
 
-				$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
+			$target_entry_id = apply_filters( 'gravityflowformconnector_update_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
 
-				if ( empty( $target_entry_id ) ) {
-					return true;
-				}
+			if ( empty( $target_entry_id ) ) {
+				return true;
+			}
 
-				$target_entry = GFAPI::get_entry( $target_entry_id );
+			$target_entry = GFAPI::get_entry( $target_entry_id );
 
-				if ( is_wp_error( $target_entry ) ) {
-					return true;
-				}
+			if ( is_wp_error( $target_entry ) ) {
+				return true;
+			}
 
-				//Updates are being made to the entry of step being processed
-				if ( in_array( $this->action, array( 'update_from' ) ) ) {
+			$new_entry = $this->do_mapping( $form, $entry );
 
-					$new_entry = $this->do_mapping( $form, $target_entry );
+			$new_entry['form_id'] = $this->target_form_id;
 
-					$new_entry['form_id'] = $form['id'];
-
-					if ( ! is_wp_error( $target_entry ) ) {
-						foreach ( $new_entry as $key => $value ) {
-							$entry[ (string) $key ] = $value;
-						}
-						GFAPI::update_entry( $entry );
+			if ( in_array( $this->action, array( 'update', 'user_input' ) ) ) {
+				if ( ! is_wp_error( $target_entry ) ) {
+					foreach ( $new_entry as $key => $value ) {
+						$target_entry[ (string) $key ] = $value;
 					}
-
+					GFAPI::update_entry( $target_entry );
 				}
+			}
 
-				//Updates are being made to the target entry based on step settings
-				if ( in_array( $this->action, array( 'update', 'user_input' ) ) ) {
+			if ( in_array( $this->action, array( 'approval', 'user_input' ) ) && $steps ) {
 
-					$new_entry = $this->do_mapping( $form, $entry );
+				if ( empty( $target_entry['workflow_final_status'] ) || $target_entry['workflow_final_status'] == 'pending' ) {
+					$current_step = $api->get_current_step( $target_entry );
 
-					$new_entry['form_id'] = $this->target_form_id;
+					if ( $current_step ) {
 
-					if ( ! is_wp_error( $target_entry ) ) {
-						foreach ( $new_entry as $key => $value ) {
-							$target_entry[ (string) $key ] = $value;
+						$status = ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete';
+
+						if ( empty( $this->local_assignee ) || $this->local_assignee == 'created_by') {
+							$assignee_key = gravity_flow()->get_current_user_assignee_key();
+							if ( ! $assignee_key && rgar( $entry, 'created_by' ) ) {
+								$assignee_key = 'user_id|' . $entry['created_by'];
+							}
+						} else {
+							$assignee_key = $this->local_assignee;
 						}
-						GFAPI::update_entry( $target_entry );
-					}
-				}
 
-				if ( in_array( $this->action, array( 'approval', 'user_input' ) ) && $steps ) {
+						$assignees = array();
 
-					if ( empty( $target_entry['workflow_final_status'] ) || $target_entry['workflow_final_status'] == 'pending' ) {
-						$current_step = $api->get_current_step( $target_entry );
+						if ( $assignee_key ) {
+							$is_assignee = $current_step->is_assignee( $assignee_key );
 
-						if ( $current_step ) {
-
-							$status = ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete';
-
-							if ( empty( $this->local_assignee ) || $this->local_assignee == 'created_by') {
-								$assignee_key = gravity_flow()->get_current_user_assignee_key();
-								if ( ! $assignee_key && rgar( $entry, 'created_by' ) ) {
-									$assignee_key = 'user_id|' . $entry['created_by'];
-								}
+							if ( $is_assignee ) {
+								$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
+								$assignees = array( $assignee );
 							} else {
-								$assignee_key = $this->local_assignee;
+								// Assignee not set by the local_assignee setting or by current user.
+								// Could be legacy settings triggered by cron or anonymous form submission.
+								// Complete step for all assignees.
+								$assignees = $current_step->get_assignees();
 							}
+						}
 
-							$assignees = array();
+						$form = GFAPI::get_form( $this->target_form_id );
 
-							if ( $assignee_key ) {
-								$is_assignee = $current_step->is_assignee( $assignee_key );
-
-								if ( $is_assignee ) {
-									$assignee = new Gravity_Flow_Assignee( $assignee_key, $current_step );
-									$assignees = array( $assignee );
-								} else {
-									// Assignee not set by the local_assignee setting or by current user.
-									// Could be legacy settings triggered by cron or anonymous form submission.
-									// Complete step for all assignees.
-									$assignees = $current_step->get_assignees();
-								}
+						$process_required = false;
+						foreach ( $assignees as $assignee ) {
+							$result = $current_step->process_assignee_status( $assignee, $status, $form );
+							if ( $result ) {
+								$process_required = true;
 							}
+						}
 
-							$form = GFAPI::get_form( $this->target_form_id );
-
-							$process_required = false;
-							foreach ( $assignees as $assignee ) {
-								$result = $current_step->process_assignee_status( $assignee, $status, $form );
-								if ( $result ) {
-									$process_required = true;
-								}
-							}
-
-							if ( $process_required ) {
-								$api->process_workflow( $target_entry_id );
-							}
+						if ( $process_required ) {
+							$api->process_workflow( $target_entry_id );
 						}
 					}
 				}
