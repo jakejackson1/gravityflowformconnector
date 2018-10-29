@@ -169,14 +169,6 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $choices;
 		}
 
-		function process() {
-			$result = $this->process_local_action();
-
-			$note = $this->get_name() . ': ' . esc_html__( 'Processed.', 'gravityflow' );
-			$this->add_note( $note );
-			return $result;
-		}
-
 		public function process_local_action() {
 
 			$entry = $this->get_entry();
@@ -210,8 +202,47 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				GFAPI::update_entry( $entry );
 			}
 
-			$note = $this->get_name() . ': ' . esc_html__( 'Processed.', 'gravityflow' );
-			$this->add_note( $note );
+			return true;
+		}
+
+		/**
+		 * Updates a remote entry.
+		 *
+		 *
+		 * @return bool Has the step finished?
+		 */
+		public function process_remote_action() {
+			$entry = $this->get_entry();
+
+			$form = $this->get_form();
+
+			$target_form_id = $this->target_form_id;
+
+			$target_form = $this->get_target_form( $target_form_id );
+
+			if ( empty( $target_form ) ) {
+				return true;
+			}
+
+			$target_entry_id = rgar( $entry, $this->target_entry_id );
+
+			$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
+
+			if ( empty( $target_entry_id ) ) {
+				return true;
+			}
+
+			$target_entry = $this->get_remote_entry( $target_entry_id );
+
+			$new_entry = $this->do_mapping( $target_form, $target_entry );
+
+			if ( ! is_wp_error( $target_entry ) ) {
+				foreach ( $new_entry as $key => $value ) {
+					$entry[ (string) $key ] = $value;
+				}
+				GFAPI::update_entry( $entry );
+			}
+
 			return true;
 		}
 

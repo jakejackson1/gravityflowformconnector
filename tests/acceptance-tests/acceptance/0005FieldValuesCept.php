@@ -41,8 +41,30 @@ $I->see( '12345', '//table[1]/tbody/tr[6]/td' );
 
 $I->amOnWorkflowPage( 'Inbox' );
 
-//Move Active - Complete Update Field Values Step
-$I->click( 'StopCheck - Before Update Field Values' );
+//Move Active - Complete Update Local Field Values Step
+$I->click( 'StopCheck - Before Local Field Values Update' );
+$I->waitForText( 'Status: Pending', 3 );
+$I->click( 'button[value=approved]' );
+$I->waitForText( 'Entry Approved', 3 );
+$I->see( '12345', '//table[1]/tbody/tr[4]/td' );
+$I->see( '42',    '//table[1]/tbody/tr[6]/td' );
+
+$I->amOnWorkflowPage( 'Inbox' );
+
+// Update Passive Form Values
+$I->click( 'Passive Approval' );
+$I->waitForText( 'Status: Pending', 3 );
+$I->click( 'button[value=approved]' );
+$I->fillField( 'input_5', '54321' );
+$I->scrollTo( [ 'css' => '.gravityflow-step-user_input' ] ); // needed for chromedriver
+$I->click( '#gravityflow_update_button' );
+$I->waitForText( 'Entry updated', 3 );
+
+$I->amOnWorkflowPage( 'Inbox' );
+
+//Move Active - Complete Update Remote Field Values Step
+$I->click( 'StopCheck - Before Remote Field Values Update' );
+
 $I->waitForText( 'Status: Pending', 3 );
 $I->click( 'button[value=approved]' );
 $I->waitForText( 'Entry Approved', 3 );
