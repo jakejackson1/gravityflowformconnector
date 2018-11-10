@@ -17,7 +17,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		public $_step_type = 'update_field_values';
 
 		public function get_label() {
-			return esc_html__( 'Update Field Values', 'gravityflowformconnector' );
+			return esc_html__( 'Update Fields', 'gravityflowformconnector' );
 		}
 
 		/**
@@ -82,7 +82,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					),
 					array(
 						'name'     => 'target_form_id',
-						'label'    => esc_html__( 'Form', 'gravityflowformconnector' ),
+						'label'    => esc_html__( 'Source Form', 'gravityflowformconnector' ),
 						'type'     => 'select',
 						'onchange' => "jQuery('#action').val('update');jQuery(this).closest('form').submit();",
 						'choices'  => $form_choices,
@@ -96,43 +96,77 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'onchange'   => "jQuery(this).closest('form').submit();",
 						'choices'    => $action_choices,
 					),
+					array(
+						'name'          => 'lookup_method',
+						'label'         => esc_html__( 'Entry Lookup', 'gravityflowformconnector' ),
+						'type'          => 'radio',
+						'default_value' => 'search',
+						'horizontal'    => true,
+						'onchange'      => 'jQuery(this).closest("form").submit();',
+						'choices'       => array(
+							array( 'label' => esc_html__( 'Conditional Logic', 'gravityflowformconnector' ), 'value' => 'filter' ),
+							array( 'label' => esc_html__( 'Select a field containing the target entry ID.', 'gravityflowformconnector' ), 'value' => 'select_entry_id_field' ),
+						),
+						'dependency' => array(
+							'field'  => 'action',
+							'values' => array( 'update' ),
+						),
+					),
+					array(
+						'name'        => 'entry_filter',
+						'form_id'     => $this->get_setting( 'target_form_id' ),
+						'label'       => esc_html__( 'Lookup Conditional Logic', 'gravityflowformconnector' ),
+						'type'        => 'entry_filter',
+						'filter_text' => esc_html__( 'Look up the first entry matching {0} of the following criteria:', 'gravityflowformconnector' ),
+						'dependency'  => array(
+							'field'  => 'lookup_method',
+							'values' => array( 'filter' ),
+						),
+					),
 				),
 			);
 
-			$entry_id_field = array(
-				'name'       => 'target_entry_id',
-				'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
-				'type'       => 'field_select',
-				'tooltip'    => __( 'Select the field which will contain the entry ID of the entry that values will be copied from.', 'gravityflowformconnector' ),
-				'required'   => true,
-				'dependency' => array(
-					'field'  => 'action',
-					'values' => array( 'update' ),
-				),
-			);
+			$lookup_setting = $this->get_setting( 'lookup_method' );
 
-			if ( function_exists( 'gravity_flow_parent_child' ) ) {
-				$parent_form_choices = array();
-				$entry_meta          = gravity_flow_parent_child()->get_entry_meta( array(), rgget( 'id' ) );
+			if ( empty( $lookup_setting ) || $lookup_setting == 'select_entry_id_field' ) {
+				$entry_id_field = array(
+					'name'       => 'target_entry_id',
+					'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
+					'type'       => 'field_select',
+					'tooltip'    => __( 'Select the field which will contain the entry ID of the entry that values will be copied from.', 'gravityflowformconnector' ),
+					'required'   => true,
+					'dependency' => array(
+						'field'  => 'action',
+						'values' => array( 'update' ),
+					),
+				);
 
-				foreach ( $entry_meta as $meta_key => $meta ) {
-					$parent_form_choices[] = array( 'value' => $meta_key, 'label' => $meta['label'] );
+				if ( function_exists( 'gravity_flow_parent_child' ) ) {
+					$parent_form_choices = array();
+					$entry_meta          = gravity_flow_parent_child()->get_entry_meta( array(), rgget( 'id' ) );
+
+					foreach ( $entry_meta as $meta_key => $meta ) {
+						$parent_form_choices[] = array( 'value' => $meta_key, 'label' => $meta['label'] );
+					}
+
+					if ( ! empty( $parent_form_choices ) ) {
+						$entry_id_field['args']['append_choices'] = $parent_form_choices;
+					}
 				}
 
-				if ( ! empty( $parent_form_choices ) ) {
-					$entry_id_field['args']['append_choices'] = $parent_form_choices;
+				if ( $this->get_setting( 'target_form_id' ) == $this->get_form_id() ) {
+					$self_entry_id_choice = array( array( 'label' => esc_html__( 'Entry ID (Self)', 'gravityflowformconnector' ), 'value' => 'id' ) );
+					if ( ! isset( $entry_id_field['args']['append_choices'] ) ) {
+						$entry_id_field['args']['append_choices'] = array();
+					}
+					$entry_id_field['args']['append_choices'] = array_merge( $entry_id_field['args']['append_choices'], $self_entry_id_choice );
 				}
+
+				$settings['fields'][] = $entry_id_field;
 			}
 
-			if ( $this->get_setting( 'target_form_id' ) == $this->get_form_id() ) {
-				$self_entry_id_choice = array( array( 'label' => esc_html__( 'Entry ID (Self)', 'gravityflowformconnector' ), 'value' => 'id' ) );
-				if ( ! isset( $entry_id_field['args']['append_choices'] ) ) {
-					$entry_id_field['args']['append_choices'] = array();
-				}
-				$entry_id_field['args']['append_choices'] = array_merge( $entry_id_field['args']['append_choices'], $self_entry_id_choice );
-			}
 
-			$settings['fields'][] = $entry_id_field;
+
 
 			$mapping_field = array(
 				'name'                => 'mappings',
