@@ -1,1 +1,1 @@
-- Added New Step Type - Update Field Values - for mapping values from other entries into the current entry
+- Added New Step Type - Update Field Values - for mapping values from other entries into the current entry including support for entry filter
