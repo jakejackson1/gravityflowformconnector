@@ -116,7 +116,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				$entry_meta          = gravity_flow_parent_child()->get_entry_meta( array(), rgget( 'id' ) );
 
 				foreach ( $entry_meta as $meta_key => $meta ) {
-					$parent_form_choices[] = array( 'value' => $meta_key, 'label' => $meta['label'] );
+					$parent_form_choices[] = array(
+						'value' => $meta_key,
+						'label' => $meta['label'],
+					);
 				}
 
 				if ( ! empty( $parent_form_choices ) ) {
@@ -170,7 +173,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				) )
 			) {
 				$target_form_id = $this->get_setting( 'target_form_id' );
-				if ( ! empty ( $target_form_id ) ) {
+				if ( ! empty( $target_form_id ) ) {
 					$settings['fields'][] = array(
 						'name'    => 'remote_assignee',
 						'label'   => esc_html__( 'Assignee', 'gravityflowformconnector' ),
@@ -180,7 +183,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				}
 			} elseif ( $this->get_setting( 'server_type' ) == 'local' && $this->get_setting( 'action' ) == 'user_input' ) {
 				$target_form_id = $this->get_setting( 'target_form_id' );
-				if ( ! empty ( $target_form_id ) ) {
+				if ( ! empty( $target_form_id ) ) {
 					$settings['fields'][] = array(
 						'name'    => 'local_assignee',
 						'label'   => esc_html__( 'Assignee', 'gravityflowformconnector' ),
@@ -299,7 +302,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 						$status = ( $this->action == 'approval' ) ? strtolower( rgar( $entry, $this->approval_status_field ) ) : 'complete';
 
-						if ( empty( $this->local_assignee ) || $this->local_assignee == 'created_by') {
+						if ( empty( $this->local_assignee ) || $this->local_assignee == 'created_by' ) {
 							$assignee_key = gravity_flow()->get_current_user_assignee_key();
 							if ( ! $assignee_key && rgar( $entry, 'created_by' ) ) {
 								$assignee_key = 'user_id|' . $entry['created_by'];
@@ -370,8 +373,8 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			}
 
 			switch ( $this->action ) {
-				case 'update' :
-				case 'user_input' :
+				case 'update':
+				case 'user_input':
 					$target_entry = $this->get_remote_entry( $target_entry_id );
 
 					foreach ( $new_entry as $key => $value ) {
@@ -392,7 +395,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					}
 
 					break;
-				case 'approval' :
+				case 'approval':
 					$assignee_key    = strtolower( urlencode( sanitize_text_field( $this->remote_assignee ) ) );
 					$status          = sanitize_text_field( strtolower( rgar( $entry, $this->approval_status_field ) ) );
 					$route           = sprintf( 'entries/%d/assignees/%s', $target_entry_id, $assignee_key );

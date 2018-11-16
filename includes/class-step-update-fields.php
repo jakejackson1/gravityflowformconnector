@@ -33,7 +33,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				'value' => '',
 			);
 			foreach ( $forms as $form ) {
-				$form_choices[] = array( 'label' => $form->title, 'value' => $form->id );
+				$form_choices[] = array(
+					'label' => $form->title,
+					'value' => $form->id,
+				);
 			}
 
 			$action_choices = $this->action_choices();
@@ -197,7 +200,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 */
 		public function action_choices() {
 			$choices = array(
-				array( 'label' => esc_html__( 'Update Field Values', 'gravityflow' ), 'value' => 'update' ),
+				array(
+					'label' => esc_html__( 'Update Field Values', 'gravityflow' ),
+					'value' => 'update',
+				),
 			);
 
 			return $choices;
@@ -215,9 +221,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$target_entry_id = rgar( $entry, $this->target_entry_id );
 
-			$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
-
-			$target_entry = $this->get_local_target_entry( $target_form_id, $target_entry_id );
+			$target_entry = $this->get_local_entry( $target_entry_id, $target_form_id, $entry, $form );
 
 			if ( is_wp_error( $target_entry ) || $target_entry == false ) {
 				return true;
@@ -258,13 +262,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$target_entry_id = rgar( $entry, $this->target_entry_id );
 
-			$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
-
-			if ( empty( $target_entry_id ) ) {
-				return true;
-			}
-
-			$target_entry = $this->get_remote_entry( $target_entry_id );
+			$target_entry = $this->get_remote_entry( $target_entry_id, $target_form_id, $entry, $form );
 
 			$new_entry = $this->do_mapping( $target_form, $target_entry );
 
@@ -279,19 +277,178 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		}
 
 		/**
-		 * Returns a remote entry.
+		 * Helper to get the entry from the local site based on either a specified entry_id or entry filter criteria.
 		 *
-		 * @param $entry_id
+		 * @param string $entry_id
+		 * @param string $form_id
+		 * @param array  $entry
+		 * @param array  $form
 		 *
-		 * @return bool
+		 * @return array
 		 */
-		public function get_remote_entry( $entry_id ) {
-			$route  = 'entries/' . $entry_id;
-			$result = $this->remote_request( $route );
+		public function get_local_entry( $target_entry_id, $target_form_id, $entry, $form ) {
 
-			return $result;
+			if ( empty( $this->lookup_method ) || $this->lookup_method == 'select_entry_id_field' ) {
+
+				if ( empty( $target_entry_id ) ) {
+					return false;
+				}
+
+				$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
+
+				$target_entry = GFAPI::get_entry( $target_entry_id );
+
+			} elseif ( $this->lookup_method == 'filter' ) {
+
+				if ( empty( $this->entry_filter ) ) {
+
+					$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
+					return false;
+
+				} else {
+
+					$criteria['status'] = 'active';
+
+					if ( ! empty( $this->entry_filter['filters'] ) ) {
+
+						$criteria['field_filters']['mode'] = $this->entry_filter['mode'];
+
+						foreach ( $this->entry_filter['filters'] as $field_filter ) {
+
+							$criteria['field_filters'][] = array(
+								'key'      => $field_filter['field'],
+								'operator' => $field_filter['operator'],
+								'value'    => $field_filter['value'],
+							);
+
+						}
+					}
+
+					$paging = array(
+						'offset'    => 0,
+						'page_size' => 1,
+					);
+
+					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $criteria, true ) );
+
+					$entries = GFAPI::get_entries( $target_form_id, $criteria, null, $paging );
+
+					if ( is_wp_error( $entries ) || empty( $entries ) ) {
+						$this->log_debug( __METHOD__ . '(): No entries found that match search criteria.' );
+						return false;
+					}
+
+					$target_entry = current( $entries );
+					$target_entry_id = rgar( $target_entry, 'id' );
+
+					$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $target_entry_id );
+
+					$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
+
+					if ( rgar( $target_entry, 'id' ) != $target_entry_id ) {
+
+						$this->log_debug( __METHOD__ . '(): gravityflowformconnector_target_entry_id filter updated selection to entry #' . $target_entry_id );
+						$target_entry = GFAPI::get_entry( $target_entry_id );
+
+					}
+				}
+			}
+			return $target_entry;
 		}
 
+		/**
+		 * Helper to get the entry from a remote site based on either a specified entry_id or entry filter criteria.
+		 *
+		 * @param string $entry_id
+		 * @param string $form_id
+		 * @param array  $entry
+		 * @param array  $form
+		 *
+		 * @return array
+		 */
+		public function get_remote_entry( $target_entry_id, $target_form_id, $entry, $form ) {
+
+			if ( empty( $this->lookup_method ) || $this->lookup_method == 'select_entry_id_field' ) {
+
+				if ( empty( $target_entry_id ) ) {
+					return false;
+				}
+
+				$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
+
+				if ( empty( $target_entry_id ) ) {
+					return true;
+				}
+
+				$route  = 'entries/' . $target_entry_id;
+				$target_entry = $this->remote_request( $route );
+
+			} elseif ( $this->lookup_method == 'filter' ) {
+
+				if ( empty( $this->entry_filter ) ) {
+
+					$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
+					return false;
+
+				} else {
+
+					$search_criteria = array(
+						'status' => 'active',
+					);
+
+					if ( ! empty( $this->entry_filter['filters'] ) ) {
+
+						$search_criteria['field_filters']['mode'] = $this->entry_filter['mode'];
+
+						foreach ( $this->entry_filter['filters'] as $field_filter ) {
+
+							$search_criteria['field_filters'][] = array(
+								'key'      => $field_filter['field'],
+								'operator' => $field_filter['operator'],
+								'value'    => $field_filter['value'],
+							);
+
+						}
+					}
+
+					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $search_criteria, true ) );
+
+					$route  = 'forms/' . $target_form_id . '/entries';
+
+
+					$query_args = array(
+						'paging' => array(
+							'page_size' => '1',
+						),
+						'search' => json_encode( $search_criteria ),
+					);
+
+					$entries = $this->remote_request( $route, 'GET', null, $query_args );
+
+					if ( is_wp_error( $entries ) || empty( $entries ) ) {
+						$this->log_debug( __METHOD__ . '(): No entries found that match search criteria.' );
+						return false;
+					}
+
+					$target_entry = current( $entries['entries'] );
+
+					$target_entry_id = rgar( $target_entry, 'id' );
+
+					$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $target_entry_id );
+
+					$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
+
+					if ( rgar( $target_entry, 'id' ) != $target_entry_id ) {
+
+						$this->log_debug( __METHOD__ . '(): gravityflowformconnector_target_entry_id filter updated selection to entry #' . $target_entry_id );
+						$route  = 'entries/' . $target_entry_id;
+						$target_entry = $this->remote_request( $route );
+
+					}
+				}
+			}
+			return $target_entry;
+		}
 	}
 }
 
