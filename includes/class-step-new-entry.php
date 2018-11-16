@@ -662,7 +662,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 * Helper to get the specified choice property for the selected choice.
 		 *
 		 * @param string $selected_choice The selected choice value or text.
-		 * @param array $choices The field choices.
+		 * @param array  $choices The field choices.
 		 * @param string $compare_property The choice property the $selected_choice is to be compared against.
 		 * @param string $return_property The choice property to be returned.
 		 *
@@ -678,6 +678,72 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			}
 
 			return $selected_choice;
+		}
+
+		/**
+		 * Helper to get the entry from local site based on either a specified entry_id or entry filter criteria.
+		 *
+		 * @param string $form_id
+		 * @param string $entry_id
+		 *
+		 * @return array
+		 */
+		public function get_local_target_entry( $target_form_id, $target_entry_id ) {
+
+			if ( empty( $this->lookup_method ) || $this->lookup_method == 'select_entry_id_field' ) {
+
+				if ( empty( $target_entry_id ) ) {
+					return false;
+				}
+
+				$target_entry = GFAPI::get_entry( $target_entry_id );
+
+			} elseif ( $this->lookup_method == 'filter' ) {
+
+				if ( empty( $this->entry_filter ) ) {
+
+					$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
+					return false;
+
+				} else {
+
+					$criteria['status'] = 'active';
+					$criteria['field_filters']['mode'] = $this->entry_filter['mode'];
+
+					if ( ! empty( $this->entry_filter['filters'] ) ) {
+
+						foreach ( $this->entry_filter['filters'] as $field_filter ) {
+
+							$criteria['field_filters'][] = array(
+								'key'      => $field_filter['field'],
+								'operator' => $field_filter['operator'],
+								'value'    => $field_filter['value'],
+							);
+
+						}
+					}
+
+					$paging = array(
+						'offset'    => 0,
+						'page_size' => 1,
+					);
+
+					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $criteria, true ) );
+
+					$entries = GFAPI::get_entries( $target_form_id, $criteria, null, $paging );
+
+					if ( is_wp_error( $entries ) || empty( $entries ) ) {
+						$this->log_debug( __METHOD__ . '(): No entries found that match search criteria.' );
+						return false;
+					}
+
+					$target_entry = current( $entries );
+
+					$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $target_entry_id );
+
+				}
+			}
+			return $target_entry;
 		}
 	}
 }

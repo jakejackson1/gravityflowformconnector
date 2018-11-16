@@ -217,63 +217,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
 
-			if ( empty( $this->lookup_method ) || $this->lookup_method == 'select_entry_id_field' ) {
+			$target_entry = $this->get_local_target_entry( $target_form_id, $target_entry_id );
 
-				if ( empty( $target_entry_id ) ) {
-					return true;
-				}
-
-				$target_entry = GFAPI::get_entry( $target_entry_id );
-
-			} elseif ( $this->lookup_method == 'filter' ) {
-
-				if ( empty( $this->entry_filter ) ) {
-
-					$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
-					return true;
-
-				} else {
-
-					$criteria['status'] = 'active';
-					$criteria['field_filters']['mode'] = $this->entry_filter['mode'];
-
-					if ( ! empty( $this->entry_filter['filters'] ) ) {
-
-						foreach ( $this->entry_filter['filters'] as $field_filter ) {
-
-							$criteria['field_filters'][] = array(
-								'key'      => $field_filter['field'],
-								'operator' => $field_filter['operator'],
-								'value'    => $field_filter['value'],
-							);
-
-						}
-					}
-
-					$paging = array(
-						'offset'    => 0,
-						'page_size' => 1,
-					);
-
-					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $criteria, true ) );
-
-					$entries = GFAPI::get_entries( $target_form_id, $criteria, null, $paging );
-
-					if ( is_wp_error( $entries ) || empty( $entries ) ) {
-						return true;
-					}
-
-					$target_entry = current( $entries );
-					$target_entry_id = rgar( $target_entry, 'id' );
-
-					$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $target_entry_id );
-
-				}
-			}
-
-			if ( is_wp_error( $target_entry ) ) {
+			if ( is_wp_error( $target_entry ) || $target_entry == false ) {
 				return true;
 			}
+
+			$target_entry_id = rgar( $target_entry, 'id' );
 
 			$new_entry = $this->do_mapping( $target_form, $target_entry );
 
@@ -341,6 +291,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			return $result;
 		}
+
 	}
 }
 
