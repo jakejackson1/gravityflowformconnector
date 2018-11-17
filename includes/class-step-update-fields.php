@@ -116,12 +116,13 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						),
 					),
 					array(
-						'name'        => 'entry_filter',
-						'form_id'     => $this->get_setting( 'target_form_id' ),
-						'label'       => esc_html__( 'Lookup Conditional Logic', 'gravityflowformconnector' ),
-						'type'        => 'entry_filter',
-						'filter_text' => esc_html__( 'Look up the first entry matching {0} of the following criteria:', 'gravityflowformconnector' ),
-						'dependency'  => array(
+						'name'                 => 'entry_filter',
+						'show_sorting_options' => true,
+						'form_id'              => $this->get_setting( 'target_form_id' ),
+						'label'                => esc_html__( 'Lookup Conditional Logic', 'gravityflowformconnector' ),
+						'type'                 => 'entry_filter',
+						'filter_text'          => esc_html__( 'Look up the first entry matching {0} of the following criteria:', 'gravityflowformconnector' ),
+						'dependency'           => array(
 							'field'  => 'lookup_method',
 							'values' => array( 'filter' ),
 						),
