@@ -13,7 +13,7 @@
 
 if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
-	class Gravity_Flow_Step_Update_Field_Values extends Gravity_Flow_Step_New_Entry {
+	class Gravity_Flow_Step_Update_Field_Values extends Gravity_Flow_Step_Update_Entry {
 		public $_step_type = 'update_field_values';
 
 		public function get_label() {
@@ -84,7 +84,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						),
 					),
 					array(
-						'name'     => 'target_form_id',
+						'name'     => 'source_form_id',
 						'label'    => esc_html__( 'Source Form', 'gravityflowformconnector' ),
 						'type'     => 'select',
 						'onchange' => "jQuery('#action').val('update');jQuery(this).closest('form').submit();",
@@ -108,7 +108,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'onchange'      => 'jQuery(this).closest("form").submit();',
 						'choices'       => array(
 							array( 'label' => esc_html__( 'Conditional Logic', 'gravityflowformconnector' ), 'value' => 'filter' ),
-							array( 'label' => esc_html__( 'Select a field containing the target entry ID.', 'gravityflowformconnector' ), 'value' => 'select_entry_id_field' ),
+							array( 'label' => esc_html__( 'Select a field containing the source entry ID.', 'gravityflowformconnector' ), 'value' => 'select_entry_id_field' ),
 						),
 						'dependency' => array(
 							'field'  => 'action',
@@ -118,7 +118,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					array(
 						'name'                 => 'entry_filter',
 						'show_sorting_options' => true,
-						'form_id'              => $this->get_setting( 'target_form_id' ),
+						'form_id'              => $this->get_setting( 'source_form_id' ),
 						'label'                => esc_html__( 'Lookup Conditional Logic', 'gravityflowformconnector' ),
 						'type'                 => 'entry_filter',
 						'filter_text'          => esc_html__( 'Look up the first entry matching {0} of the following criteria:', 'gravityflowformconnector' ),
@@ -134,7 +134,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			if ( empty( $lookup_setting ) || $lookup_setting == 'select_entry_id_field' ) {
 				$entry_id_field = array(
-					'name'       => 'target_entry_id',
+					'name'       => 'source_entry_id',
 					'label'      => esc_html__( 'Entry ID Field', 'gravityflowformconnector' ),
 					'type'       => 'field_select',
 					'tooltip'    => __( 'Select the field which will contain the entry ID of the entry that values will be copied from.', 'gravityflowformconnector' ),
@@ -161,7 +161,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					}
 				}
 
-				if ( $this->get_setting( 'target_form_id' ) == $this->get_form_id() ) {
+				if ( $this->get_setting( 'source_form_id' ) == $this->get_form_id() ) {
 					$self_entry_id_choice = array( array( 'label' => esc_html__( 'Entry ID (Self)', 'gravityflowformconnector' ), 'value' => 'id' ) );
 					if ( ! isset( $entry_id_field['args']['append_choices'] ) ) {
 						$entry_id_field['args']['append_choices'] = array();
@@ -180,7 +180,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				'enable_custom_value' => true,
 				'key_field_title'     => esc_html__( 'Field', 'gravityflowformconnector' ),
 				'value_field_title'   => esc_html__( 'Value', 'gravityflowformconnector' ),
-				'value_choices'       => $this->field_mappings(),
+				'value_choices'       => $this->field_mappings( 'source_form_id' ),
 				'key_choices'         => $this->value_mappings(),
 				'tooltip'             => '<h6>' . esc_html__( 'Mapping', 'gravityflowformconnector' ) . '</h6>' . esc_html__( 'Map the fields of this form to the selected form. Values from this form will be saved in the entry in the selected form', 'gravityflowformconnector' ),
 				'dependency'          => array(
@@ -210,34 +210,86 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			return $choices;
 		}
 
+		/**
+		 * Prepare field map.
+		 *
+		 * @return array
+		 */
+		public function field_mappings() {
+
+			$source_form_id = $this->get_setting( 'source_form_id' );
+
+			if ( empty( $source_form_id ) ) {
+				return false;
+			}
+
+			$source_form = $this->get_target_form( $source_form_id );
+
+			if ( empty( $source_form ) ) {
+				return false;
+			}
+
+			$fields = $this->get_field_map_choices( $source_form );
+			return $fields;
+		}
+
+		/**
+		 * @param $form
+		 * @param $entry
+		 *
+		 * @return array $new_entry
+		 */
+		public function do_mapping( $form, $entry ) {
+			$new_entry = array();
+
+			if ( ! is_array( $this->mappings ) ) {
+
+				return $new_entry;
+			}
+
+			$source_form = $this->get_target_form( $this->source_form_id );
+
+			if ( ! $source_form ) {
+				$this->log_debug( __METHOD__ . '(): aborting; unable to get source form.' );
+
+				return $new_entry;
+			}
+
+			foreach ( $this->mappings as $mapping ) {
+				if ( rgblank( $mapping['key'] ) ) {
+					continue;
+				}
+
+				$new_entry = $this->add_mapping_to_entry( $mapping, $entry, $new_entry, $form, $source_form );
+			}
+
+			return apply_filters( 'gravityflowformconnector_' . $this->get_type(), $new_entry, $entry, $form, $source_form, $this );
+		}
+
 		public function process_local_action() {
 
 			$entry = $this->get_entry();
 
-			$target_form_id = $this->target_form_id;
+			$source_form_id = $this->source_form_id;
 
 			$form = $this->get_form();
 
-			$target_form = GFAPI::get_form( $target_form_id );
+			$source_form = GFAPI::get_form( $source_form_id );
 
-			$target_entry_id = rgar( $entry, $this->target_entry_id );
+			$source_entry_id = rgar( $entry, $this->source_entry_id );
 
-			$target_entry = $this->get_local_entry( $target_entry_id, $target_form_id, $entry, $form );
+			$source_entry = $this->get_local_entry( $source_entry_id, $source_form_id, $entry, $form );
 
-			if ( is_wp_error( $target_entry ) || $target_entry == false ) {
+			if ( is_wp_error( $source_entry ) || $source_entry == false ) {
 				return true;
 			}
 
-			$target_entry_id = rgar( $target_entry, 'id' );
+			$new_entry = $this->do_mapping( $source_form, $source_entry );
 
-			$new_entry = $this->do_mapping( $target_form, $target_entry );
-
-			if ( ! is_wp_error( $target_entry ) ) {
-				foreach ( $new_entry as $key => $value ) {
-					$entry[ (string) $key ] = $value;
-				}
-				GFAPI::update_entry( $entry );
+			foreach ( $new_entry as $key => $value ) {
+				$entry[ (string) $key ] = $value;
 			}
+			GFAPI::update_entry( $entry );
 
 			return true;
 		}
@@ -253,202 +305,30 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$form = $this->get_form();
 
-			$target_form_id = $this->target_form_id;
+			$source_form_id = $this->source_form_id;
 
-			$target_form = $this->get_target_form( $target_form_id );
+			$source_form = $this->get_target_form( $source_form_id );
 
-			if ( empty( $target_form ) ) {
+			if ( empty( $source_form ) ) {
 				return true;
 			}
 
-			$target_entry_id = rgar( $entry, $this->target_entry_id );
+			$source_entry_id = rgar( $entry, $this->source_entry_id );
 
-			$target_entry = $this->get_remote_entry( $target_entry_id, $target_form_id, $entry, $form );
+			$source_entry = $this->get_remote_entry( $source_entry_id, $source_form_id, $entry, $form );
 
-			$new_entry = $this->do_mapping( $target_form, $target_entry );
-
-			if ( ! is_wp_error( $target_entry ) ) {
-				foreach ( $new_entry as $key => $value ) {
-					$entry[ (string) $key ] = $value;
-				}
-				GFAPI::update_entry( $entry );
+			if ( is_wp_error( $source_entry ) || $source_entry == false ) {
+				return true;
 			}
+
+			$new_entry = $this->do_mapping( $source_form, $source_entry );
+
+			foreach ( $new_entry as $key => $value ) {
+				$entry[ (string) $key ] = $value;
+			}
+			GFAPI::update_entry( $entry );
 
 			return true;
-		}
-
-		/**
-		 * Helper to get the entry from the local site based on either a specified entry_id or entry filter criteria.
-		 *
-		 * @param string $entry_id
-		 * @param string $form_id
-		 * @param array  $entry
-		 * @param array  $form
-		 *
-		 * @return array
-		 */
-		public function get_local_entry( $target_entry_id, $target_form_id, $entry, $form ) {
-
-			if ( empty( $this->lookup_method ) || $this->lookup_method == 'select_entry_id_field' ) {
-
-				if ( empty( $target_entry_id ) ) {
-					return false;
-				}
-
-				$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
-
-				$target_entry = GFAPI::get_entry( $target_entry_id );
-
-			} elseif ( $this->lookup_method == 'filter' ) {
-
-				if ( empty( $this->entry_filter ) ) {
-
-					$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
-					return false;
-
-				} else {
-
-					$criteria['status'] = 'active';
-
-					if ( ! empty( $this->entry_filter['filters'] ) ) {
-
-						$criteria['field_filters']['mode'] = $this->entry_filter['mode'];
-
-						foreach ( $this->entry_filter['filters'] as $field_filter ) {
-
-							$criteria['field_filters'][] = array(
-								'key'      => $field_filter['field'],
-								'operator' => $field_filter['operator'],
-								'value'    => $field_filter['value'],
-							);
-
-						}
-					}
-
-					$paging = array(
-						'offset'    => 0,
-						'page_size' => 1,
-					);
-
-					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $criteria, true ) );
-
-					$entries = GFAPI::get_entries( $target_form_id, $criteria, null, $paging );
-
-					if ( is_wp_error( $entries ) || empty( $entries ) ) {
-						$this->log_debug( __METHOD__ . '(): No entries found that match search criteria.' );
-						return false;
-					}
-
-					$target_entry = current( $entries );
-					$target_entry_id = rgar( $target_entry, 'id' );
-
-					$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $target_entry_id );
-
-					$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
-
-					if ( rgar( $target_entry, 'id' ) != $target_entry_id ) {
-
-						$this->log_debug( __METHOD__ . '(): gravityflowformconnector_target_entry_id filter updated selection to entry #' . $target_entry_id );
-						$target_entry = GFAPI::get_entry( $target_entry_id );
-
-					}
-				}
-			}
-			return $target_entry;
-		}
-
-		/**
-		 * Helper to get the entry from a remote site based on either a specified entry_id or entry filter criteria.
-		 *
-		 * @param string $entry_id
-		 * @param string $form_id
-		 * @param array  $entry
-		 * @param array  $form
-		 *
-		 * @return array
-		 */
-		public function get_remote_entry( $target_entry_id, $target_form_id, $entry, $form ) {
-
-			if ( empty( $this->lookup_method ) || $this->lookup_method == 'select_entry_id_field' ) {
-
-				if ( empty( $target_entry_id ) ) {
-					return false;
-				}
-
-				$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
-
-				if ( empty( $target_entry_id ) ) {
-					return true;
-				}
-
-				$route  = 'entries/' . $target_entry_id;
-				$target_entry = $this->remote_request( $route );
-
-			} elseif ( $this->lookup_method == 'filter' ) {
-
-				if ( empty( $this->entry_filter ) ) {
-
-					$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
-					return false;
-
-				} else {
-
-					$search_criteria = array(
-						'status' => 'active',
-					);
-
-					if ( ! empty( $this->entry_filter['filters'] ) ) {
-
-						$search_criteria['field_filters']['mode'] = $this->entry_filter['mode'];
-
-						foreach ( $this->entry_filter['filters'] as $field_filter ) {
-
-							$search_criteria['field_filters'][] = array(
-								'key'      => $field_filter['field'],
-								'operator' => $field_filter['operator'],
-								'value'    => $field_filter['value'],
-							);
-
-						}
-					}
-
-					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $search_criteria, true ) );
-
-					$route  = 'forms/' . $target_form_id . '/entries';
-
-
-					$query_args = array(
-						'paging' => array(
-							'page_size' => '1',
-						),
-						'search' => json_encode( $search_criteria ),
-					);
-
-					$entries = $this->remote_request( $route, 'GET', null, $query_args );
-
-					if ( is_wp_error( $entries ) || empty( $entries ) ) {
-						$this->log_debug( __METHOD__ . '(): No entries found that match search criteria.' );
-						return false;
-					}
-
-					$target_entry = current( $entries['entries'] );
-
-					$target_entry_id = rgar( $target_entry, 'id' );
-
-					$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $target_entry_id );
-
-					$target_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $target_entry_id, $target_form_id, $entry, $form, $this );
-
-					if ( rgar( $target_entry, 'id' ) != $target_entry_id ) {
-
-						$this->log_debug( __METHOD__ . '(): gravityflowformconnector_target_entry_id filter updated selection to entry #' . $target_entry_id );
-						$route  = 'entries/' . $target_entry_id;
-						$target_entry = $this->remote_request( $route );
-
-					}
-				}
-			}
-			return $target_entry;
 		}
 	}
 }
