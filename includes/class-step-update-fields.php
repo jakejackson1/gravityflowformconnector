@@ -260,7 +260,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					continue;
 				}
 
-				$new_entry = $this->add_mapping_to_entry( $mapping, $entry, $new_entry, $form, $source_form );
+				$new_entry = $this->add_mapping_to_entry( $mapping, $entry, $new_entry, $form, $this->get_form() );
 			}
 
 			return apply_filters( 'gravityflowformconnector_' . $this->get_type(), $new_entry, $entry, $form, $source_form, $this );

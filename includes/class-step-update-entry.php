@@ -462,6 +462,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 				$sort = array();
 
 				if ( ! empty( $this->entry_filtersort_key ) && ! empty( $this->entry_filtersort_direction ) ) {
+
 					$sort = array(
 						'key' => $this->entry_filtersort_key,
 						'direction' => $this->entry_filtersort_direction,
@@ -475,7 +476,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 				$paging = array(
 					'offset'    => 0,
-					'page_size' => 5,
+					'page_size' => 1,
 				);
 
 				$entries = GFAPI::get_entries( $form_id, $search, $sort, $paging );
@@ -561,8 +562,23 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 					$route  = 'forms/' . $form_id . '/entries';
 
+					$sort = array();
 
+					if ( ! empty( $this->entry_filtersort_key ) && ! empty( $this->entry_filtersort_direction ) ) {
+
+						$sort = array(
+							'key' => $this->entry_filtersort_key,
+							'direction' => $this->entry_filtersort_direction,
+						);
+
+						$this->log_debug( __METHOD__ . '(): Entry Filter sort criteria: ' . print_r( $sort, true ) );
+
+					} else {
+						$this->log_debug( __METHOD__ . '(): No Entry Filter sort criteria defined.' );
+					}
+					
 					$query_args = array(
+						'sorting' => $sort,
 						'paging' => array(
 							'page_size' => '1',
 						),
