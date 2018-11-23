@@ -660,6 +660,166 @@
                 "useRichTextEditor": false,
                 "displayOnly": "",
                 "enablePrice": ""
+            },
+            {
+                "type": "text",
+                "id": 14,
+                "label": "Local Entry Filter - By ID - Sort ASC",
+                "adminLabel": "",
+                "isRequired": false,
+                "size": "medium",
+                "errorMessage": "",
+                "visibility": "administrative",
+                "inputs": null,
+                "formId": 11,
+                "description": "",
+                "allowsPrepopulate": false,
+                "inputMask": false,
+                "inputMaskValue": "",
+                "inputType": "",
+                "labelPlacement": "",
+                "descriptionPlacement": "",
+                "subLabelPlacement": "",
+                "placeholder": "",
+                "cssClass": "",
+                "inputName": "",
+                "noDuplicates": false,
+                "defaultValue": "",
+                "choices": "",
+                "conditionalLogic": "",
+                "productField": "",
+                "enablePasswordInput": "",
+                "maxLength": "",
+                "multipleFiles": false,
+                "maxFiles": "",
+                "calculationFormula": "",
+                "calculationRounding": "",
+                "enableCalculation": "",
+                "disableQuantity": false,
+                "displayAllCategories": false,
+                "useRichTextEditor": false,
+                "displayOnly": "",
+                "enablePrice": ""
+            },
+            {
+                "type": "text",
+                "id": 17,
+                "label": "Local Entry Filter - By ID - Sort DESC",
+                "adminLabel": "",
+                "isRequired": false,
+                "size": "medium",
+                "errorMessage": "",
+                "visibility": "administrative",
+                "inputs": null,
+                "formId": 11,
+                "description": "",
+                "allowsPrepopulate": false,
+                "inputMask": false,
+                "inputMaskValue": "",
+                "inputType": "",
+                "labelPlacement": "",
+                "descriptionPlacement": "",
+                "subLabelPlacement": "",
+                "placeholder": "",
+                "cssClass": "",
+                "inputName": "",
+                "noDuplicates": false,
+                "defaultValue": "",
+                "choices": "",
+                "conditionalLogic": "",
+                "productField": "",
+                "enablePasswordInput": "",
+                "maxLength": "",
+                "multipleFiles": false,
+                "maxFiles": "",
+                "calculationFormula": "",
+                "calculationRounding": "",
+                "enableCalculation": "",
+                "disableQuantity": false,
+                "displayAllCategories": false,
+                "useRichTextEditor": false,
+                "displayOnly": "",
+                "enablePrice": ""
+            },
+            {
+                "type": "text",
+                "id": 16,
+                "label": "Remote Entry Filter - By ID - Sort ASC",
+                "adminLabel": "",
+                "isRequired": false,
+                "size": "medium",
+                "errorMessage": "",
+                "visibility": "administrative",
+                "inputs": null,
+                "formId": 11,
+                "description": "",
+                "allowsPrepopulate": false,
+                "inputMask": false,
+                "inputMaskValue": "",
+                "inputType": "",
+                "labelPlacement": "",
+                "descriptionPlacement": "",
+                "subLabelPlacement": "",
+                "placeholder": "",
+                "cssClass": "",
+                "inputName": "",
+                "noDuplicates": false,
+                "defaultValue": "",
+                "choices": "",
+                "conditionalLogic": "",
+                "productField": "",
+                "enablePasswordInput": "",
+                "maxLength": "",
+                "multipleFiles": false,
+                "maxFiles": "",
+                "calculationFormula": "",
+                "calculationRounding": "",
+                "enableCalculation": "",
+                "disableQuantity": false,
+                "displayAllCategories": false,
+                "useRichTextEditor": false,
+                "displayOnly": "",
+                "enablePrice": ""
+            },
+            {
+                "type": "text",
+                "id": 18,
+                "label": "Remote Entry Filter - By ID - Sort DESC",
+                "adminLabel": "",
+                "isRequired": false,
+                "size": "medium",
+                "errorMessage": "",
+                "visibility": "administrative",
+                "inputs": null,
+                "formId": 11,
+                "description": "",
+                "allowsPrepopulate": false,
+                "inputMask": false,
+                "inputMaskValue": "",
+                "inputType": "",
+                "labelPlacement": "",
+                "descriptionPlacement": "",
+                "subLabelPlacement": "",
+                "placeholder": "",
+                "cssClass": "",
+                "inputName": "",
+                "noDuplicates": false,
+                "defaultValue": "",
+                "choices": "",
+                "conditionalLogic": "",
+                "productField": "",
+                "enablePasswordInput": "",
+                "maxLength": "",
+                "multipleFiles": false,
+                "maxFiles": "",
+                "calculationFormula": "",
+                "calculationRounding": "",
+                "enableCalculation": "",
+                "disableQuantity": false,
+                "displayAllCategories": false,
+                "useRichTextEditor": false,
+                "displayOnly": "",
+                "enablePrice": ""
             }
         ],
         "version": "2.3.6.5",
@@ -675,6 +835,17 @@
         "is_active": "1",
         "date_created": "2018-11-16 22:22:07",
         "is_trash": "0",
+        "notifications": [
+            {
+                "id": "5be84d382b63c",
+                "to": "{admin_email}",
+                "name": "Admin Notification",
+                "event": "form_submission",
+                "toType": "email",
+                "subject": "New submission from {form_title}",
+                "message": "{all_fields}"
+            }
+        ],
         "confirmations": [
             {
                 "id": "5be84d3835a97",
@@ -685,17 +856,6 @@
                 "url": "",
                 "pageId": "",
                 "queryString": ""
-            }
-        ],
-        "notifications": [
-            {
-                "id": "5be84d382b63c",
-                "to": "{admin_email}",
-                "name": "Admin Notification",
-                "event": "form_submission",
-                "toType": "email",
-                "subject": "New submission from {form_title}",
-                "message": "{all_fields}"
             }
         ],
         "feeds": {
@@ -723,10 +883,10 @@
                         "schedule_date_field_offset_unit": "hours",
                         "schedule_date_field_before_after": "after",
                         "server_type": "local",
-                        "target_form_id": "12",
+                        "source_form_id": "12",
                         "action": "update",
                         "lookup_method": "select_entry_id_field",
-                        "target_entry_id": "4",
+                        "source_entry_id": "4",
                         "mappings": [
                             {
                                 "key": "1",
@@ -753,25 +913,13 @@
                                 "custom_value": ""
                             },
                             {
-                                "key": "13.1",
-                                "value": "8.1",
+                                "key": "13",
+                                "value": "8",
                                 "custom_key": "",
                                 "custom_value": ""
                             },
                             {
-                                "key": "13.3",
-                                "value": "8.3",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "13.4",
-                                "value": "8.4",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "8.1",
+                                "key": "4",
                                 "value": "id",
                                 "custom_key": "",
                                 "custom_value": ""
@@ -909,7 +1057,7 @@
                         "schedule_date_field_offset_unit": "hours",
                         "schedule_date_field_before_after": "after",
                         "server_type": "local",
-                        "target_form_id": "12",
+                        "source_form_id": "12",
                         "action": "update",
                         "lookup_method": "filter",
                         "entry_filter": {
@@ -932,7 +1080,7 @@
                                 }
                             ]
                         },
-                        "entry_filtersort_key": "entry_id",
+                        "entry_filtersort_key": "5",
                         "entry_filtersort_direction": "DESC",
                         "mappings": [
                             {
@@ -960,20 +1108,8 @@
                                 "custom_value": ""
                             },
                             {
-                                "key": "13.1",
-                                "value": "8.1",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "13.3",
-                                "value": "8.3",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "13.4",
-                                "value": "8.4",
+                                "key": "13",
+                                "value": "8",
                                 "custom_key": "",
                                 "custom_value": ""
                             },
@@ -1119,10 +1255,10 @@
                         "remote_site_url": "http://local.test",
                         "remote_public_key": "c1f1037e97",
                         "remote_private_key": "4ac6e84ff06db56",
-                        "target_form_id": "12",
+                        "source_form_id": "12",
                         "action": "update",
                         "lookup_method": "select_entry_id_field",
-                        "target_entry_id": "10",
+                        "source_entry_id": "10",
                         "mappings": [
                             {
                                 "key": "3",
@@ -1149,25 +1285,13 @@
                                 "custom_value": ""
                             },
                             {
-                                "key": "13.1",
-                                "value": "8.1",
+                                "key": "13",
+                                "value": "8",
                                 "custom_key": "",
                                 "custom_value": ""
                             },
                             {
-                                "key": "13.3",
-                                "value": "8.3",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "13.4",
-                                "value": "8.4",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "8.3",
+                                "key": "10",
                                 "value": "id",
                                 "custom_key": "",
                                 "custom_value": ""
@@ -1308,7 +1432,7 @@
                         "remote_site_url": "http://local.test",
                         "remote_public_key": "c1f1037e97",
                         "remote_private_key": "4ac6e84ff06db56",
-                        "target_form_id": "12",
+                        "source_form_id": "12",
                         "action": "update",
                         "lookup_method": "filter",
                         "entry_filter": {
@@ -1331,11 +1455,11 @@
                                 }
                             ]
                         },
-                        "entry_filtersort_key": "entry_id",
+                        "entry_filtersort_key": "5",
                         "entry_filtersort_direction": "DESC",
                         "mappings": [
                             {
-                                "key": "1",
+                                "key": "12",
                                 "value": "9",
                                 "custom_key": "",
                                 "custom_value": ""
@@ -1359,20 +1483,8 @@
                                 "custom_value": ""
                             },
                             {
-                                "key": "13.1",
-                                "value": "8.1",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "13.3",
-                                "value": "8.3",
-                                "custom_key": "",
-                                "custom_value": ""
-                            },
-                            {
-                                "key": "13.4",
-                                "value": "8.4",
+                                "key": "13",
+                                "value": "8",
                                 "custom_key": "",
                                 "custom_value": ""
                             },
@@ -1491,6 +1603,424 @@
                     },
                     "addon_slug": "gravityflow",
                     "event_type": null
+                },
+                {
+                    "id": "42",
+                    "form_id": "11",
+                    "is_active": "1",
+                    "feed_order": "0",
+                    "meta": {
+                        "step_name": "Update Fields - Local - Filter By ID Sort ASC",
+                        "description": "",
+                        "step_type": "update_field_values",
+                        "step_highlight": "0",
+                        "step_highlight_type": "color",
+                        "step_highlight_color": "#dd3333",
+                        "feed_condition_conditional_logic": "0",
+                        "feed_condition_conditional_logic_object": [],
+                        "scheduled": "0",
+                        "schedule_type": "delay",
+                        "schedule_date": "",
+                        "schedule_delay_offset": "",
+                        "schedule_delay_unit": "hours",
+                        "schedule_date_field_offset": "0",
+                        "schedule_date_field_offset_unit": "hours",
+                        "schedule_date_field_before_after": "after",
+                        "server_type": "local",
+                        "source_form_id": "12",
+                        "action": "update",
+                        "lookup_method": "filter",
+                        "entry_filter": {
+                            "mode": "all",
+                            "filters": [
+                                {
+                                    "field": "entry_id",
+                                    "operator": "isnot",
+                                    "value": "XXXXX"
+                                }
+                            ]
+                        },
+                        "entry_filtersort_key": "6",
+                        "entry_filtersort_direction": "ASC",
+                        "mappings": [
+                            {
+                                "key": "14",
+                                "value": "id",
+                                "custom_key": "",
+                                "custom_value": ""
+                            }
+                        ],
+                        "destination_complete": "next"
+                    },
+                    "addon_slug": "gravityflow",
+                    "event_type": null
+                },
+                {
+                    "id": "41",
+                    "form_id": "11",
+                    "is_active": "1",
+                    "feed_order": "0",
+                    "meta": {
+                        "step_name": "Update Fields - Local - Filter By ID Sort DESC",
+                        "description": "",
+                        "step_type": "update_field_values",
+                        "step_highlight": "0",
+                        "step_highlight_type": "color",
+                        "step_highlight_color": "#dd3333",
+                        "feed_condition_conditional_logic": "0",
+                        "feed_condition_conditional_logic_object": [],
+                        "scheduled": "0",
+                        "schedule_type": "delay",
+                        "schedule_date": "",
+                        "schedule_delay_offset": "",
+                        "schedule_delay_unit": "hours",
+                        "schedule_date_field_offset": "0",
+                        "schedule_date_field_offset_unit": "hours",
+                        "schedule_date_field_before_after": "after",
+                        "server_type": "local",
+                        "source_form_id": "12",
+                        "action": "update",
+                        "lookup_method": "filter",
+                        "entry_filter": {
+                            "mode": "all",
+                            "filters": [
+                                {
+                                    "field": "entry_id",
+                                    "operator": "isnot",
+                                    "value": "XXXXX"
+                                }
+                            ]
+                        },
+                        "entry_filtersort_key": "6",
+                        "entry_filtersort_direction": "DESC",
+                        "mappings": [
+                            {
+                                "key": "17",
+                                "value": "id",
+                                "custom_key": "",
+                                "custom_value": ""
+                            }
+                        ],
+                        "destination_complete": "next"
+                    },
+                    "addon_slug": "gravityflow",
+                    "event_type": null
+                },
+                {
+                    "id": "44",
+                    "form_id": "11",
+                    "is_active": "1",
+                    "feed_order": "0",
+                    "meta": {
+                        "step_name": "Post Local - Conditional Sort Check",
+                        "description": "",
+                        "step_type": "approval",
+                        "step_highlight": "0",
+                        "step_highlight_type": "color",
+                        "step_highlight_color": "#dd3333",
+                        "feed_condition_conditional_logic": "0",
+                        "feed_condition_conditional_logic_object": [],
+                        "scheduled": "0",
+                        "schedule_type": "delay",
+                        "schedule_date": "",
+                        "schedule_delay_offset": "",
+                        "schedule_delay_unit": "hours",
+                        "schedule_date_field_offset": "0",
+                        "schedule_date_field_offset_unit": "hours",
+                        "schedule_date_field_before_after": "after",
+                        "type": "select",
+                        "assignees": [
+                            "user_id|1"
+                        ],
+                        "routing": [
+                            {
+                                "assignee": "user_id|1",
+                                "fieldId": "0",
+                                "operator": "is",
+                                "value": "",
+                                "type": ""
+                            }
+                        ],
+                        "assignee_policy": "all",
+                        "instructionsEnable": "0",
+                        "instructionsValue": "Instructions: please review the values in the fields below and click on the Approve or Reject button",
+                        "display_fields_mode": "all_fields",
+                        "assignee_notification_enabled": "0",
+                        "assignee_notification_from_name": "",
+                        "assignee_notification_from_email": "{admin_email}",
+                        "assignee_notification_reply_to": "",
+                        "assignee_notification_bcc": "",
+                        "assignee_notification_subject": "",
+                        "assignee_notification_message": "A new entry is pending your approval. Please check your Workflow Inbox.",
+                        "assignee_notification_disable_autoformat": "0",
+                        "resend_assignee_emailEnable": "0",
+                        "resend_assignee_emailValue": "7",
+                        "resend_assignee_email_repeatEnable": "0",
+                        "resend_assignee_email_repeatValue": "3",
+                        "rejection_notification_enabled": "0",
+                        "rejection_notification_type": "select",
+                        "rejection_notification_routing": [
+                            {
+                                "assignee": "user_id|1",
+                                "fieldId": "0",
+                                "operator": "is",
+                                "value": "",
+                                "type": ""
+                            }
+                        ],
+                        "rejection_notification_from_name": "",
+                        "rejection_notification_from_email": "{admin_email}",
+                        "rejection_notification_reply_to": "",
+                        "rejection_notification_bcc": "",
+                        "rejection_notification_subject": "",
+                        "rejection_notification_message": "Entry {entry_id} has been rejected",
+                        "rejection_notification_disable_autoformat": "0",
+                        "approval_notification_enabled": "0",
+                        "approval_notification_type": "select",
+                        "approval_notification_routing": [
+                            {
+                                "assignee": "user_id|1",
+                                "fieldId": "0",
+                                "operator": "is",
+                                "value": "",
+                                "type": ""
+                            }
+                        ],
+                        "approval_notification_from_name": "",
+                        "approval_notification_from_email": "{admin_email}",
+                        "approval_notification_reply_to": "",
+                        "approval_notification_bcc": "",
+                        "approval_notification_subject": "",
+                        "approval_notification_message": "Entry {entry_id} has been approved",
+                        "approval_notification_disable_autoformat": "0",
+                        "note_mode": "not_required",
+                        "expiration": "0",
+                        "expiration_type": "delay",
+                        "expiration_date": "",
+                        "expiration_delay_offset": "",
+                        "expiration_delay_unit": "hours",
+                        "expiration_date_field_offset": "0",
+                        "expiration_date_field_offset_unit": "hours",
+                        "expiration_date_field_before_after": "after",
+                        "status_expiration": "rejected",
+                        "destination_expired": "next",
+                        "destination_rejected": "42",
+                        "destination_approved": "next"
+                    },
+                    "addon_slug": "gravityflow",
+                    "event_type": null
+                },
+                {
+                    "id": "43",
+                    "form_id": "11",
+                    "is_active": "1",
+                    "feed_order": "0",
+                    "meta": {
+                        "step_name": "Update Fields - Remote - Filter By ID Sort ASC",
+                        "description": "",
+                        "step_type": "update_field_values",
+                        "step_highlight": "0",
+                        "step_highlight_type": "color",
+                        "step_highlight_color": "#dd3333",
+                        "feed_condition_conditional_logic": "0",
+                        "feed_condition_conditional_logic_object": [],
+                        "scheduled": "0",
+                        "schedule_type": "delay",
+                        "schedule_date": "",
+                        "schedule_delay_offset": "",
+                        "schedule_delay_unit": "hours",
+                        "schedule_date_field_offset": "0",
+                        "schedule_date_field_offset_unit": "hours",
+                        "schedule_date_field_before_after": "after",
+                        "server_type": "remote",
+                        "remote_site_url": "http://local.test",
+                        "remote_public_key": "c1f1037e97",
+                        "remote_private_key": "4ac6e84ff06db56",
+                        "source_form_id": "12",
+                        "action": "update",
+                        "lookup_method": "filter",
+                        "entry_filter": {
+                            "mode": "all",
+                            "filters": [
+                                {
+                                    "field": "8.4",
+                                    "operator": "is",
+                                    "value": "Ontario"
+                                }
+                            ]
+                        },
+                        "entry_filtersort_key": "id",
+                        "entry_filtersort_direction": "ASC",
+                        "mappings": [
+                            {
+                                "key": "16",
+                                "value": "id",
+                                "custom_key": "",
+                                "custom_value": ""
+                            }
+                        ],
+                        "destination_complete": "next"
+                    },
+                    "addon_slug": "gravityflow",
+                    "event_type": null
+                },
+                {
+                    "id": "40",
+                    "form_id": "11",
+                    "is_active": "1",
+                    "feed_order": "0",
+                    "meta": {
+                        "step_name": "Update Fields - Remote - Filter By ID Sort DESC",
+                        "description": "",
+                        "step_type": "update_field_values",
+                        "step_highlight": "0",
+                        "step_highlight_type": "color",
+                        "step_highlight_color": "#dd3333",
+                        "feed_condition_conditional_logic": "0",
+                        "feed_condition_conditional_logic_object": [],
+                        "scheduled": "0",
+                        "schedule_type": "delay",
+                        "schedule_date": "",
+                        "schedule_delay_offset": "",
+                        "schedule_delay_unit": "hours",
+                        "schedule_date_field_offset": "0",
+                        "schedule_date_field_offset_unit": "hours",
+                        "schedule_date_field_before_after": "after",
+                        "server_type": "remote",
+                        "remote_site_url": "http://local.test",
+                        "remote_public_key": "c1f1037e97",
+                        "remote_private_key": "4ac6e84ff06db56",
+                        "source_form_id": "12",
+                        "action": "update",
+                        "lookup_method": "filter",
+                        "entry_filter": {
+                            "mode": "all",
+                            "filters": [
+                                {
+                                    "field": "8.4",
+                                    "operator": "is",
+                                    "value": "Ontario"
+                                }
+                            ]
+                        },
+                        "entry_filtersort_key": "id",
+                        "entry_filtersort_direction": "DESC",
+                        "mappings": [
+                            {
+                                "key": "18",
+                                "value": "id",
+                                "custom_key": "",
+                                "custom_value": ""
+                            }
+                        ],
+                        "destination_complete": "next"
+                    },
+                    "addon_slug": "gravityflow",
+                    "event_type": null
+                },
+                {
+                    "id": "45",
+                    "form_id": "11",
+                    "is_active": "1",
+                    "feed_order": "0",
+                    "meta": {
+                        "step_name": "Post Remote - Conditional Sort Check",
+                        "description": "",
+                        "step_type": "approval",
+                        "step_highlight": "0",
+                        "step_highlight_type": "color",
+                        "step_highlight_color": "#dd3333",
+                        "feed_condition_conditional_logic": "0",
+                        "feed_condition_conditional_logic_object": [],
+                        "scheduled": "0",
+                        "schedule_type": "delay",
+                        "schedule_date": "",
+                        "schedule_delay_offset": "",
+                        "schedule_delay_unit": "hours",
+                        "schedule_date_field_offset": "0",
+                        "schedule_date_field_offset_unit": "hours",
+                        "schedule_date_field_before_after": "after",
+                        "type": "select",
+                        "assignees": [
+                            "user_id|1"
+                        ],
+                        "routing": [
+                            {
+                                "assignee": "user_id|1",
+                                "fieldId": "0",
+                                "operator": "is",
+                                "value": "",
+                                "type": ""
+                            }
+                        ],
+                        "assignee_policy": "all",
+                        "instructionsEnable": "0",
+                        "instructionsValue": "Instructions: please review the values in the fields below and click on the Approve or Reject button",
+                        "display_fields_mode": "all_fields",
+                        "assignee_notification_enabled": "0",
+                        "assignee_notification_from_name": "",
+                        "assignee_notification_from_email": "{admin_email}",
+                        "assignee_notification_reply_to": "",
+                        "assignee_notification_bcc": "",
+                        "assignee_notification_subject": "",
+                        "assignee_notification_message": "A new entry is pending your approval. Please check your Workflow Inbox.",
+                        "assignee_notification_disable_autoformat": "0",
+                        "resend_assignee_emailEnable": "0",
+                        "resend_assignee_emailValue": "7",
+                        "resend_assignee_email_repeatEnable": "0",
+                        "resend_assignee_email_repeatValue": "3",
+                        "rejection_notification_enabled": "0",
+                        "rejection_notification_type": "select",
+                        "rejection_notification_routing": [
+                            {
+                                "assignee": "user_id|1",
+                                "fieldId": "0",
+                                "operator": "is",
+                                "value": "",
+                                "type": ""
+                            }
+                        ],
+                        "rejection_notification_from_name": "",
+                        "rejection_notification_from_email": "{admin_email}",
+                        "rejection_notification_reply_to": "",
+                        "rejection_notification_bcc": "",
+                        "rejection_notification_subject": "",
+                        "rejection_notification_message": "Entry {entry_id} has been rejected",
+                        "rejection_notification_disable_autoformat": "0",
+                        "approval_notification_enabled": "0",
+                        "approval_notification_type": "select",
+                        "approval_notification_routing": [
+                            {
+                                "assignee": "user_id|1",
+                                "fieldId": "0",
+                                "operator": "is",
+                                "value": "",
+                                "type": ""
+                            }
+                        ],
+                        "approval_notification_from_name": "",
+                        "approval_notification_from_email": "{admin_email}",
+                        "approval_notification_reply_to": "",
+                        "approval_notification_bcc": "",
+                        "approval_notification_subject": "",
+                        "approval_notification_message": "Entry {entry_id} has been approved",
+                        "approval_notification_disable_autoformat": "0",
+                        "note_mode": "not_required",
+                        "expiration": "0",
+                        "expiration_type": "delay",
+                        "expiration_date": "",
+                        "expiration_delay_offset": "",
+                        "expiration_delay_unit": "hours",
+                        "expiration_date_field_offset": "0",
+                        "expiration_date_field_offset_unit": "hours",
+                        "expiration_date_field_before_after": "after",
+                        "status_expiration": "rejected",
+                        "destination_expired": "next",
+                        "destination_rejected": "43",
+                        "destination_approved": "next"
+                    },
+                    "addon_slug": "gravityflow",
+                    "event_type": null
                 }
             ]
         }
@@ -1506,45 +2036,6 @@
             "imageUrl": ""
         },
         "fields": [
-            {
-                "type": "html",
-                "id": 10,
-                "label": "HTML Block",
-                "adminLabel": "",
-                "isRequired": false,
-                "size": "medium",
-                "errorMessage": "",
-                "visibility": "visible",
-                "inputs": null,
-                "displayOnly": true,
-                "formId": 12,
-                "description": "",
-                "allowsPrepopulate": false,
-                "inputMask": false,
-                "inputMaskValue": "",
-                "maxLength": "",
-                "inputType": "",
-                "labelPlacement": "",
-                "descriptionPlacement": "",
-                "subLabelPlacement": "",
-                "placeholder": "",
-                "cssClass": "",
-                "inputName": "",
-                "noDuplicates": false,
-                "defaultValue": "",
-                "choices": "",
-                "conditionalLogic": "",
-                "content": "<strong>Text for copy/paste into Address/Text Fields:</strong><ul><li>LocalByID</li><li>LocalByFilter</li><li>RemoteByID</li><li>RemoteByFilter</li></ul>",
-                "productField": "",
-                "multipleFiles": false,
-                "maxFiles": "",
-                "calculationFormula": "",
-                "calculationRounding": "",
-                "enableCalculation": "",
-                "disableQuantity": false,
-                "displayAllCategories": false,
-                "useRichTextEditor": false
-            },
             {
                 "type": "select",
                 "id": 5,
@@ -2060,6 +2551,17 @@
         "lastPageButton": null,
         "pagination": null,
         "firstPageCssClass": null,
+        "notifications": [
+            {
+                "id": "5bef9bbd1895f",
+                "to": "{admin_email}",
+                "name": "Admin Notification",
+                "event": "form_submission",
+                "toType": "email",
+                "subject": "New submission from {form_title}",
+                "message": "{all_fields}"
+            }
+        ],
         "confirmations": [
             {
                 "id": "5bef9bbd24d55",
@@ -2070,17 +2572,6 @@
                 "url": "",
                 "pageId": "",
                 "queryString": ""
-            }
-        ],
-        "notifications": [
-            {
-                "id": "5bef9bbd1895f",
-                "to": "{admin_email}",
-                "name": "Admin Notification",
-                "event": "form_submission",
-                "toType": "email",
-                "subject": "New submission from {form_title}",
-                "message": "{all_fields}"
             }
         ],
         "feeds": {
