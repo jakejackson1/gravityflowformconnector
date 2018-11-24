@@ -266,7 +266,7 @@
         "postFormat": "0",
         "postStatus": "draft",
         "is_active": "1",
-        "date_created": "2018-10-29 02:05:43",
+        "date_created": "2018-11-24 01:24:13",
         "is_trash": "0",
         "confirmations": [
             {
@@ -853,7 +853,7 @@
         "postFormat": "0",
         "postStatus": "draft",
         "is_active": "1",
-        "date_created": "2018-10-29 02:05:43",
+        "date_created": "2018-11-24 01:24:13",
         "is_trash": "0",
         "confirmations": [
             {
@@ -1207,9 +1207,10 @@
                         "schedule_date_field_offset_unit": "hours",
                         "schedule_date_field_before_after": "after",
                         "server_type": "local",
-                        "target_form_id": "9",
+                        "source_form_id": "9",
                         "action": "update",
-                        "target_entry_id": "35",
+                        "lookup_method": "select_entry_id_field",
+                        "source_entry_id": "35",
                         "mappings": [
                             {
                                 "key": "36",
@@ -1372,5 +1373,5 @@
             ]
         }
     },
-    "version": "2.3.3.8"
+    "version": "2.3.6.5"
 }

@@ -833,19 +833,8 @@
         "pagination": null,
         "firstPageCssClass": null,
         "is_active": "1",
-        "date_created": "2018-11-16 22:22:07",
+        "date_created": "2018-11-24 01:37:01",
         "is_trash": "0",
-        "notifications": [
-            {
-                "id": "5be84d382b63c",
-                "to": "{admin_email}",
-                "name": "Admin Notification",
-                "event": "form_submission",
-                "toType": "email",
-                "subject": "New submission from {form_title}",
-                "message": "{all_fields}"
-            }
-        ],
         "confirmations": [
             {
                 "id": "5be84d3835a97",
@@ -858,10 +847,21 @@
                 "queryString": ""
             }
         ],
+        "notifications": [
+            {
+                "id": "5be84d382b63c",
+                "to": "{admin_email}",
+                "name": "Admin Notification",
+                "event": "form_submission",
+                "toType": "email",
+                "subject": "New submission from {form_title}",
+                "message": "{all_fields}"
+            }
+        ],
         "feeds": {
             "gravityflow": [
                 {
-                    "id": "32",
+                    "id": "30",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -931,7 +931,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "33",
+                    "id": "31",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1028,14 +1028,14 @@
                         "expiration_date_field_before_after": "after",
                         "status_expiration": "rejected",
                         "destination_expired": "next",
-                        "destination_rejected": "32",
+                        "destination_rejected": 30,
                         "destination_approved": "next"
                     },
                     "addon_slug": "gravityflow",
                     "event_type": null
                 },
                 {
-                    "id": "39",
+                    "id": "32",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1126,7 +1126,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "31",
+                    "id": "33",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1223,14 +1223,14 @@
                         "expiration_date_field_before_after": "after",
                         "status_expiration": "rejected",
                         "destination_expired": "next",
-                        "destination_rejected": "39",
+                        "destination_rejected": 32,
                         "destination_approved": "next"
                     },
                     "addon_slug": "gravityflow",
                     "event_type": null
                 },
                 {
-                    "id": "36",
+                    "id": "34",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1303,7 +1303,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "38",
+                    "id": "35",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1400,14 +1400,14 @@
                         "expiration_date_field_before_after": "after",
                         "status_expiration": "rejected",
                         "destination_expired": "next",
-                        "destination_rejected": "36",
+                        "destination_rejected": 34,
                         "destination_approved": "next"
                     },
                     "addon_slug": "gravityflow",
                     "event_type": null
                 },
                 {
-                    "id": "34",
+                    "id": "36",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1501,7 +1501,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "35",
+                    "id": "37",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1598,14 +1598,14 @@
                         "expiration_date_field_before_after": "after",
                         "status_expiration": "rejected",
                         "destination_expired": "next",
-                        "destination_rejected": "34",
+                        "destination_rejected": 36,
                         "destination_approved": "next"
                     },
                     "addon_slug": "gravityflow",
                     "event_type": null
                 },
                 {
-                    "id": "42",
+                    "id": "38",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1656,7 +1656,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "41",
+                    "id": "39",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1707,7 +1707,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "44",
+                    "id": "40",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1804,14 +1804,14 @@
                         "expiration_date_field_before_after": "after",
                         "status_expiration": "rejected",
                         "destination_expired": "next",
-                        "destination_rejected": "42",
+                        "destination_rejected": 38,
                         "destination_approved": "next"
                     },
                     "addon_slug": "gravityflow",
                     "event_type": null
                 },
                 {
-                    "id": "43",
+                    "id": "41",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1865,7 +1865,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "40",
+                    "id": "42",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -1919,7 +1919,7 @@
                     "event_type": null
                 },
                 {
-                    "id": "45",
+                    "id": "43",
                     "form_id": "11",
                     "is_active": "1",
                     "feed_order": "0",
@@ -2016,7 +2016,7 @@
                         "expiration_date_field_before_after": "after",
                         "status_expiration": "rejected",
                         "destination_expired": "next",
-                        "destination_rejected": "43",
+                        "destination_rejected": 41,
                         "destination_approved": "next"
                     },
                     "addon_slug": "gravityflow",
@@ -2551,29 +2551,24 @@
         "lastPageButton": null,
         "pagination": null,
         "firstPageCssClass": null,
-        "notifications": [
-            {
-                "id": "5bef9bbd1895f",
-                "to": "{admin_email}",
-                "name": "Admin Notification",
-                "event": "form_submission",
-                "toType": "email",
-                "subject": "New submission from {form_title}",
-                "message": "{all_fields}"
-            }
-        ],
+        "is_active": "1",
+        "date_created": "2018-11-24 01:37:02",
+        "is_trash": "0",
         "confirmations": [
             {
                 "id": "5bef9bbd24d55",
                 "name": "Default Confirmation",
                 "isDefault": true,
                 "type": "message",
-                "message": "Thanks for contacting us! We will get in touch with you shortly.",
+                "message": "Thanks for contacting us! We will get in touch with you shortly.\r\n\r\n<div id=\"new-entry-id\">{entry_id}</div>",
                 "url": "",
-                "pageId": "",
-                "queryString": ""
+                "pageId": 0,
+                "queryString": "",
+                "disableAutoformat": true,
+                "conditionalLogic": []
             }
         ],
+        "notifications": [],
         "feeds": {
             "gravityflow": []
         }
