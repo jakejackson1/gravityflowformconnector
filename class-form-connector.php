@@ -607,10 +607,7 @@ if ( class_exists( 'GFForms' ) ) {
 		 */
 		public function filter_gform_pre_replace_merge_tags( $text, $form, $entry, $url_encode, $esc_html, $nl2br, $format ) {
 
-
-			$api = new Gravity_Flow_API( $form['id'] );
-
-			$step = $api->get_current_step( $entry );
+			$step = gravity_flow()->get_current_step( $form, $entry );
 
 			if ( empty( $step ) ) {
 				return $text;
