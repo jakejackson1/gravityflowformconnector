@@ -595,8 +595,10 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			$sort = array();
 			if ( ! empty( $this->entry_filtersort_key ) && ! empty( $this->entry_filtersort_direction ) ) {
+				$field_sort_key = $this->entry_filtersort_key == 'entry_id' ? 'id' : $this->entry_filtersort_key;
+
 				$sort = array(
-					'key' => $this->entry_filtersort_key,
+					'key' => $field_sort_key,
 					'direction' => $this->entry_filtersort_direction,
 				);
 				$this->log_debug( __METHOD__ . '(): Entry Filter sort criteria: ' . print_r( $sort, true ) );
