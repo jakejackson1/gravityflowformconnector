@@ -430,74 +430,42 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 			} elseif ( $this->lookup_method == 'filter' ) {
 
-				$search = array();
-
 				if ( empty( $this->entry_filter ) ) {
 
 					$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
+					return false;
 
 				} else {
 
-					$search['status'] = 'active';
+					$search_criteria = $this->gravityflow_entry_lookup_search_criteria();
 
-					if ( ! empty( $this->entry_filter['filters'] ) ) {
+					$sort_criteria = $this->gravityflow_entry_lookup_sort_criteria();
 
-						$search['field_filters']['mode'] = $this->entry_filter['mode'];
-
-						foreach ( $this->entry_filter['filters'] as $field_filter ) {
-
-							$search['field_filters'][] = array(
-								'key'      => $field_filter['field'],
-								'operator' => $field_filter['operator'],
-								'value'    => $field_filter['value'],
-							);
-
-						}
-					}
-
-					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $search, true ) );
-
-				}
-
-				$sort = array();
-
-				if ( ! empty( $this->entry_filtersort_key ) && ! empty( $this->entry_filtersort_direction ) ) {
-
-					$sort = array(
-						'key' => $this->entry_filtersort_key,
-						'direction' => $this->entry_filtersort_direction,
+					$paging_criteria = array(
+						'offset'    => 0,
+						'page_size' => 1,
 					);
 
-					$this->log_debug( __METHOD__ . '(): Entry Filter sort criteria: ' . print_r( $sort, true ) );
+					$entries = GFAPI::get_entries( $form_id, $search_criteria, $sort_criteria, $paging_criteria );
 
-				} else {
-					$this->log_debug( __METHOD__ . '(): No Entry Filter sort criteria defined.' );
-				}
+					if ( is_wp_error( $entries ) || empty( $entries ) ) {
+						$this->log_debug( __METHOD__ . '(): No entries found that match search criteria.' );
+						return false;
+					}
 
-				$paging = array(
-					'offset'    => 0,
-					'page_size' => 1,
-				);
+					$result_entry = current( $entries );
+					$result_entry_id = rgar( $result_entry, 'id' );
 
-				$entries = GFAPI::get_entries( $form_id, $search, $sort, $paging );
+					$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $result_entry_id );
 
-				if ( is_wp_error( $entries ) || empty( $entries ) ) {
-					$this->log_debug( __METHOD__ . '(): No entries found that match search criteria.' );
-					return false;
-				}
+					$result_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $result_entry_id, $form_id, $entry, $form, $this );
 
-				$result_entry = current( $entries );
-				$result_entry_id = rgar( $result_entry, 'id' );
+					if ( rgar( $result_entry, 'id' ) != $result_entry_id ) {
 
-				$this->log_debug( __METHOD__ . '(): Filter result is entry #' . $result_entry_id );
+						$this->log_debug( __METHOD__ . '(): gravityflowformconnector_target_entry_id filter updated selection to entry #' . $result_entry_id );
+						$result_entry = GFAPI::get_entry( $result_entry_id );
 
-				$result_entry_id = apply_filters( 'gravityflowformconnector_target_entry_id', $result_entry_id, $form_id, $entry, $form, $this );
-
-				if ( rgar( $result_entry, 'id' ) != $result_entry_id ) {
-
-					$this->log_debug( __METHOD__ . '(): gravityflowformconnector_target_entry_id filter updated selection to entry #' . $result_entry_id );
-					$result_entry = GFAPI::get_entry( $result_entry_id );
-
+					}
 				}
 			}
 			return $result_entry;
@@ -539,50 +507,21 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 				} else {
 
-					$search_criteria = array(
-						'status' => 'active',
+					$search_criteria = $this->gravityflow_entry_lookup_search_criteria();
+
+					$sort_criteria = $this->gravityflow_entry_lookup_sort_criteria();
+
+					$paging_criteria = array(
+						'offset'    => 0,
+						'page_size' => 1,
 					);
-
-					if ( ! empty( $this->entry_filter['filters'] ) ) {
-
-						$search_criteria['field_filters']['mode'] = $this->entry_filter['mode'];
-
-						foreach ( $this->entry_filter['filters'] as $field_filter ) {
-
-							$search_criteria['field_filters'][] = array(
-								'key'      => $field_filter['field'],
-								'operator' => $field_filter['operator'],
-								'value'    => $field_filter['value'],
-							);
-
-						}
-					}
-
-					$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $search_criteria, true ) );
 
 					$route  = 'forms/' . $form_id . '/entries';
 
-					$sort = array();
-
-					if ( ! empty( $this->entry_filtersort_key ) && ! empty( $this->entry_filtersort_direction ) ) {
-
-						$sort = array(
-							'key' => $this->entry_filtersort_key,
-							'direction' => $this->entry_filtersort_direction,
-						);
-
-						$this->log_debug( __METHOD__ . '(): Entry Filter sort criteria: ' . print_r( $sort, true ) );
-
-					} else {
-						$this->log_debug( __METHOD__ . '(): No Entry Filter sort criteria defined.' );
-					}
-					
 					$query_args = array(
-						'sorting' => $sort,
-						'paging' => array(
-							'page_size' => '1',
-						),
 						'search' => json_encode( $search_criteria ),
+						'sorting' => $sort_criteria,
+						'paging' => $paging_criteria,
 					);
 
 					$entries = $this->remote_request( $route, 'GET', null, $query_args );
@@ -611,6 +550,63 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 			}
 			return $result_entry;
 		}
+
+
+		/**
+		 * Defines the search criteria for entry when Lookup Conditional Logic has been set in step settings
+		 *
+		 * @since 1.4.3-dev
+		 *
+		 * @return array
+		 */
+		public function gravityflow_entry_lookup_search_criteria() {
+
+			$search = array();
+
+			if ( empty( $this->entry_filter ) ) {
+				$this->log_debug( __METHOD__ . '(): No Entry Filter search criteria defined.' );
+			} else {
+				$search['status'] = 'active';
+				if ( ! empty( $this->entry_filter['filters'] ) ) {
+					$search['field_filters']['mode'] = $this->entry_filter['mode'];
+					foreach ( $this->entry_filter['filters'] as $field_filter ) {
+						$field_filter_key = $field_filter['field'] == 'entry_id' ? 'id' : $field_filter['field'];
+						$search['field_filters'][] = array(
+							'key'      => $field_filter_key,
+							'operator' => $field_filter['operator'],
+							'value'    => $field_filter['value'],
+						);
+					}
+				}
+				$this->log_debug( __METHOD__ . '(): Entry Filter search criteria: ' . print_r( $search, true ) );
+			}
+
+			return $search;
+		}
+
+		/**
+		 * Defines the sort criteria for entry when Lookup Conditional Logic has been set in step settings
+		 *
+		 * @since 1.4.3-dev
+		 *
+		 * @return array
+		 */
+		public function gravityflow_entry_lookup_sort_criteria() {
+
+			$sort = array();
+			if ( ! empty( $this->entry_filtersort_key ) && ! empty( $this->entry_filtersort_direction ) ) {
+				$sort = array(
+					'key' => $this->entry_filtersort_key,
+					'direction' => $this->entry_filtersort_direction,
+				);
+				$this->log_debug( __METHOD__ . '(): Entry Filter sort criteria: ' . print_r( $sort, true ) );
+			} else {
+				$this->log_debug( __METHOD__ . '(): No Entry Filter sort criteria defined.' );
+			}
+
+			return $sort;
+		}
+
 
 		/**
 		 * Updates a remote entry.
