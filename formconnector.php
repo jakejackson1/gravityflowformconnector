@@ -37,6 +37,7 @@ class Gravity_Flow_Form_Connector_Bootstrap {
 		require_once( 'includes/class-step-form-submission.php' );
 		require_once( 'includes/class-step-new-entry.php' );
 		require_once( 'includes/class-step-update-entry.php' );
+		require_once( 'includes/class-step-update-fields.php' );
 		require_once( 'includes/class-step-delete-entry.php' );
 		require_once( 'includes/class-merge-tag-form-submission.php' );
 		require_once( 'class-form-connector.php' );

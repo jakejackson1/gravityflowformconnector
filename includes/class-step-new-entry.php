@@ -662,7 +662,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		 * Helper to get the specified choice property for the selected choice.
 		 *
 		 * @param string $selected_choice The selected choice value or text.
-		 * @param array $choices The field choices.
+		 * @param array  $choices The field choices.
 		 * @param string $compare_property The choice property the $selected_choice is to be compared against.
 		 * @param string $return_property The choice property to be returned.
 		 *
