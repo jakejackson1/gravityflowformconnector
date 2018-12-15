@@ -87,8 +87,7 @@ $I->fillField( Locator::elementAt( 'input[name="input_17[]"]', 4 ), '987' );
 $I->fillField( Locator::elementAt( 'input[name="input_17[]"]', 5 ), '654' );
 $I->fillField( Locator::elementAt( 'input[name="input_17[]"]', 6 ), '321' );
 
-$I->scrollTo( [ 'css' => '.gform_footer' ], 20, 50 );
-$I->click( 'Submit' );
+$I->click( [ 'css' => 'input[type=submit]' ]);
 
 $I->waitForText( 'We will get in touch with you shortly.', 3 );
 $I->closeTab();
