@@ -44,7 +44,7 @@ $I->fillField( 'input_8.3', 'City-LocalByID' );
 $I->fillField( 'input_2', 'A-LocalByID' );
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 $localByID = $I->grabTextFrom( '#new-entry-id' );
 
 // Submit the Source Form for LocalByFilter Data
@@ -59,7 +59,7 @@ $I->fillField( 'input_8.3', 'City-LocalByFilter' );
 $I->fillField( 'input_3', 'B-LocalByFilter' );
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 $localByFilter = $I->grabTextFrom( '#new-entry-id' );
 
 // Submit the Source Form for RemoteByID Data
@@ -74,7 +74,7 @@ $I->fillField( 'input_8.3', 'City-RemoteByID' );
 $I->fillField( 'input_4', 'C-RemoteByID' );
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 $remoteByID = $I->grabTextFrom( '#new-entry-id' );
 
 // Submit the Source Form for RemoteByFilter Data
@@ -89,7 +89,7 @@ $I->fillField( 'input_8.3', 'City-RemoteByFilter' );
 $I->fillField( 'input_9', 'D-RemoteByFilter' );
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 $remoteByFilter = $I->grabTextFrom( '#new-entry-id' );
 
 // Submit the Destination Form Data
@@ -100,7 +100,7 @@ $I->fillField( 'input_4', $localByID );
 $I->fillField( 'input_10', $remoteByID );
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 
 // Login to wp-admin
 $I->loginAsAdmin();

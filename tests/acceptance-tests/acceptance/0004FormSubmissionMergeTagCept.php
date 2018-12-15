@@ -19,7 +19,7 @@ $I->seeInField( 'Email', 'test@test.test' );
 $I->click( 'Submit' );
 
 // Verify the merge tag included a link in the confirmation message.
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 $I->dontSee( "Form Submission Merge Tag: {workflow_form_submission_link: assignee='email_field|2'}" );
 $I->see( 'Form Submission Merge Tag:' );
 $I->seeLink( '0004 Form Submission Merge Tag Target' );

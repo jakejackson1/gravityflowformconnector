@@ -17,7 +17,7 @@ $I->scrollTo( [ 'css' => '.gform_title' ] ); // needed for chromedriver
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
 
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 
 // Login to wp-admin
 $I->loginAsAdmin();

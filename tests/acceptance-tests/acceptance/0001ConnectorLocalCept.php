@@ -28,7 +28,7 @@ $I->selectOption( 'select[name="input_31[]"]', array( 'admin1 admin1', 'admin2 a
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
 
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 
 // Login to wp-admin
 $I->loginAsAdmin();
