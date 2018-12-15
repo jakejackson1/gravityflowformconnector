@@ -25,8 +25,8 @@ $I->fillField( Locator::elementAt( 'input[name="input_17[]"]', 6 ), '789' );
 $I->attachFile( 'input[name=input_23]', 'gravityflow-logo.png' );
 $I->selectOption( 'select[name="input_31[]"]', array( 'admin1 admin1', 'admin2 admin2', 'admin3 admin3' ) );
 
-$I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
-$I->click( 'Submit' );
+$I->scrollTo( [ 'css' => '.gform_page_footer' ], 20, 50 );
+$I->click( [ 'css' => 'input[type=submit]' ]);
 
 $I->waitForText( 'We will get in touch with you shortly.', 3 );
 
