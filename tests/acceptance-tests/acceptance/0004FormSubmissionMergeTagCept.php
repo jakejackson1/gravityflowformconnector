@@ -25,5 +25,6 @@ $I->seeLink( '0004 Form Submission Merge Tag Target' );
 
 // Click the link and verify the submit page loads with the target form populated.
 $I->click( '0004 Form Submission Merge Tag Target' );
-$I->waitForText( 'SUBMIT', 3 );
+$I->waitForElement( [ 'css' => 'input[type=submit]' ] );
+
 $I->seeInField( 'Target', 'The value' );
