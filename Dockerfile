@@ -13,6 +13,7 @@ RUN apt-get update && \
                 zlib1g-dev \
                 libssl-dev \
                 mysql-client \
+                sudo less \
                 libpcre3 \
                 libpcre3-dev \
                 zip unzip \
