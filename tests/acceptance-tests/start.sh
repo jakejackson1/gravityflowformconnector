@@ -11,4 +11,4 @@ cd ../../
 #docker-compose run --rm codeception run -g myGroup -vvv --html
 
 # Run all tests
-docker-compose run --rm codeception run -vvv --html
+docker-compose run --service-ports --rm codeception run -vvv --html
