@@ -16,9 +16,7 @@ $I->amOnPage( '/0004-form-submission-merge-tag-source' );
 $I->see( '0004 Form Submission Merge Tag Source' );
 $I->seeInField( 'Source', 'The value' );
 $I->seeInField( 'Email', 'test@test.test' );
-$I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
-$I->click( 'Submit' );
-
+$I->click( [ 'css' => 'input[type=submit]' ]);
 // Verify the merge tag included a link in the confirmation message.
 $I->waitForText( 'We will get in touch with you shortly.', 3 );
 $I->dontSee( "Form Submission Merge Tag: {workflow_form_submission_link: assignee='email_field|2'}" );
