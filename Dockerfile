@@ -1,23 +1,35 @@
-FROM php:7.0-cli
+FROM php:7.2-cli
 
 MAINTAINER Steve Henty steve@gravityflow.io
 
 # Install required system packages
 RUN apt-get update && \
     apt-get -y install \
-            git \
-            zlib1g-dev \
-            libssl-dev \
-            mysql-client \
-            sudo less \
-        --no-install-recommends && \
-        apt-get clean && \
-        rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+                git \
+                rsync \
+                libssl-dev \
+                libfreetype6-dev \
+                libjpeg62-turbo-dev \
+                zlib1g-dev \
+                libssl-dev \
+                mysql-client \
+                libpcre3 \
+                libpcre3-dev \
+                zip unzip \
+            --no-install-recommends && \
+            apt-get clean && \
+            rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install php extensions
 RUN docker-php-ext-install \
     bcmath \
+    gd \
     zip
+
+RUN docker-php-ext-install -j$(nproc) iconv \
+        && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+        && docker-php-ext-install -j$(nproc) gd
+
 
 # Add mysql driver required for wp-browser
 RUN docker-php-ext-install mysqli
