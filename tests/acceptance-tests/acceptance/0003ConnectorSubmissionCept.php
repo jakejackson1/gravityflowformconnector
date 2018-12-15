@@ -90,7 +90,7 @@ $I->fillField( Locator::elementAt( 'input[name="input_17[]"]', 6 ), '321' );
 $I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
 
-$I->waitForText( 'Thanks for contacting us! We will get in touch with you shortly.', 3 );
+$I->waitForText( 'We will get in touch with you shortly.', 3 );
 $I->closeTab();
 $I->reloadPage();
 $I->waitForText( 'Status: Complete', 3 );

@@ -16,6 +16,7 @@ $I->amOnPage( '/0004-form-submission-merge-tag-source' );
 $I->see( '0004 Form Submission Merge Tag Source' );
 $I->seeInField( 'Source', 'The value' );
 $I->seeInField( 'Email', 'test@test.test' );
+$I->scrollTo( [ 'css' => 'input[type=submit]' ] ); // needed for chromedriver
 $I->click( 'Submit' );
 
 // Verify the merge tag included a link in the confirmation message.
