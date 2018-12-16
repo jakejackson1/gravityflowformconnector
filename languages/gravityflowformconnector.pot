@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gravityflowformconnector\n"
 "Report-Msgid-Bugs-To: https://www.gravityflow.io\n"
-"POT-Creation-Date: 2018-09-29 09:28:49+00:00\n"
+"POT-Creation-Date: 2018-12-16 18:26:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,31 +62,37 @@ msgstr ""
 
 #: includes/class-step-delete-entry.php:36 includes/class-step-new-entry.php:37
 #: includes/class-step-update-entry.php:46
+#: includes/class-step-update-fields.php:49
 msgid "Site"
 msgstr ""
 
 #: includes/class-step-delete-entry.php:42 includes/class-step-new-entry.php:43
 #: includes/class-step-update-entry.php:52
+#: includes/class-step-update-fields.php:55
 msgid "This site"
 msgstr ""
 
 #: includes/class-step-delete-entry.php:44 includes/class-step-new-entry.php:44
 #: includes/class-step-update-entry.php:53
+#: includes/class-step-update-fields.php:56
 msgid "A different site"
 msgstr ""
 
 #: includes/class-step-delete-entry.php:51 includes/class-step-new-entry.php:49
 #: includes/class-step-update-entry.php:58
+#: includes/class-step-update-fields.php:61
 msgid "Site Url"
 msgstr ""
 
 #: includes/class-step-delete-entry.php:60 includes/class-step-new-entry.php:58
 #: includes/class-step-update-entry.php:67
+#: includes/class-step-update-fields.php:70
 msgid "Public Key"
 msgstr ""
 
 #: includes/class-step-delete-entry.php:69 includes/class-step-new-entry.php:67
 #: includes/class-step-update-entry.php:76
+#: includes/class-step-update-fields.php:79
 msgid "Private Key"
 msgstr ""
 
@@ -104,6 +110,7 @@ msgstr ""
 
 #: includes/class-step-delete-entry.php:102
 #: includes/class-step-update-entry.php:104
+#: includes/class-step-update-fields.php:138
 msgid "Entry ID Field"
 msgstr ""
 
@@ -114,7 +121,8 @@ msgid ""
 msgstr ""
 
 #: includes/class-step-delete-entry.php:123
-#: includes/class-step-update-entry.php:128
+#: includes/class-step-update-entry.php:131
+#: includes/class-step-update-fields.php:165
 msgid "Entry ID (Self)"
 msgstr ""
 
@@ -127,28 +135,21 @@ msgid "Scheduled entry for deletion on workflow completion."
 msgstr ""
 
 #: includes/class-step-form-submission.php:20
-#: includes/class-step-form-submission.php:43
+#: includes/class-step-form-submission.php:36
 msgid "Form Submission"
 msgstr ""
 
 #: includes/class-step-form-submission.php:28
 #: includes/class-step-new-entry.php:26 includes/class-step-update-entry.php:32
+#: includes/class-step-update-fields.php:32
 msgid "Select a Form"
 msgstr ""
 
-#: includes/class-step-form-submission.php:36
-msgid "Select"
-msgstr ""
-
-#: includes/class-step-form-submission.php:37
-msgid "Conditional Routing"
-msgstr ""
-
-#: includes/class-step-form-submission.php:51
+#: includes/class-step-form-submission.php:44
 msgid "Assignee Policy"
 msgstr ""
 
-#: includes/class-step-form-submission.php:52
+#: includes/class-step-form-submission.php:45
 msgid ""
 "Define how this step should be processed. If all assignees must complete "
 "this step then the entry will require input from every assignee before the "
@@ -156,32 +157,32 @@ msgid ""
 "that role needs to complete the step."
 msgstr ""
 
-#: includes/class-step-form-submission.php:57
+#: includes/class-step-form-submission.php:50
 msgid "At least one assignee must complete this step"
 msgstr ""
 
-#: includes/class-step-form-submission.php:61
+#: includes/class-step-form-submission.php:54
 msgid "All assignees must complete this step"
 msgstr ""
 
-#: includes/class-step-form-submission.php:70
+#: includes/class-step-form-submission.php:63
 msgid "Assignee email"
 msgstr ""
 
-#: includes/class-step-form-submission.php:74
+#: includes/class-step-form-submission.php:67
 msgid "Please submit the following form: {workflow_form_submission_link}"
 msgstr ""
 
-#: includes/class-step-form-submission.php:80
+#: includes/class-step-form-submission.php:73
 #: includes/class-step-new-entry.php:76 includes/class-step-update-entry.php:85
 msgid "Form"
 msgstr ""
 
-#: includes/class-step-form-submission.php:81
+#: includes/class-step-form-submission.php:74
 msgid "Select the form to be used for this form submission step."
 msgstr ""
 
-#: includes/class-step-form-submission.php:88
+#: includes/class-step-form-submission.php:81
 msgid ""
 "Select the page to be used for the form submission. This can be the "
 "Workflow Submit Page in the WordPress Admin Dashboard or you can choose a "
@@ -189,126 +190,131 @@ msgid ""
 "shortcode."
 msgstr ""
 
-#: includes/class-step-form-submission.php:89
+#: includes/class-step-form-submission.php:82
 msgid "Submission Page"
 msgstr ""
 
-#: includes/class-step-form-submission.php:100
+#: includes/class-step-form-submission.php:93
 #: includes/class-step-new-entry.php:88 includes/class-step-new-entry.php:106
-#: includes/class-step-update-entry.php:148
+#: includes/class-step-update-entry.php:151
+#: includes/class-step-update-fields.php:177
 msgid "Field Mapping"
 msgstr ""
 
-#: includes/class-step-form-submission.php:104
+#: includes/class-step-form-submission.php:97
 #: includes/class-step-new-entry.php:93
-#: includes/class-step-update-entry.php:152
+#: includes/class-step-update-entry.php:155
+#: includes/class-step-update-fields.php:181
 msgid "Field"
 msgstr ""
 
-#: includes/class-step-form-submission.php:105
+#: includes/class-step-form-submission.php:98
 #: includes/class-step-new-entry.php:94
-#: includes/class-step-update-entry.php:153
+#: includes/class-step-update-entry.php:156
+#: includes/class-step-update-fields.php:182
 msgid "Value"
 msgstr ""
 
-#: includes/class-step-form-submission.php:108
+#: includes/class-step-form-submission.php:101
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
-#: includes/class-step-update-entry.php:156
+#: includes/class-step-update-entry.php:159
+#: includes/class-step-update-fields.php:185
 msgid "Mapping"
 msgstr ""
 
-#: includes/class-step-form-submission.php:108
+#: includes/class-step-form-submission.php:101
 #: includes/class-step-new-entry.php:97 includes/class-step-new-entry.php:110
-#: includes/class-step-update-entry.php:156
+#: includes/class-step-update-entry.php:159
+#: includes/class-step-update-fields.php:185
 msgid ""
 "Map the fields of this form to the selected form. Values from this form "
 "will be saved in the entry in the selected form"
 msgstr ""
 
-#: includes/class-step-form-submission.php:159
+#: includes/class-step-form-submission.php:152
 msgid "Pending."
 msgstr ""
 
-#: includes/class-step-form-submission.php:205
+#: includes/class-step-form-submission.php:198
 #: includes/class-step-new-entry.php:382
 msgid "Select a Field"
 msgstr ""
 
-#: includes/class-step-form-submission.php:212
+#: includes/class-step-form-submission.php:205
 #: includes/class-step-new-entry.php:389
 msgid "Select a %s Field"
 msgstr ""
 
-#: includes/class-step-form-submission.php:220
+#: includes/class-step-form-submission.php:213
 #: includes/class-step-new-entry.php:397
 msgid "Entry ID"
 msgstr ""
 
-#: includes/class-step-form-submission.php:221
+#: includes/class-step-form-submission.php:214
 #: includes/class-step-new-entry.php:398
 msgid "Entry Date"
 msgstr ""
 
-#: includes/class-step-form-submission.php:222
+#: includes/class-step-form-submission.php:215
 #: includes/class-step-new-entry.php:399
 msgid "User IP"
 msgstr ""
 
-#: includes/class-step-form-submission.php:223
+#: includes/class-step-form-submission.php:216
 #: includes/class-step-new-entry.php:400
 msgid "Source Url"
 msgstr ""
 
-#: includes/class-step-form-submission.php:224
+#: includes/class-step-form-submission.php:217
 #: includes/class-step-new-entry.php:401
 msgid "Created By"
 msgstr ""
 
+#: includes/class-step-form-submission.php:254
 #: includes/class-step-form-submission.php:261
-#: includes/class-step-form-submission.php:268
-#: includes/class-step-form-submission.php:288
+#: includes/class-step-form-submission.php:281
 #: includes/class-step-new-entry.php:439 includes/class-step-new-entry.php:446
 msgid "Full"
 msgstr ""
 
-#: includes/class-step-form-submission.php:275
+#: includes/class-step-form-submission.php:268
 #: includes/class-step-new-entry.php:453
 msgid "Selected"
 msgstr ""
 
-#: includes/class-step-form-submission.php:530
+#: includes/class-step-form-submission.php:523
 msgid "Open Form"
 msgstr ""
 
-#: includes/class-step-form-submission.php:585
+#: includes/class-step-form-submission.php:578
 msgid "User"
 msgstr ""
 
-#: includes/class-step-form-submission.php:589
+#: includes/class-step-form-submission.php:582
 msgid "Email"
 msgstr ""
 
-#: includes/class-step-form-submission.php:593
+#: includes/class-step-form-submission.php:586
 msgid "Role"
 msgstr ""
 
-#: includes/class-step-form-submission.php:610
+#: includes/class-step-form-submission.php:603
 msgid "Pending Submission"
 msgstr ""
 
-#: includes/class-step-form-submission.php:614
+#: includes/class-step-form-submission.php:607
 msgid "Complete"
 msgstr ""
 
-#: includes/class-step-form-submission.php:616
+#: includes/class-step-form-submission.php:609
 msgid "Queued"
 msgstr ""
 
-#: includes/class-step-form-submission.php:657
+#: includes/class-step-form-submission.php:650
 msgid "Default - WordPress Admin Dashboard: Workflow Submit Page"
 msgstr ""
 
-#: includes/class-step-form-submission.php:726
+#: includes/class-step-form-submission.php:719
 msgid "Processed"
 msgstr ""
 
@@ -330,11 +336,12 @@ msgstr ""
 
 #: includes/class-step-update-entry.php:20
 #: includes/class-step-update-entry.php:42
-#: includes/class-step-update-entry.php:203
+#: includes/class-step-update-entry.php:206
 msgid "Update an Entry"
 msgstr ""
 
 #: includes/class-step-update-entry.php:92
+#: includes/class-step-update-fields.php:95
 msgid "Action"
 msgstr ""
 
@@ -344,29 +351,68 @@ msgid ""
 "updated. This is used to lookup the entry so it can be updated."
 msgstr ""
 
-#: includes/class-step-update-entry.php:138
+#: includes/class-step-update-entry.php:141
 msgid "Approval Status Field"
 msgstr ""
 
-#: includes/class-step-update-entry.php:176
-#: includes/class-step-update-entry.php:186
+#: includes/class-step-update-entry.php:179
+#: includes/class-step-update-entry.php:189
 msgid "Assignee"
 msgstr ""
 
-#: includes/class-step-update-entry.php:241
+#: includes/class-step-update-entry.php:244
 msgid "Approval"
 msgstr ""
 
-#: includes/class-step-update-entry.php:244
+#: includes/class-step-update-entry.php:247
 msgid "User Input"
 msgstr ""
 
-#: includes/class-step-update-entry.php:504
+#: includes/class-step-update-entry.php:697
 msgid "Select an assignee"
 msgstr ""
 
-#: includes/class-step-update-entry.php:510
+#: includes/class-step-update-entry.php:703
 msgid "User (created_by)"
+msgstr ""
+
+#: includes/class-step-update-fields.php:20
+msgid "Update Fields"
+msgstr ""
+
+#: includes/class-step-update-fields.php:45
+#: includes/class-step-update-fields.php:205
+msgid "Update Field Values"
+msgstr ""
+
+#: includes/class-step-update-fields.php:88
+msgid "Source Form"
+msgstr ""
+
+#: includes/class-step-update-fields.php:104
+msgid "Entry Lookup"
+msgstr ""
+
+#: includes/class-step-update-fields.php:110
+msgid "Conditional Logic"
+msgstr ""
+
+#: includes/class-step-update-fields.php:111
+msgid "Select a field containing the source entry ID."
+msgstr ""
+
+#: includes/class-step-update-fields.php:122
+msgid "Lookup Conditional Logic"
+msgstr ""
+
+#: includes/class-step-update-fields.php:124
+msgid "Look up the first entry matching {0} of the following criteria:"
+msgstr ""
+
+#: includes/class-step-update-fields.php:140
+msgid ""
+"Select the field which will contain the entry ID of the entry that values "
+"will be copied from."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
