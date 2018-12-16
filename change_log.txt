@@ -1,2 +1,0 @@
-- Added New Step Type - Update Field Values - for mapping values from other entries into the current entry including support for entry filter.
-- Fixed a conflict with ForGravity's Live Population Add-On.
