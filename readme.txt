@@ -43,7 +43,7 @@ The Gravity Flow Form Connector Extension will work with any license of [Gravity
 == ChangeLog ==
 
 = 1.5 =
-- Added New Step Type - Update Fields - for mapping values from other entries into the current entry including support for lookup conditional logic.
+- Added a new step type, Update Fields, for mapping values from other entries into the current entry including support for lookup conditional logic.
 - Fixed a conflict with ForGravity's Live Population Add-On.
 
 = 1.4.2 =
