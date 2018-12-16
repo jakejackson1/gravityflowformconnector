@@ -103,7 +103,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 						'name'          => 'lookup_method',
 						'label'         => esc_html__( 'Entry Lookup', 'gravityflowformconnector' ),
 						'type'          => 'radio',
-						'default_value' => 'search',
+						'default_value' => 'select_entry_id_field',
 						'horizontal'    => true,
 						'onchange'      => 'jQuery(this).closest("form").submit();',
 						'choices'       => array(
