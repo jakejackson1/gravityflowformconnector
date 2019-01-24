@@ -437,7 +437,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 				} else {
 
-					$search_criteria = $this->gravityflow_entry_lookup_search_criteria();
+					$search_criteria = $this->gravityflow_entry_lookup_search_criteria( $form, $entry );
 
 					$sort_criteria = $this->gravityflow_entry_lookup_sort_criteria();
 
@@ -507,7 +507,7 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 
 				} else {
 
-					$search_criteria = $this->gravityflow_entry_lookup_search_criteria();
+					$search_criteria = $this->gravityflow_entry_lookup_search_criteria( $entry, $form );
 
 					$sort_criteria = $this->gravityflow_entry_lookup_sort_criteria();
 
@@ -555,11 +555,14 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 		/**
 		 * Defines the search criteria for entry when Lookup Conditional Logic has been set in step settings
 		 *
+		 * @param array|null $form
+		 * @param array|null $entry
+		 *
 		 * @since 1.4.3-dev
 		 *
 		 * @return array
 		 */
-		public function gravityflow_entry_lookup_search_criteria() {
+		public function gravityflow_entry_lookup_search_criteria( $form = null, $entry = null ) {
 
 			$search = array();
 
@@ -571,6 +574,12 @@ if ( class_exists( 'Gravity_Flow_Step' ) ) {
 					$search['field_filters']['mode'] = $this->entry_filter['mode'];
 					foreach ( $this->entry_filter['filters'] as $field_filter ) {
 						$field_filter_key = $field_filter['field'] == 'entry_id' ? 'id' : $field_filter['field'];
+
+						/* Process merge tags */
+						if ( $form !== null && $entry !== null ) {
+							$field_filter['value'] = GFCommon::replace_variables( $field_filter['value'], $form, $entry, false, false, false, 'text' );
+						}
+
 						$search['field_filters'][] = array(
 							'key'      => $field_filter_key,
 							'operator' => $field_filter['operator'],
